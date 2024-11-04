@@ -1,8 +1,5 @@
 package org.infinity.common.event;
 
-import org.infinity.common.event.EventProducer;
-import org.infinity.common.event.OrderCreatedEvent;
-import org.infinity.common.event.OrderDeletedEvent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

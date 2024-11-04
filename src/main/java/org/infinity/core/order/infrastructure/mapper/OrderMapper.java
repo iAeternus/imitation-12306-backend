@@ -1,6 +1,8 @@
 package org.infinity.core.order.infrastructure.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.infinity.core.order.model.po.OrderPO;
 
 /**
  * @author Ricky
@@ -10,5 +12,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @desc
  */
 @Mapper
-public interface OrderMapper {
+public interface OrderMapper extends BaseMapper<OrderPO> {
 }
