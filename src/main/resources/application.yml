@@ -1,0 +1,31 @@
+buildTime: ${buildTime}
+gitRevision: ${gitRevision}
+gitBranch: ${gitBranch}
+
+spring:
+  application:
+    name: imitation-12306-backend
+  profiles:
+    active: ci
+  banner:
+    location: classpath:banner.txt
+  task:
+    scheduling:
+      pool:
+        size: 5
+
+server:
+  shutdown: graceful
+  tomcat:
+    accept-count: 100
+    max-swallow-size: 50
+    max-keep-alive-requests: 200
+    threads:
+      max: 500
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"
+  level:
+    org:
+      ansj: WARN
