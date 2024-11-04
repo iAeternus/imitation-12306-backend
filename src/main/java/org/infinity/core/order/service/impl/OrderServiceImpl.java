@@ -1,10 +1,7 @@
 package org.infinity.core.order.service.impl;
 
 import org.infinity.core.order.service.OrderService;
-<<<<<<< HEAD
-=======
 import org.springframework.stereotype.Service;
->>>>>>> ricky-dev
 
 /**
  * @author Ricky
@@ -13,9 +10,6 @@ import org.springframework.stereotype.Service;
  * @className OrderServiceImpl
  * @desc
  */
-<<<<<<< HEAD
-=======
 @Service
->>>>>>> ricky-dev
 public class OrderServiceImpl implements OrderService {
 }
