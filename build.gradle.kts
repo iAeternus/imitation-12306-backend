@@ -60,9 +60,9 @@ dependencies {
     implementation("org.apache.commons:commons-collections4:4.4")
     implementation("net.javacrumbs.shedlock:shedlock-spring:4.40.0")
     implementation("org.ansj:ansj_seg:5.1.6")
-    implementation("net.javacrumbs.shedlock:shedlock-provider-mongo:4.40.0")
     implementation("org.apache.directory.studio:org.apache.commons.codec:1.8")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.25")
+    implementation("com.google.guava:guava:32.0.1-jre")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
