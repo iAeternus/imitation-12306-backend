@@ -11,4 +11,7 @@ import lombok.Data;
  */
 @Data
 public class OrderPO {
+
+    private String id;
+
 }
