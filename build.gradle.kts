@@ -42,7 +42,7 @@ dependencies {
 
     // Mysql
     implementation("com.mysql:mysql-connector-j")
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+    implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.5")
 
     // Jackson
     implementation("com.fasterxml.jackson.module:jackson-module-parameter-names:2.14.1")

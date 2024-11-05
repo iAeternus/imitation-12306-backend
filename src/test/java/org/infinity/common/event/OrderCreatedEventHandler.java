@@ -1,8 +1,5 @@
 package org.infinity.common.event;
 
-import org.infinity.common.event.EventConsume;
-import org.infinity.common.event.EventHandler;
-import org.infinity.common.event.OrderCreatedEvent;
 import org.springframework.stereotype.Component;
 
 /**
