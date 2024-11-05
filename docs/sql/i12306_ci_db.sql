@@ -3,6 +3,7 @@ create schema i12306_ci_db;
 
 use i12306_ci_db;
 
+
 drop table if exists car;
 create table car
 (
