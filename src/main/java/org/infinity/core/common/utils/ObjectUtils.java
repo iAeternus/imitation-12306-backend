@@ -1,6 +1,5 @@
 package org.infinity.core.common.utils;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static org.infinity.core.common.utils.ValidationUtils.isNull;

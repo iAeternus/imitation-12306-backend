@@ -6,15 +6,15 @@ import lombok.Data;
  * @author Ricky
  * @version 1.0
  * @date 2024/10/28
- * @className OrderDeletedEvent
+ * @className SomethingCreatedEvent
  * @desc
  */
 @Data
-public class OrderDeletedEvent {
+public class SomethingCreatedEvent {
 
-    private String orderId;
+    String orderId;
 
-    public OrderDeletedEvent(String orderId) {
+    public SomethingCreatedEvent(String orderId) {
         this.orderId = orderId;
     }
 

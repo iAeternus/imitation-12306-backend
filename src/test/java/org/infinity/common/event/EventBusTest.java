@@ -18,13 +18,13 @@ public class EventBusTest {
     private EventProducer eventProducer;
 
     @Test
-    public void should_raise_order_created_event() {
-        eventProducer.post("EVT001", new OrderCreatedEvent("ODR001"));
+    public void should_raise_something_created_event() {
+        eventProducer.post("EVT001", new SomethingCreatedEvent("STH001"));
     }
 
     @Test
-    public void should_raise_order_deleted_event() {
-        eventProducer.post("EVT002", new OrderDeletedEvent("ODR001"));
+    public void should_raise_something_deleted_event() {
+        eventProducer.post("EVT002", new SomethingDeletedEvent("STH001"));
     }
 
 }

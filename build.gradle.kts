@@ -1,3 +1,6 @@
+group = "org.infinity"
+version = "0.0.1-SNAPSHOT"
+
 plugins {
     java
     id("application")
@@ -5,13 +8,15 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
 }
 
-group = "org.infinity"
-version = "0.0.1-SNAPSHOT"
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+application {
+    mainClass.set("org.infinity.Imitation12306Application")
+    applicationDefaultJvmArgs = listOf("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005")
 }
 
 repositories {
@@ -39,6 +44,14 @@ configurations {
 dependencies {
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.retry:spring-retry")
+    implementation("io.micrometer:micrometer-tracing-bridge-otel:1.0.0")
 
     // Mysql
     implementation("com.mysql:mysql-connector-j")
