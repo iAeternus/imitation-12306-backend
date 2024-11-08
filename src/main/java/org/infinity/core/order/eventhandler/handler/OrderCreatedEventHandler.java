@@ -8,6 +8,8 @@ import org.infinity.core.order.model.event.OrderCreatedEvent;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
+import static org.infinity.core.common.constants.I12306EventIdConstants.ORDER_CREATED;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-@EventConsume(identifier = "ODR_CREATED_001")
+@EventConsume(identifier = ORDER_CREATED)
 public class OrderCreatedEventHandler implements EventHandler<OrderCreatedEvent> {
 
     private final TaskExecutor taskExecutor;

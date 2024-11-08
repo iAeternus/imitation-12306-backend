@@ -19,5 +19,4 @@ import org.springframework.stereotype.Service;
 public class OrderQueryServiceImpl extends ServiceImpl<OrderMapper, OrderPO> implements OrderQueryService {
 
 
-
 }

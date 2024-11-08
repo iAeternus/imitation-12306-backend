@@ -98,7 +98,7 @@ public class UserPO {
         requireNonBlank(userId, "UID must not be blank.");
         requireNonNull(role, "Role must not be null.");
 
-        if(isNull(nickname)) {
+        if (isNull(nickname)) {
             nickname = newNickname();
         }
 

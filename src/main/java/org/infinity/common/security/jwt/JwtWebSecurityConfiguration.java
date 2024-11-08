@@ -1,6 +1,5 @@
 package org.infinity.common.security.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.security.IpJwtCookieUpdater;
 import org.infinity.common.security.MdcFilter;

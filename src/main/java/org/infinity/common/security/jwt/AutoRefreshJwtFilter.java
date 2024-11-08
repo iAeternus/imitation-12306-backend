@@ -6,8 +6,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
-import org.infinity.common.security.MyAuthenticationToken;
 import org.infinity.common.security.IpJwtCookieUpdater;
+import org.infinity.common.security.MyAuthenticationToken;
 import org.infinity.core.user.model.UserPO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,12 +50,12 @@ public class AutoRefreshJwtFilter extends OncePerRequestFilter {
         if (authentication instanceof MyAuthenticationToken token && authentication.isAuthenticated()) {
             UserPO user = token.getUser();
             // if (user.isHumanUser()) {
-                long timeLeft = token.getExpiration() - Instant.now().toEpochMilli();
-                if (timeLeft > 0 && timeLeft < aheadAutoRefreshMilli) {
-                    Cookie cookie = jwtCookieFactory.newJwtCookie(jwtService.generateJwt(user.getId()));
-                    response.addCookie(ipJwtCookieUpdater.updateCookie(cookie, request));
+            long timeLeft = token.getExpiration() - Instant.now().toEpochMilli();
+            if (timeLeft > 0 && timeLeft < aheadAutoRefreshMilli) {
+                Cookie cookie = jwtCookieFactory.newJwtCookie(jwtService.generateJwt(user.getId()));
+                response.addCookie(ipJwtCookieUpdater.updateCookie(cookie, request));
 
-                }
+            }
             // }
         }
 
