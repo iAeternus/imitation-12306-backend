@@ -10,8 +10,12 @@ package org.infinity.core.common.constants;
 public interface I12306Constants {
 
     String CHINA_TIME_ZONE = "Asia/Shanghai";
+    String AUTH_COOKIE_NAME = "i12306token";
 
     String ORDER_CACHE = "ORDER";
     String USER_CACHE = "USER";
+
+    String AUTHORIZATION = "Authorization";
+    String BEARER = "Bearer ";
 
 }

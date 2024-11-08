@@ -2,6 +2,8 @@ package org.infinity.core.order.model.po;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -13,5 +15,9 @@ import lombok.Data;
 public class OrderPO {
 
     private String id;
+
+    private String userId;
+
+    private LocalDateTime departureAt;
 
 }

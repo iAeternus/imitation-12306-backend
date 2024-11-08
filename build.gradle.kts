@@ -51,6 +51,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.retry:spring-retry")
+    implementation("io.micrometer:micrometer-tracing-bridge-otel:1.0.0")
 
     // Mysql
     implementation("com.mysql:mysql-connector-j")
@@ -63,9 +64,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.14.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.14.1")
-
-    // Alibaba
-    implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel")
 
     // Others
     implementation("io.jsonwebtoken:jjwt:0.9.1")

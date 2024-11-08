@@ -20,3 +20,20 @@ spring:
       timeout: 10000
   cache:
     type: redis
+
+my:
+  jwt:
+    issuer: my-local-issuer
+    secret: EHnbNd1KxkXceo9v
+    expire: 720
+    aheadAutoRefresh: 60
+  common:
+    httpsEnabled: false
+    baseDomainName: org.infinity
+    limitRate: false
+    webhookUserName: kJ_4LPrrT5W3wVMK_RhzMA
+    webhookPassword: qW-2S-9fTs26MnGigO0mTw
+  redis:
+    domainEventStream: DomainEvent.LOCAL
+    notificationStream: Notification.LOCAL
+    webhookStream: Webhook.LOCAL
