@@ -23,6 +23,6 @@ public class MysqlUserRepository extends ServiceImpl<UserMapper, UserPO> impleme
 
     @Override
     public UserPO cachedById(String userId) {
-        return null;
+        return userCachedRepository.cachedById(userId);
     }
 }

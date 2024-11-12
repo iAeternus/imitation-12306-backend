@@ -1,6 +1,7 @@
 package org.infinity.core.station.model.po;
 
 import lombok.Data;
+import org.infinity.core.common.utils.SnowflakeIdGenerator;
 
 /**
  * @author Ricky
@@ -13,5 +14,9 @@ import lombok.Data;
 public class StationPO {
 
     private String id;
+
+    public static String newStationId() {
+        return "STT" + SnowflakeIdGenerator.newSnowflakeId();
+    }
 
 }

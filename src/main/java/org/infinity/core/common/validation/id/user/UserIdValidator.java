@@ -11,7 +11,7 @@ import static org.infinity.core.common.utils.ValidationUtils.isBlank;
  * @author Ricky
  * @version 1.0
  * @date 2024/11/12
- * @className UserIdValidator
+ * @className StationIdValidator
  * @desc
  */
 public class UserIdValidator implements ConstraintValidator<UserId, String> {

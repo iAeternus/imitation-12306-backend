@@ -1,8 +1,10 @@
 package org.infinity.core.train.model.po;
 
 import lombok.Data;
+import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.train.model.SeatLetterEnum;
 
+import java.time.LocalDateTime;
 import java.util.BitSet;
 import java.util.stream.IntStream;
 
@@ -16,7 +18,6 @@ import java.util.stream.IntStream;
  */
 @Data
 public class SeatPO {
-
 
     /**
      * 座位ID
@@ -38,6 +39,13 @@ public class SeatPO {
      * true=可用 false=不可用
      */
     private BitSet occupiedIntervalFlag;
+
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
+
+    public static String newSeatId() {
+        return "SEAT" + SnowflakeIdGenerator.newSnowflakeId();
+    }
 
     /**
      * 判断请求区间是否可用

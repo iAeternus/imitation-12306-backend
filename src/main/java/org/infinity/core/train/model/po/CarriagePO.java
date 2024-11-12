@@ -7,11 +7,11 @@ import org.infinity.core.common.utils.SnowflakeIdGenerator;
  * @author Ricky
  * @version 1.0
  * @date 2024/11/12
- * @className TripPO
- * @desc
+ * @className CarriagePO
+ * @desc 车厢
  */
 @Data
-public class TripPO {
+public class CarriagePO {
 
     /**
      * ID
@@ -25,8 +25,8 @@ public class TripPO {
 
     // TODO add here...
 
-    public static String newTripId() {
-        return "TRP" + SnowflakeIdGenerator.newSnowflakeId();
+    public static String newCarId() {
+        return "CAR" + SnowflakeIdGenerator.newSnowflakeId();
     }
 
 }

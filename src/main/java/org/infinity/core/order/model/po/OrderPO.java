@@ -1,6 +1,8 @@
 package org.infinity.core.order.model.po;
 
+import lombok.Builder;
 import lombok.Data;
+import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.order.model.OrderStatusEnum;
 import org.infinity.core.order.model.SeatLevelEnum;
 
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
  * @desc
  */
 @Data
+@Builder
 public class OrderPO {
 
     /**
@@ -31,11 +34,6 @@ public class OrderPO {
      * 车次ID
      */
     private String tripId;
-
-    /**
-     * 发车时间
-     */
-    private LocalDateTime departureAt;
 
     /**
      * 起点站车次站点ID
@@ -64,7 +62,9 @@ public class OrderPO {
 
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-    private String createBy;
-    private String updateBy;
+
+    public static String newOrderId() {
+        return "ORD" + SnowflakeIdGenerator.newSnowflakeId();
+    }
 
 }

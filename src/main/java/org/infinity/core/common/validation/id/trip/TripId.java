@@ -25,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface TripId {
 
-    String message() default "User ID format is incorrect.";
+    String message() default "Trip ID format is incorrect.";
 
     Class<?>[] groups() default {};
 

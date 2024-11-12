@@ -1,6 +1,7 @@
 package org.infinity.core.train.model.po;
 
 import lombok.Data;
+import org.infinity.core.common.utils.SnowflakeIdGenerator;
 
 /**
  * @author Ricky
@@ -12,6 +13,25 @@ import lombok.Data;
 @Data
 public class TripStationPO {
 
+    /**
+     * ID
+     */
     private String id;
+
+    /**
+     * 车次ID
+     */
+    private String tripId;
+
+    // TODO add here...
+
+    /**
+     * 站点顺序
+     */
+    private Integer order;
+
+    public static String newTripStationId() {
+        return "TPS" + SnowflakeIdGenerator.newSnowflakeId();
+    }
 
 }

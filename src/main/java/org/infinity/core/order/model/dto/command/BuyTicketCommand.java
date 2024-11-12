@@ -4,9 +4,11 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Value;
 import org.infinity.core.common.model.marker.Command;
+import org.infinity.core.common.validation.id.station.StationId;
 import org.infinity.core.common.validation.id.trip.TripId;
+import org.infinity.core.common.validation.id.tripstation.TripStationId;
 import org.infinity.core.common.validation.id.user.UserId;
 
 /**
@@ -16,20 +18,28 @@ import org.infinity.core.common.validation.id.user.UserId;
  * @className BuyTicketCommand
  * @desc
  */
-@Data
+@Value
 public class BuyTicketCommand implements Command {
 
     @UserId
     @NotBlank
-    private String userId;
+    String userId;
 
     @TripId
     @NotBlank
-    private String tripId;
+    String tripId;
 
     @NotNull
     @Min(value = 0)
     @Max(value = 2)
-    private Integer seatLevel;
+    Integer seatLevel;
+
+    @NotBlank
+    @TripStationId
+    String sourceTripStationId;
+
+    @NotBlank
+    @TripStationId
+    String distTripStationId;
 
 }

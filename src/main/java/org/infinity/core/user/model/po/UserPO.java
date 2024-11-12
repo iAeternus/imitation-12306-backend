@@ -84,8 +84,6 @@ public class UserPO {
 
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-    private String createBy;
-    private String updateBy;
 
     private UserPO(String userId, String nickname, RoleEnum role) {
         this.id = userId;
@@ -99,7 +97,7 @@ public class UserPO {
 
     private static UserPO noUser() {
         return new UserPO(null, null, null, null, null, null, null,
-                null, null, null, null, null, null);
+                null, null, null, null);
     }
 
     public static UserPO humanUser(String userId, String nickname, RoleEnum role) {
