@@ -12,18 +12,18 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @desc
  */
 @SpringBootTest
-public class EventBusTest {
+class EventBusTest {
 
     @Autowired
     private EventProducer eventProducer;
 
     @Test
-    public void should_raise_something_created_event() {
+    void should_raise_something_created_event() {
         eventProducer.post("EVT001", new SomethingCreatedEvent("STH001"));
     }
 
     @Test
-    public void should_raise_something_deleted_event() {
+    void should_raise_something_deleted_event() {
         eventProducer.post("EVT002", new SomethingDeletedEvent("STH001"));
     }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.user.model.IdTypeEnum;
 import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.StatusEnum;
@@ -83,8 +84,6 @@ public class UserPO {
 
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-    private String createBy;
-    private String updateBy;
 
     private UserPO(String userId, String nickname, RoleEnum role) {
         this.id = userId;
@@ -92,9 +91,13 @@ public class UserPO {
         this.role = role;
     }
 
+    public static String newUserId() {
+        return "USR" + SnowflakeIdGenerator.newSnowflakeId();
+    }
+
     private static UserPO noUser() {
         return new UserPO(null, null, null, null, null, null, null,
-                null, null, null, null, null, null);
+                null, null, null, null);
     }
 
     public static UserPO humanUser(String userId, String nickname, RoleEnum role) {

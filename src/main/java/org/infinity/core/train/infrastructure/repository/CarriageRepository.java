@@ -1,0 +1,17 @@
+package org.infinity.core.train.infrastructure.repository;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.infinity.core.train.model.po.CarriagePO;
+
+import java.util.List;
+
+/**
+ * @author Ricky
+ * @version 1.0
+ * @date 2024/11/12
+ * @className CarriageRepository
+ * @desc
+ */
+public interface CarriageRepository extends IService<CarriagePO> {
+    List<CarriagePO> listByTrainId(String trainId);
+}

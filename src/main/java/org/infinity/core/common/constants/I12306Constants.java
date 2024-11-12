@@ -14,6 +14,8 @@ public interface I12306Constants {
 
     String ORDER_CACHE = "ORDER";
     String USER_CACHE = "USER";
+    String TRIP_CACHE = "TRIP";
+    String TRAIN_CACHE = "TRAIN";
 
     String AUTHORIZATION = "Authorization";
     String BEARER = "Bearer ";

@@ -95,7 +95,7 @@ public class GlobalExceptionHandler {
         String traceId = tracingService.currentTrackId();
         MyError myError = new MyError(exception, path, traceId);
         QErrorResponse representation = myError.toErrorResponse();
-        return new ResponseEntity<>(representation, new HttpHeaders(), valueOf(representation.getMyError().getStatus()));
+        return new ResponseEntity<>(representation, new HttpHeaders(), valueOf(representation.getError().getStatus()));
     }
 
 }

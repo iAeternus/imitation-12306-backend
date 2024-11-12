@@ -18,6 +18,6 @@ import org.infinity.core.common.model.marker.Response;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class QErrorResponse implements Response {
 
-    MyError myError;
+    MyError error;
 
 }
