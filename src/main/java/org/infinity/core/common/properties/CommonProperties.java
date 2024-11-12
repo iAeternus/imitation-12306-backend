@@ -35,16 +35,4 @@ public class CommonProperties {
      */
     private boolean limitRate;
 
-    /**
-     * Webhook用户名
-     */
-    @NotBlank
-    private String webhookUserName;
-
-    /**
-     * Webhook密码
-     */
-    @NotBlank
-    private String webhookPassword;
-
 }

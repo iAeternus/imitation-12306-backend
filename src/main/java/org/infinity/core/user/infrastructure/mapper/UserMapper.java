@@ -2,7 +2,7 @@ package org.infinity.core.user.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.infinity.core.user.model.UserPO;
+import org.infinity.core.user.model.po.UserPO;
 
 /**
  * @author Ricky
