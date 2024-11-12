@@ -86,7 +86,7 @@ public class MyError implements Serializable {
 
     public QErrorResponse toErrorResponse() {
         return QErrorResponse.builder()
-                .myError(this)
+                .error(this)
                 .build();
     }
 
