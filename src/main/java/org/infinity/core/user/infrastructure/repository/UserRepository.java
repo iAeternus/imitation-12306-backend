@@ -1,7 +1,7 @@
 package org.infinity.core.user.infrastructure.repository;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.infinity.core.user.model.UserPO;
+import org.infinity.core.user.model.po.UserPO;
 
 /**
  * @author Ricky

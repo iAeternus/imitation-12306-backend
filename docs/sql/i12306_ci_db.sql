@@ -14,14 +14,9 @@ create table car
     level     tinyint     not null comment '车厢等级（一等，二等）',
     type      tinyint     not null comment '类型（客运车厢，货运车厢）',
     create_at datetime    not null,
-    update_at datetime    not null,
-    create_by varchar(16) not null,
-    update_by varchar(16) not null
+    update_at datetime    not null
 )
     comment '车厢表';
-
-create index car_id_index
-    on car (id);
 
 drop table if exists cs;
 create table cs
@@ -32,14 +27,9 @@ create table cs
     phone_number varchar(11) not null comment '电话号码',
     server_time  varchar(24) not null comment '服务时间（24小时制 eg 9:00-17:00）',
     create_at    datetime    not null,
-    update_at    datetime    not null,
-    create_by    varchar(16) not null,
-    update_by    varchar(16) not null
+    update_at    datetime    not null
 )
     comment '在线客服信息表';
-
-create index cs_id_index
-    on cs (id);
 
 drop table if exists `order`;
 create table `order`
@@ -49,20 +39,15 @@ create table `order`
     user_id                  varchar(16) not null comment '用户ID',
     trip_id                  varchar(16) not null comment '车次ID',
     departure_at             datetime    not null comment '发车时间',
-    origin_trip_station_id   varchar(16) not null comment '终点站车次站点ID',
-    terminal_trip_station_id varchar(16) not null comment '起点站车次站点ID',
+    origin_trip_station_id   varchar(16) not null comment '起点站车次站点ID',
+    terminal_trip_station_id varchar(16) not null comment '终点站车次站点ID',
     seat_level               tinyint     not null comment '座位等级',
     price                    decimal     not null comment '价格',
     status                   tinyint     not null comment '状态（待支付，已支付，已上车，已出站）',
     create_at                datetime    not null,
-    update_at                datetime    not null,
-    create_by                varchar(16) not null,
-    update_by                varchar(16) not null
+    update_at                datetime    not null
 )
     comment '订单表';
-
-create index order_id_index
-    on `order` (id);
 
 drop table if exists station;
 create table station
@@ -73,14 +58,9 @@ create table station
     en_us_name varchar(10) null comment '站点名称（英国 - 美国）',
     level      tinyint     not null comment '站点级别（省会，地级市，其他）',
     create_at  datetime    not null,
-    update_at  datetime    not null,
-    create_by  varchar(16) not null,
-    update_by  varchar(16) not null
+    update_at  datetime    not null
 )
     comment '站点表';
-
-create index station_id_index
-    on station (id);
 
 drop table if exists train;
 create table train
@@ -94,14 +74,9 @@ create table train
     capacity  int         not null comment '列车定员（eg 576）',
     top_speed int         not null comment '最高时速（单位：km/h eg 350）',
     create_at datetime    not null,
-    update_at datetime    not null,
-    create_by varchar(16) not null,
-    update_by varchar(16) not null
+    update_at datetime    not null
 )
     comment '列车表';
-
-create index train_id_index
-    on train (id);
 
 drop table if exists trip;
 create table trip
@@ -115,14 +90,9 @@ create table trip
     end_at              datetime    not null comment '终到时间',
     status              tinyint     not null comment '状态（正点、晚点、取消）',
     create_at           datetime    not null,
-    update_at           datetime    not null,
-    create_by           varchar(16) not null,
-    update_by           varchar(16) not null
+    update_at           datetime    not null
 )
     comment '车次信息表';
-
-create index trip_id_index
-    on trip (id);
 
 drop table if exists trip_station;
 create table trip_station
@@ -134,14 +104,9 @@ create table trip_station
     arrival_at     datetime    not null comment '到点（开点 = 到点 + 停留时间）',
     retention_time int         not null comment '停留时间（单位 分钟）',
     create_at      datetime    not null,
-    update_at      datetime    not null,
-    create_by      varchar(16) not null,
-    update_by      varchar(16) not null
+    update_at      datetime    not null
 )
     comment '车次站点表';
-
-create index trip_station_id_index
-    on trip_station (id);
 
 drop table if exists user;
 create table user
@@ -157,12 +122,7 @@ create table user
     role      tinyint      not null comment '身份（学生、成人）',
     status    tinyint      not null comment '状态（未手机核验，未实名认证，已手机核验，已实名认证）',
     create_at datetime     not null,
-    update_at datetime     not null,
-    create_by varchar(16)  not null,
-    update_by varchar(16)  not null
+    update_at datetime     not null
 )
     comment '用户表';
-
-create index user_id_index
-    on user (id);
 

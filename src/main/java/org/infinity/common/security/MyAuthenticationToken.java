@@ -1,7 +1,7 @@
 package org.infinity.common.security;
 
 import lombok.Getter;
-import org.infinity.core.user.model.UserPO;
+import org.infinity.core.user.model.po.UserPO;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

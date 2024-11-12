@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.infinity.common.security.MyAuthenticationToken;
 import org.infinity.core.common.properties.JwtProperties;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
-import org.infinity.core.user.model.UserPO;
+import org.infinity.core.user.model.po.UserPO;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;

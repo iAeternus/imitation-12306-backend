@@ -1,9 +1,12 @@
-package org.infinity.core.user.model;
+package org.infinity.core.user.model.po;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.infinity.core.user.model.IdTypeEnum;
+import org.infinity.core.user.model.RoleEnum;
+import org.infinity.core.user.model.StatusEnum;
 
 import java.time.LocalDateTime;
 

@@ -18,4 +18,7 @@ public interface I12306Constants {
     String AUTHORIZATION = "Authorization";
     String BEARER = "Bearer ";
 
+    String CREATE_AT = "createAt";
+    String UPDATE_AT = "updateAt";
+
 }

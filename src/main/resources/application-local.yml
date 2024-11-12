@@ -31,8 +31,6 @@ my:
     httpsEnabled: false
     baseDomainName: org.infinity
     limitRate: false
-    webhookUserName: kJ_4LPrrT5W3wVMK_RhzMA
-    webhookPassword: qW-2S-9fTs26MnGigO0mTw
   redis:
     domainEventStream: DomainEvent.LOCAL
     notificationStream: Notification.LOCAL

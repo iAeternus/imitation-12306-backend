@@ -21,6 +21,16 @@ spring:
   cache:
     type: redis
 
+mybatis-plus:
+  type-aliases-package: org.infinity.core.*.model.po
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+
 my:
   jwt:
     issuer: my-local-issuer
@@ -31,8 +41,6 @@ my:
     httpsEnabled: false
     baseDomainName: org.infinity
     limitRate: false
-    webhookUserName: kJ_4LPrrT5W3wVMK_RhzMA
-    webhookPassword: qW-2S-9fTs26MnGigO0mTw
   redis:
     domainEventStream: DomainEvent.LOCAL
     notificationStream: Notification.LOCAL
