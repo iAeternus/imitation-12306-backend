@@ -14,4 +14,13 @@ public enum SeatLevelEnum {
     SECOND_CLASS,
     ;
 
+    public static SeatLevelEnum of(Integer value) {
+        return switch (value) {
+            case 0 -> BUSINESS_CLASS;
+            case 1 -> FIRST_CLASS;
+            case 2 -> SECOND_CLASS;
+            default -> throw new IllegalStateException("Unexpected value: " + value);
+        };
+    }
+
 }

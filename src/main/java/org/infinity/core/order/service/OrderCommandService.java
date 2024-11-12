@@ -1,6 +1,7 @@
 package org.infinity.core.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.infinity.core.order.model.dto.command.BuyTicketCommand;
 import org.infinity.core.order.model.po.OrderPO;
 
 /**
@@ -10,5 +11,7 @@ import org.infinity.core.order.model.po.OrderPO;
  * @className OrderCommandService
  * @desc
  */
-public interface OrderCommandService extends IService<OrderPO> {
+public interface OrderCommandService {
+    void buyTicket(BuyTicketCommand command);
+
 }
