@@ -1,5 +1,8 @@
 package org.infinity.core.order.model.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Builder;
 import lombok.Data;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
@@ -18,6 +21,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
+@TableName("order")
 public class OrderPO {
 
     /**
@@ -60,7 +64,9 @@ public class OrderPO {
      */
     private OrderStatusEnum status;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
 
     public static String newOrderId() {

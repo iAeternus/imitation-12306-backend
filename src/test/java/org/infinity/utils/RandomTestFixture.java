@@ -1,5 +1,6 @@
 package org.infinity.utils;
 
+import com.apifan.common.random.source.PersonInfoSource;
 import lombok.Data;
 import org.infinity.core.common.exception.MyException;
 
@@ -7,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
+import static org.apache.commons.lang3.RandomUtils.nextLong;
 import static org.infinity.core.common.exception.ErrorCodeEnum.LEFT_GREATER_THAN_RIGHT;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 
@@ -29,18 +32,18 @@ public class RandomTestFixture {
     }
 
     public static List<Integer> rIntList(int size, int minInclusive, int maxInclusive) {
-        if(size < 0) {
+        if (size < 0) {
             return Collections.emptyList();
         }
         List<Integer> ans = new ArrayList<>(size);
-        for(int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; ++i) {
             ans.add(rInt(minInclusive, maxInclusive));
         }
         return ans;
     }
 
     public static int rNonNegativeInt(int maxInclusive) {
-        if(maxInclusive <= 0) {
+        if (maxInclusive <= 0) {
             return 0;
         }
 
@@ -54,10 +57,26 @@ public class RandomTestFixture {
     public static ClosedInterval rClosedInterval(int minInclusive, int maxInclusive) {
         int left = minInclusive + rInt(0, maxInclusive);
         int right = Integer.MAX_VALUE;
-        while(right > maxInclusive || right < left) {
+        while (right > maxInclusive || right < left) {
             right = left + rInt(0, maxInclusive);
         }
         return ClosedInterval.of(left, right);
+    }
+
+    public static String rRawUserName() {
+        return PersonInfoSource.getInstance().randomChineseName();
+    }
+
+    public static String rNickname() {
+        return rRawUserName() + randomAlphanumeric(10);
+    }
+
+    public static String rMobile() {
+        return String.valueOf(nextLong(13000000000L, 19000000000L));
+    }
+
+    public static String rPassword() {
+        return randomAlphanumeric(10);
     }
 
     /**

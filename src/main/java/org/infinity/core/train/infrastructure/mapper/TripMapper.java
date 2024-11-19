@@ -2,7 +2,6 @@ package org.infinity.core.train.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.infinity.core.train.model.po.TrainPO;
 import org.infinity.core.train.model.po.TripPO;
 
 /**

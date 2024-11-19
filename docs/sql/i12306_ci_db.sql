@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `seat`;
 CREATE TABLE `seat`
 (
     `id`                     varchar(24) NOT NULL,
-    `car_id`                 varchar(24) NOT NULL COMMENT '车厢ID',
+    `carriage_id`            varchar(24) NOT NULL COMMENT '车厢ID',
     `letter`                 char(1)     NOT NULL COMMENT '座位字母',
     `occupied_interval_flag` bit(64)     NOT NULL COMMENT '区间占用标记',
     `create_at`              datetime    NOT NULL,
@@ -134,13 +134,14 @@ CREATE TABLE `user`
 (
     `id`        varchar(24)  NOT NULL,
     `nickname`  varchar(16)  NOT NULL COMMENT '昵称',
-    `real_name` varchar(6)   NOT NULL COMMENT '实名',
-    `id_type`   tinyint      NOT NULL COMMENT '证件类型',
-    `id_card`   varchar(18)  NOT NULL COMMENT '身份证号',
+    `avatar`    varchar(1024) DEFAULT NULL COMMENT '头像',
+    `real_name` varchar(6)    DEFAULT NULL COMMENT '实名',
+    `id_type`   tinyint       DEFAULT NULL COMMENT '证件类型',
+    `id_card`   varchar(18)   DEFAULT NULL COMMENT '身份证号',
     `mobile`    varchar(11)  NOT NULL COMMENT '手机号',
     `password`  varchar(255) NOT NULL COMMENT '密码',
     `role`      tinyint      NOT NULL COMMENT '身份（学生、成人）',
-    `status`    tinyint      NOT NULL COMMENT '状态（未手机核验，未实名认证，已手机核验，已实名认证）',
+    `status`    tinyint      NOT NULL COMMENT '状态（未实名认证，已实名认证）',
     `create_at` datetime     NOT NULL,
     `update_at` datetime     NOT NULL,
     PRIMARY KEY (`id`)

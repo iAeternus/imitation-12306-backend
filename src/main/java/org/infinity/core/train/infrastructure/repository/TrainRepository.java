@@ -2,7 +2,6 @@ package org.infinity.core.train.infrastructure.repository;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.train.model.po.TrainPO;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author Ricky

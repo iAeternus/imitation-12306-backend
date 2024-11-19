@@ -1,8 +1,6 @@
 package org.infinity.core.order.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.order.model.dto.command.BuyTicketCommand;
-import org.infinity.core.order.model.po.OrderPO;
 
 /**
  * @author Ricky

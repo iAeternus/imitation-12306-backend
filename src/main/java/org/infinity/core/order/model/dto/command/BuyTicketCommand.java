@@ -4,9 +4,11 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 import org.infinity.core.common.model.marker.Command;
-import org.infinity.core.common.validation.id.station.StationId;
 import org.infinity.core.common.validation.id.trip.TripId;
 import org.infinity.core.common.validation.id.tripstation.TripStationId;
 import org.infinity.core.common.validation.id.user.UserId;
@@ -19,6 +21,8 @@ import org.infinity.core.common.validation.id.user.UserId;
  * @desc
  */
 @Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class BuyTicketCommand implements Command {
 
     @UserId

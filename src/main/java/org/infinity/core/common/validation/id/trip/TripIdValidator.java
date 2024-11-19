@@ -20,7 +20,7 @@ public class TripIdValidator implements ConstraintValidator<TripId, String> {
 
     @Override
     public boolean isValid(String tripId, ConstraintValidatorContext constraintValidatorContext) {
-        if(isBlank(tripId)) {
+        if (isBlank(tripId)) {
             return true;
         }
 

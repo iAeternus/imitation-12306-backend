@@ -94,6 +94,10 @@ dependencies {
 
     testCompileOnly("org.projectlombok:lombok:1.18.24")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
+
+    // Jaxb
+    implementation("javax.xml.bind:jaxb-api:2.3.1")
+    runtimeOnly("org.glassfish.jaxb:jaxb-runtime:2.3.1")
 }
 
 sourceSets {

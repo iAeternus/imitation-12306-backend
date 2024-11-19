@@ -1,5 +1,6 @@
 package org.infinity.core.user.model;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
@@ -12,14 +13,17 @@ import lombok.Getter;
 @Getter
 public enum RoleEnum {
 
-    SYSTEM_ADMIN("系统管理员"),
-    STUDENT("学生"),
-    ADULT("成人"),
+    SYSTEM_ADMIN((short) 0, "系统管理员"),
+    STUDENT((short) 1, "学生"),
+    ADULT((short) 2, "成人"),
     ;
 
-    private final String roleName;
+    @EnumValue
+    final Short key;
+    final String roleName;
 
-    RoleEnum(String roleName) {
+    RoleEnum(Short key, String roleName) {
+        this.key = key;
         this.roleName = roleName;
     }
 

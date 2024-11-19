@@ -1,4 +1,4 @@
-package org.infinity.core.common.utils;
+package org.infinity.core.common.autofill;
 
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-import static org.infinity.core.common.constants.I12306Constants.*;
+import static org.infinity.core.common.constants.I12306Constants.CREATE_AT;
+import static org.infinity.core.common.constants.I12306Constants.UPDATE_AT;
 
 /**
  * @author Ricky

@@ -2,8 +2,6 @@ package org.infinity.core.train.infrastructure.repository.cache;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.infinity.core.common.constants.I12306Constants;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.train.infrastructure.mapper.TripMapper;
 import org.infinity.core.train.model.po.TripPO;
 import org.springframework.cache.annotation.CacheEvict;

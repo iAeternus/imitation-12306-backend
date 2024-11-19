@@ -10,7 +10,6 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 
 import static org.infinity.core.common.constants.I12306Constants.TRAIN_CACHE;
-import static org.infinity.core.common.constants.I12306Constants.TRIP_CACHE;
 import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 
 /**

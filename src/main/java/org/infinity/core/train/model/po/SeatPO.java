@@ -1,5 +1,8 @@
 package org.infinity.core.train.model.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.train.model.SeatLetterEnum;
@@ -17,6 +20,7 @@ import java.util.stream.IntStream;
  * @see <a href="https://zhuanlan.zhihu.com/p/266329767">使用类BitMap方式实现12306余票分配设计思路与基本算法</a>
  */
 @Data
+@TableName("seat")
 public class SeatPO {
 
     /**
@@ -40,7 +44,9 @@ public class SeatPO {
      */
     private BitSet occupiedIntervalFlag;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
 
     public static String newSeatId() {

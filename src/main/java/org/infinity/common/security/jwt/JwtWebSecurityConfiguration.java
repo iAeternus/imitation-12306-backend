@@ -45,13 +45,10 @@ public class JwtWebSecurityConfiguration {
     public SecurityFilterChain jwtFilterChain(HttpSecurity http) throws Exception {
         ProviderManager authenticationManager = new ProviderManager(this.jwtAuthenticationProvider);
         http.authorizeHttpRequests(registry -> registry
-                        .requestMatchers(DELETE, "/logout").permitAll()
+                        .requestMatchers(DELETE, "/users/logout").permitAll()
                         .requestMatchers(POST, "/aliyun/oss-token-requisitions").permitAll()
                         .requestMatchers(GET, "/qrs/submission-qrs/*").permitAll()
                         .requestMatchers(GET, "/presentations/**").permitAll()
-                        .requestMatchers(POST, "/submissions").permitAll()
-                        .requestMatchers(POST, "/submissions/auto-calculate/number-input").permitAll()
-                        .requestMatchers(POST, "/submissions/auto-calculate/item-status").permitAll()
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager)
                 .exceptionHandling()
@@ -85,23 +82,9 @@ public class JwtWebSecurityConfiguration {
                 .requestMatchers("/about", "/favicon.ico", "/error", "/MP_verify_qXC2acLZ7a7qm3Xp.txt",
                         "/local-manual-test/orders/**",
                         "/local-manual-test/receive-webhook",
-                        "/api-testing/webhook", "/api-testing/orders/**", "/apptemplates/**")
-                .requestMatchers(GET, "/plans")
-                .requestMatchers(GET, "/printing-products")
-                .requestMatchers(GET, "/mobile-wx/auth2-callback")
-                .requestMatchers(GET, "/pc-wx/auth2-callback")
-                .requestMatchers(GET, "/wx/mobile-info")
-                .requestMatchers(GET, "/wx/pc-info")
-                .requestMatchers(POST, "/wx/jssdk-config")
-                .requestMatchers(POST, "/preorders/pay-callback/wxpay")
-                .requestMatchers(POST, "/verification-codes/for-register")
-                .requestMatchers(POST, "/verification-codes/for-login")
-                .requestMatchers(POST, "/verification-codes/for-findback-password")
-                .requestMatchers(POST, "/login")
-                .requestMatchers(POST, "/verification-code-login")
-                .requestMatchers(POST, "/members/findback-password")
-                .requestMatchers(POST, "/members/registration")
-                .requestMatchers(GET, "/tenants/public-profile/*");
+                        "/api-testing/webhook", "/api-testing/orders/**")
+                .requestMatchers(POST, "/users/login")
+                .requestMatchers(POST, "/users/registration");
     }
 
 }

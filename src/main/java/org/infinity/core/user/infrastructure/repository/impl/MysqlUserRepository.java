@@ -25,4 +25,24 @@ public class MysqlUserRepository extends ServiceImpl<UserMapper, UserPO> impleme
     public UserPO cachedById(String userId) {
         return userCachedRepository.cachedById(userId);
     }
+
+    @Override
+    public boolean existsByMobile(String mobile) {
+        return lambdaQuery()
+                .eq(UserPO::getMobile, mobile)
+                .exists();
+    }
+
+    @Override
+    public void insert(UserPO userPO) {
+        save(userPO);
+        userCachedRepository.evictUserCache(userPO.getId());
+    }
+
+    @Override
+    public UserPO byMobile(String mobile) {
+        return lambdaQuery()
+                .eq(UserPO::getMobile, mobile)
+                .one();
+    }
 }

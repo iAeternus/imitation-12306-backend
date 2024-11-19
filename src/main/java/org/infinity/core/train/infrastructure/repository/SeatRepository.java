@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.train.model.po.SeatPO;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * @author Ricky

@@ -1,5 +1,8 @@
 package org.infinity.core.order.model;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import lombok.Getter;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -7,12 +10,20 @@ package org.infinity.core.order.model;
  * @className SeatLevelEnum
  * @desc 座位等级
  */
+@Getter
 public enum SeatLevelEnum {
 
-    BUSINESS_CLASS,
-    FIRST_CLASS,
-    SECOND_CLASS,
+    BUSINESS_CLASS((short) 0),
+    FIRST_CLASS((short) 1),
+    SECOND_CLASS((short) 2),
     ;
+
+    @EnumValue
+    final Short key;
+
+    SeatLevelEnum(Short key) {
+        this.key = key;
+    }
 
     public static SeatLevelEnum of(Integer value) {
         return switch (value) {

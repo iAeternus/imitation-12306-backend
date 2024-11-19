@@ -18,6 +18,7 @@ import org.infinity.core.common.exception.MyError;
 import org.infinity.core.common.exception.QErrorResponse;
 import org.infinity.core.common.utils.MyObjectMapper;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
+import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.utils.SetupApi;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,6 +69,9 @@ public class BaseApiTest {
 
     @Autowired
     protected OrderRepository orderRepository;
+
+    @Autowired
+    protected UserRepository userRepository;
 
     // TODO add repository here...
 

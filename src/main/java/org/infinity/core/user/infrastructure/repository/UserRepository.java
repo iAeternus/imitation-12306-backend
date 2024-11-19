@@ -14,4 +14,10 @@ public interface UserRepository extends IService<UserPO> {
 
     UserPO cachedById(String userId);
 
+    boolean existsByMobile(String mobile);
+
+    void insert(UserPO userPO);
+
+    UserPO byMobile(String mobile);
+
 }

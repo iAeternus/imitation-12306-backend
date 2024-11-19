@@ -23,4 +23,6 @@ public interface I12306Constants {
     String CREATE_AT = "createAt";
     String UPDATE_AT = "updateAt";
 
+    int MAX_URL_LENGTH = 1024;
+
 }

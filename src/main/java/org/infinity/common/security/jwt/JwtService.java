@@ -26,14 +26,14 @@ public class JwtService {
     private final JwtProperties jwtProperties;
     private final UserRepository userRepository; // TODO
 
-    public String generateJwt(String memberId) {
+    public String generateJwt(String userId) {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + jwtProperties.getExpire() * 60L * 1000L);
-        return generateJwt(memberId, expirationDate);
+        return generateJwt(userId, expirationDate);
     }
 
-    public String generateJwt(String memberId, Date expirationDate) {
-        Claims claims = Jwts.claims().setSubject(memberId);
+    public String generateJwt(String userId, Date expirationDate) {
+        Claims claims = Jwts.claims().setSubject(userId);
 
         return Jwts.builder()
                 .setClaims(claims)

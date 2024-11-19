@@ -35,11 +35,13 @@ public enum ErrorCodeEnum {
     // 404
     TRIP_NOT_FOUND(404),
     TRIP_STATION_NOT_FOUND(404),
+    ACCOUNT_NOT_EXIST(404),
+    USER_NOT_FOUND(404),
 
     // 409
     NO_SUCH_SEAT(409),
     EMPTY_COLLECTION(409),
-
+    MOBILE_DUPLICATED(409),
 
     // 426
 

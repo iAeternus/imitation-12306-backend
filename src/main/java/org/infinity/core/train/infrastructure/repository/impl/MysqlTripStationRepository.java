@@ -3,7 +3,6 @@ package org.infinity.core.train.infrastructure.repository.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.train.infrastructure.mapper.TripStationMapper;
 import org.infinity.core.train.infrastructure.repository.TripStationRepository;
 import org.infinity.core.train.infrastructure.repository.cache.MysqlTripStationCachedRepository;
@@ -35,7 +34,7 @@ public class MysqlTripStationRepository extends ServiceImpl<TripStationMapper, T
                 .eq(TripStationPO::getTripId, tripId)
                 .orderBy(true, true, TripStationPO::getOrder)
                 .list();
-        if(isEmpty(tripStations)) {
+        if (isEmpty(tripStations)) {
             throw new MyException(EMPTY_COLLECTION, "The trip with trip ID [" + tripId + "] has an empty trip_station list",
                     mapOf("tripId", tripId));
         }

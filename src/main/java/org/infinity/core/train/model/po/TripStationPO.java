@@ -1,7 +1,12 @@
 package org.infinity.core.train.model.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
+
+import java.time.LocalDateTime;
 
 /**
  * @author Ricky
@@ -11,6 +16,7 @@ import org.infinity.core.common.utils.SnowflakeIdGenerator;
  * @desc
  */
 @Data
+@TableName("trip_station")
 public class TripStationPO {
 
     /**
@@ -29,6 +35,11 @@ public class TripStationPO {
      * 站点顺序
      */
     private Integer order;
+
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createAt;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateAt;
 
     public static String newTripStationId() {
         return "TPS" + SnowflakeIdGenerator.newSnowflakeId();

@@ -3,10 +3,9 @@ package org.infinity.core.train.infrastructure.repository.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.train.infrastructure.mapper.TripMapper;
-import org.infinity.core.train.infrastructure.repository.cache.MysqlTripCachedRepository;
 import org.infinity.core.train.infrastructure.repository.TripRepository;
+import org.infinity.core.train.infrastructure.repository.cache.MysqlTripCachedRepository;
 import org.infinity.core.train.model.po.TripPO;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +30,7 @@ public class MysqlTripRepository extends ServiceImpl<TripMapper, TripPO> impleme
     @Override
     public TripPO cachedById(String tripId) {
         TripPO tripPO = tripCachedRepository.cachedById(tripId);
-        if(isNull(tripPO)) {
+        if (isNull(tripPO)) {
             throw new MyException(TRIP_NOT_FOUND, "Trip not found.", mapOf("tripId", tripId));
         }
 

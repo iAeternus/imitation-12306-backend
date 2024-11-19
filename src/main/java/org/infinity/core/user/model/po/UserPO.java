@@ -1,7 +1,9 @@
 package org.infinity.core.user.model.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
@@ -21,6 +23,7 @@ import static org.infinity.core.common.utils.ValidationUtils.*;
  * @desc
  */
 @Data
+@TableName("user")
 @AllArgsConstructor
 public class UserPO {
 
@@ -48,6 +51,11 @@ public class UserPO {
     private String nickname;
 
     /**
+     * 头像url
+     */
+    private String avatar;
+
+    /**
      * 实名
      */
     private String realName;
@@ -58,7 +66,7 @@ public class UserPO {
     private IdTypeEnum idType;
 
     /**
-     * 身份证号
+     * 证件号
      */
     private String idCard;
 
@@ -82,7 +90,9 @@ public class UserPO {
      */
     private StatusEnum status;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
 
     private UserPO(String userId, String nickname, RoleEnum role) {
@@ -91,13 +101,20 @@ public class UserPO {
         this.role = role;
     }
 
+    private UserPO(String id, String nickname, String mobile, String password) {
+        this.id = id;
+        this.nickname = nickname;
+        this.mobile = mobile;
+        this.password = password;
+    }
+
     public static String newUserId() {
         return "USR" + SnowflakeIdGenerator.newSnowflakeId();
     }
 
     private static UserPO noUser() {
         return new UserPO(null, null, null, null, null, null, null,
-                null, null, null, null);
+                null, null, null, null, null);
     }
 
     public static UserPO humanUser(String userId, String nickname, RoleEnum role) {
@@ -109,6 +126,17 @@ public class UserPO {
         }
 
         return new UserPO(userId, nickname, role);
+    }
+
+    public static UserPO humanUser(String nickname, String mobile, String password) {
+        requireNonBlank(mobile, "Mobile must not be blank.");
+        requireNonBlank(password, "Password must not be blank.");
+
+        if (isNull(nickname)) {
+            nickname = newNickname();
+        }
+
+        return new UserPO(newUserId(), nickname, mobile, password);
     }
 
     public static String newNickname() {
