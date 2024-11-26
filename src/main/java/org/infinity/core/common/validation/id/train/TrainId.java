@@ -1,4 +1,4 @@
-package org.infinity.core.common.validation.id.trip;
+package org.infinity.core.common.validation.id.train;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -13,17 +13,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * @author Ricky
  * @version 1.0
- * @date 2024/11/12
+ * @date 2024/11/26
  * @className TrainId
  * @desc
  */
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = TripIdValidator.class)
+@Constraint(validatedBy = TrainIdValidator.class)
 @Documented
-public @interface TripId {
+public @interface TrainId {
 
-    String message() default "Trip ID format is incorrect.";
+    String message() default "Train ID format is incorrect.";
 
     Class<?>[] groups() default {};
 

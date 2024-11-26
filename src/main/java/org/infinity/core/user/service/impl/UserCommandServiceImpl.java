@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.infinity.common.password.MyPasswordEncoder;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.common.security.jwt.JwtService;
+import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.model.RoleEnum;
@@ -17,6 +18,7 @@ import org.infinity.core.user.service.UserCommandService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPE;
 import static org.infinity.core.common.exception.ErrorCodeEnum.ACCOUNT_NOT_EXIST;
 import static org.infinity.core.common.exception.ErrorCodeEnum.MOBILE_DUPLICATED;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
@@ -40,7 +42,7 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Override
     @Transactional
     public UserRegisterResponse register(UserRegisterCommand command) {
-        rateLimiter.applyFor("User:register", 10);
+        rateLimiter.applyFor("User:register", DEFAULT_COMMAND_TPE);
 
         if (userRepository.existsByMobile(command.getMobile())) {
             throw new MyException(MOBILE_DUPLICATED, "Mobile must not be duplicated.", "mobile", command.getMobile());
@@ -60,7 +62,7 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Override
     @Transactional
     public JwtTokenResponse login(UserLoginCommand command) {
-        rateLimiter.applyFor("User:login", 10);
+        rateLimiter.applyFor("User:login", DEFAULT_COMMAND_TPE);
 
         UserPO user = userRepository.byMobile(command.getMobile());
 

@@ -24,5 +24,11 @@ public interface I12306Constants {
     String UPDATE_AT = "updateAt";
 
     int MAX_URL_LENGTH = 1024;
+    int MAX_ENTER_LENGTH = 1024;
+
+    int DEFAULT_PAGE_NO = 1;
+    int DEFAULT_PAGE_SIZE = 20;
+    int DEFAULT_QUERY_TPS = 20;
+    int DEFAULT_COMMAND_TPE = 10;
 
 }

@@ -104,7 +104,7 @@ CREATE TABLE `trip`
     `id`                  varchar(24) NOT NULL COMMENT '车次',
     `train_id`            varchar(24) NOT NULL COMMENT '列车ID',
     `origin_station_id`   varchar(24) NOT NULL COMMENT '起点站ID',
-    `departure_at`        datetime    NOT NULL COMMENT '发车时间',
+    `start_at`            datetime    NOT NULL COMMENT '发车时间',
     `terminal_station_id` varchar(24) NOT NULL COMMENT '终点站ID',
     `end_at`              datetime    NOT NULL COMMENT '终到时间',
     `status`              tinyint     NOT NULL COMMENT '状态（正点、晚点、取消）',

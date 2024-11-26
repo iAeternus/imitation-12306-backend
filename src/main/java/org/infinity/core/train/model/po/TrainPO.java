@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.infinity.core.common.utils.SnowflakeIdGenerator;
 
 import java.time.LocalDateTime;
 
@@ -26,5 +27,9 @@ public class TrainPO {
     private LocalDateTime createAt;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
+
+    public static String newTrainId() {
+        return "TRA" + SnowflakeIdGenerator.newSnowflakeId();
+    }
 
 }

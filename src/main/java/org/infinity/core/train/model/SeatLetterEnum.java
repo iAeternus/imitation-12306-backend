@@ -1,5 +1,7 @@
 package org.infinity.core.train.model;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -16,6 +18,7 @@ public enum SeatLetterEnum {
     F('E'),
     ;
 
+    @EnumValue
     final char letter;
 
     SeatLetterEnum(char letter) {
