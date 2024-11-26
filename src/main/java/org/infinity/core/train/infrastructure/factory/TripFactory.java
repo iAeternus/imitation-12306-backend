@@ -1,5 +1,8 @@
 package org.infinity.core.train.infrastructure.factory;
 
+import lombok.RequiredArgsConstructor;
+import org.infinity.core.station.infrastructure.repository.StationRepository;
+import org.infinity.core.station.model.po.StationPO;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
 import org.infinity.core.train.model.dto.response.TripPageResponse;
 import org.infinity.core.train.model.po.TripPO;
@@ -13,7 +16,10 @@ import org.springframework.stereotype.Component;
  * @desc
  */
 @Component
+@RequiredArgsConstructor
 public class TripFactory {
+
+    private final StationRepository stationRepository;
 
     public TripPO enterTripBatch(EnterTripBatchCommand.TripInfo tripInfo) {
         return new TripPO(
@@ -26,13 +32,15 @@ public class TripFactory {
     }
 
     public TripPageResponse toTripPageResponse(TripPO trip) {
+        StationPO originalStation = stationRepository.cachedById(trip.getOriginStationId());
+        StationPO terminalStation = stationRepository.cachedById(trip.getTerminalStationId());
         return TripPageResponse.builder()
                 .trainId(trip.getTrainId())
-                .originStationId(trip.getOriginStationId())
+                .originStationName(originalStation.getStationName())
                 .startAt(trip.getStartAt())
-                .terminalStationId(trip.getTerminalStationId())
+                .terminalStationName(terminalStation.getStationName())
                 .endAt(trip.getEndAt())
-                .status(trip.getStatus())
+                .status(trip.getStatus().getDesc())
                 .createAt(trip.getCreateAt())
                 .updateAt(trip.getUpdateAt())
                 .build();

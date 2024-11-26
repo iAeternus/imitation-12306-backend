@@ -13,15 +13,17 @@ import lombok.Getter;
 @Getter
 public enum TripStatusEnum {
 
-    ON_SCHEDULE((short) 0),
-    BE_LATE((short) 1),
-    CANCEL((short) 2),
+    ON_SCHEDULE((short) 0, "正点"),
+    BE_LATE((short) 1, "晚点"),
+    CANCEL((short) 2, "取消"),
     ;
 
     @EnumValue
     final Short key;
+    final String desc;
 
-    TripStatusEnum(Short key) {
+    TripStatusEnum(Short key, String desc) {
         this.key = key;
+        this.desc = desc;
     }
 }

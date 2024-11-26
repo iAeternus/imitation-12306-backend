@@ -8,6 +8,7 @@ import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.common.model.page.PageFactory;
 import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.common.utils.ValidationUtils;
+import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.train.infrastructure.factory.TripFactory;
 import org.infinity.core.train.infrastructure.repository.TripRepository;
 import org.infinity.core.train.model.TripStatusEnum;

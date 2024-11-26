@@ -24,11 +24,11 @@ import java.time.LocalDateTime;
 public class TripPageResponse implements Response {
 
     String trainId;
-    String originStationId;
+    String originStationName;
     LocalDateTime startAt;
-    String terminalStationId;
+    String terminalStationName;
     LocalDateTime endAt;
-    TripStatusEnum status;
+    String status;
     LocalDateTime createAt;
     LocalDateTime updateAt;
 

@@ -11,4 +11,5 @@ import org.infinity.core.station.model.po.StationPO;
  * @desc
  */
 public interface StationRepository extends IService<StationPO> {
+    StationPO cachedById(String stationId);
 }

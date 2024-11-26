@@ -1,4 +1,4 @@
-package org.infinity.core.order.infrastructure.repository;
+package org.infinity.core.order.infrastructure.repository.cache;
 
 import org.springframework.stereotype.Repository;
 

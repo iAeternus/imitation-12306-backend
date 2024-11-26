@@ -1,4 +1,4 @@
-package org.infinity.core.user.infrastructure.repository;
+package org.infinity.core.user.infrastructure.repository.cache;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
