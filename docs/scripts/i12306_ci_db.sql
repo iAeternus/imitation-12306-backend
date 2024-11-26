@@ -81,7 +81,6 @@ CREATE TABLE `station`
   COLLATE = utf8mb4_0900_ai_ci COMMENT ='站点表';
 
 
-
 DROP TABLE IF EXISTS `train`;
 CREATE TABLE `train`
 (
