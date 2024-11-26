@@ -2,6 +2,7 @@ package org.infinity.core.station.model.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
@@ -19,14 +20,40 @@ import java.time.LocalDateTime;
 @TableName("station")
 public class StationPO {
 
+    @TableId
     private String id;
 
-    // TODO
+    /**
+     * 机构代码
+     */
+    private Character bureauCode;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createAt;
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateAt;
+    /**
+     * 站点名称
+     */
+    private String stationName;
+
+    /**
+     * 站点电报码
+     */
+    private String stationTelecode;
+
+    private String saleTime;
+
+    /**
+     * 开始运营日期
+     */
+    private String startDate;
+
+    /**
+     * 停止运营日期
+     */
+    private String stopDate;
+
+    /**
+     * 操作时间
+     */
+    private LocalDateTime operateTime;
 
     public static String newStationId() {
         return "STT" + SnowflakeIdGenerator.newSnowflakeId();

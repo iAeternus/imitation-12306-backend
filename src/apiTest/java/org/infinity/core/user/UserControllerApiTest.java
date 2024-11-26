@@ -40,10 +40,6 @@ public class UserControllerApiTest extends BaseApiTest {
 
         assertNotNull(user);
         assertEquals(command.getMobile(), user.getMobile());
-        //
-        // String encodePassword = passwordEncoder.encode(command.getPassword());
-        //
-        // assertEquals(encodePassword, user.getPassword());
     }
 
     @Test
@@ -78,7 +74,7 @@ public class UserControllerApiTest extends BaseApiTest {
         JwtTokenResponse response = UserApi.login(command);
 
         // Then
-        UserApi.fetchMyProfileRaw(response.getToken(), response.getUserId());
+        UserApi.fetchMyProfile(response.getToken(), response.getUserId());
     }
 
     @Test

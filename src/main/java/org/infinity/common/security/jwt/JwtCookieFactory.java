@@ -64,7 +64,6 @@ public class JwtCookieFactory {
     /**
      * 创建生产环境的JWT认证Cookie
      * 该Cookie包含JWT令牌，并设置了过期时间、路径、域名、安全（Secure）和HttpOnly标志
-     * 安全和HttpOnly标志增强了Cookie的安全性
      *
      * @param jwt JWT令牌字符串
      * @return 配置好的生产环境Cookie对象

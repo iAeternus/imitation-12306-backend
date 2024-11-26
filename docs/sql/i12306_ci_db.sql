@@ -65,19 +65,22 @@ CREATE TABLE `seat`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci COMMENT ='座位表';
 
-DROP TABLE IF EXISTS `station`;
 CREATE TABLE `station`
 (
-    `id`         varchar(24) NOT NULL,
-    `zn_ch_name` varchar(10) DEFAULT NULL COMMENT '站点名称（华 -中国）',
-    `en_us_name` varchar(10) DEFAULT NULL COMMENT '站点名称（英国 - 美国）',
-    `level`      tinyint     NOT NULL COMMENT '站点级别（省会，地级市，其他）',
-    `create_at`  datetime    NOT NULL,
-    `update_at`  datetime    NOT NULL,
+    `id`               varchar(24) NOT NULL,
+    `bureau_code`      char(1)    DEFAULT NULL COMMENT '机构代码',
+    `station_name`     varchar(12) NOT NULL COMMENT '站点名称',
+    `station_telecode` varchar(5) DEFAULT NULL COMMENT '站点电报码',
+    `sale_time`        varchar(5) DEFAULT NULL,
+    `start_date`       varchar(8)  NOT NULL COMMENT '开始运营日期',
+    `stop_date`        varchar(8)  NOT NULL COMMENT '停止运营日期',
+    `operate_time`     datetime    NOT NULL COMMENT '操作时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci COMMENT ='站点表';
+
+
 
 DROP TABLE IF EXISTS `train`;
 CREATE TABLE `train`
