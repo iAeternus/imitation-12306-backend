@@ -38,9 +38,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MyException.class)
     public ResponseEntity<?> handleMryException(MyException ex, HttpServletRequest request) {
         if (WARN_CODES.contains(ex.getCode().getStatus())) {
-            log.warn("Mry warning: {}", ex.getMessage());
+            log.warn("Warning: {}", ex.getMessage());
         } else {
-            log.error("Mry myError: {}", ex.getMessage());
+            log.error("Error: {}", ex.getMessage());
         }
 
         return createErrorResponse(ex, request.getRequestURI());
@@ -86,7 +86,7 @@ public class GlobalExceptionHandler {
         String path = request.getRequestURI();
         String traceId = tracingService.currentTrackId();
 
-        log.error("MyError access[{}]:", path, ex);
+        log.error("Error access[{}]:", path, ex);
         MyError myError = new MyError(SYSTEM_ERROR, SYSTEM_ERROR.getStatus(), "系统错误。", path, traceId, null);
         return new ResponseEntity<>(myError.toErrorResponse(), new HttpHeaders(), HttpStatus.valueOf(SYSTEM_ERROR.getStatus()));
     }

@@ -45,4 +45,6 @@ public class TripController {
         return tripQueryService.pages(pageQuery);
     }
 
+    // TODO byId
+
 }
