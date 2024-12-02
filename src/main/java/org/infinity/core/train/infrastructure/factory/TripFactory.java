@@ -35,6 +35,7 @@ public class TripFactory {
         StationPO originalStation = stationRepository.cachedById(trip.getOriginStationId());
         StationPO terminalStation = stationRepository.cachedById(trip.getTerminalStationId());
         return TripPageResponse.builder()
+                .tripId(trip.getId())
                 .trainId(trip.getTrainId())
                 .originStationName(originalStation.getStationName())
                 .startAt(trip.getStartAt())

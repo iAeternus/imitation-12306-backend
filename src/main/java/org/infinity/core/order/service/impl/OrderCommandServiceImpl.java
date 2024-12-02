@@ -2,7 +2,6 @@ package org.infinity.core.order.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
-import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.order.infrastructure.factory.OrderFactory;
@@ -31,7 +30,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPE;
+import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPS;
 import static org.infinity.core.common.exception.ErrorCodeEnum.LEFT_GREATER_THAN_RIGHT;
 import static org.infinity.core.common.exception.ErrorCodeEnum.TRIP_STATION_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
@@ -63,7 +62,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     @Override
     @Transactional
     public void buyTicket(BuyTicketCommand command) {
-        rateLimiter.applyFor("Order:buyTicket", DEFAULT_COMMAND_TPE);
+        rateLimiter.applyFor("Order:buyTicket", DEFAULT_COMMAND_TPS);
 
         // 座位分配
         TripPO trip = tripRepository.cachedById(command.getTripId());

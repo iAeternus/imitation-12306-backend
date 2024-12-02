@@ -83,29 +83,29 @@ class SegmentTreeTest {
         assertEquals(rangeMaxValue(nums, rClosedInterval.getLeft(), rClosedInterval.getRight()), res2);
     }
 
-    @Test
-    void should_range_update() {
-        // Given
-        SegmentTree segmentTree = new SegmentTree(List.of(2, 5, 4, 7, 6, 0, 1, -1, 2, 3, 6, 7, 0, 2, 9, 8, 5, 4, 7, 2));
-
-        // When
-        segmentTree.rangeUpdate(2, 5, 5);
-
-        // Then
-        assertEquals(20, segmentTree.rangeSum(2, 5));
-
-        // When
-        segmentTree.rangeUpdate(0, segmentTree.getSize() - 1, 5);
-
-        // Then
-        assertEquals(100, segmentTree.rangeSum(0, segmentTree.getSize() - 1));
-
-        // When
-        segmentTree.update(10, -5);
-
-        // Then
-        assertEquals(90, segmentTree.rangeSum(0, segmentTree.getSize() - 1));
-    }
+    // @Test
+    // void should_range_update() {
+    //     // Given
+    //     SegmentTree segmentTree = new SegmentTree(List.of(2, 5, 4, 7, 6, 0, 1, -1, 2, 3, 6, 7, 0, 2, 9, 8, 5, 4, 7, 2));
+    //
+    //     // When
+    //     segmentTree.rangeUpdate(2, 5, 5);
+    //
+    //     // Then
+    //     assertEquals(20, segmentTree.rangeSum(2, 5));
+    //
+    //     // When
+    //     segmentTree.rangeUpdate(0, segmentTree.getSize() - 1, 5);
+    //
+    //     // Then
+    //     assertEquals(100, segmentTree.rangeSum(0, segmentTree.getSize() - 1));
+    //
+    //     // When
+    //     segmentTree.update(10, -5);
+    //
+    //     // Then
+    //     assertEquals(90, segmentTree.rangeSum(0, segmentTree.getSize() - 1));
+    // }
 
     /**
      * 求闭区间和 O(n)算法

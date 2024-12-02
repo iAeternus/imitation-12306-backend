@@ -9,6 +9,8 @@ import org.infinity.core.common.utils.SnowflakeIdGenerator;
 
 import java.time.LocalDateTime;
 
+import static org.infinity.core.common.constants.I12306Constants.STATION_ID_PREFIX;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -56,7 +58,7 @@ public class StationPO {
     private LocalDateTime operateTime;
 
     public static String newStationId() {
-        return "STT" + SnowflakeIdGenerator.newSnowflakeId();
+        return STATION_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
 }

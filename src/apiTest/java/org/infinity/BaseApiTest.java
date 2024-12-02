@@ -18,6 +18,9 @@ import org.infinity.core.common.exception.MyError;
 import org.infinity.core.common.exception.QErrorResponse;
 import org.infinity.core.common.utils.MyObjectMapper;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
+import org.infinity.core.station.infrastructure.repository.StationRepository;
+import org.infinity.core.train.infrastructure.repository.TrainRepository;
+import org.infinity.core.train.infrastructure.repository.TripRepository;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.utils.SetupApi;
 import org.junit.jupiter.api.AfterEach;
@@ -29,6 +32,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import static org.infinity.core.common.constants.I12306Constants.AUTHORIZATION;
@@ -72,6 +76,15 @@ public class BaseApiTest {
 
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    protected StationRepository stationRepository;
+
+    @Autowired
+    protected TrainRepository trainRepository;
+
+    @Autowired
+    protected TripRepository tripRepository;
 
     // TODO add repository here...
 

@@ -8,6 +8,8 @@ import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.station.model.po.StationPO;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -20,9 +22,15 @@ import org.springframework.stereotype.Repository;
 public class MysqlStationRepository extends ServiceImpl<StationMapper, StationPO> implements StationRepository {
 
     private final MysqlStationCachedRepository stationCachedRepository;
+    private final StationMapper stationMapper;
 
     @Override
     public StationPO cachedById(String stationId) {
         return stationCachedRepository.cachedById(stationId);
+    }
+
+    @Override
+    public boolean allIdsExist(List<String> stationIds) {
+        return stationIds.size() == lambdaQuery().in(StationPO::getId, stationIds).count();
     }
 }

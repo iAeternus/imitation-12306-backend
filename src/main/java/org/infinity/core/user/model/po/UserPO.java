@@ -13,6 +13,7 @@ import org.infinity.core.user.model.StatusEnum;
 
 import java.time.LocalDateTime;
 
+import static org.infinity.core.common.constants.I12306Constants.USER_ID_PREFIX;
 import static org.infinity.core.common.utils.ValidationUtils.*;
 
 /**
@@ -109,7 +110,7 @@ public class UserPO {
     }
 
     public static String newUserId() {
-        return "USR" + SnowflakeIdGenerator.newSnowflakeId();
+        return USER_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
     private static UserPO noUser() {

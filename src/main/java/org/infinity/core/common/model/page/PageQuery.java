@@ -30,24 +30,22 @@ public class PageQuery implements Query {
      * 页码
      */
     @Min(0)
-    private Integer pageNo = DEFAULT_PAGE_NO;
+    private Integer pageNo;
 
     /**
      * 每页记录数
      */
     @Min(1)
-    private Integer pageSize = DEFAULT_PAGE_SIZE;
+    private Integer pageSize;
 
     /**
      * 排序字段
      */
-    @NotBlank
     private String sortBy;
 
     /**
      * 是否升序
      */
-    @NotNull
-    private Boolean isAsc = true;
+    private Boolean isAsc;
 
 }

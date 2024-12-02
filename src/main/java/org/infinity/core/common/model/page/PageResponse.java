@@ -19,7 +19,7 @@ import static java.util.Collections.emptyList;
  */
 @Value
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class PageResponse<T> implements Response {
 
     /**

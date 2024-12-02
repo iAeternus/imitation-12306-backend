@@ -10,7 +10,6 @@ package org.infinity.core.common.model.marker;
 public interface Command {
 
     default void correctAndValidate() {
-
     }
 
 }

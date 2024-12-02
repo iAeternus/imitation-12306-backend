@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.infinity.core.train.infrastructure.mapper.TrainMapper">
+
+    <!--<select id="allIdsExist" parameterType="list" resultType="boolean">-->
+    <!--    select if(count(*) = #{trainIds.size()}, true, false)-->
+    <!--    from i12306_ci_db.train-->
+    <!--    where id in-->
+    <!--    <foreach collection="trainIds" item="trainId" open="(" close=")" separator=",">-->
+    <!--        #{trainId}-->
+    <!--    </foreach>-->
+    <!--</select>-->
+
+</mapper>

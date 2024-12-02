@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import org.infinity.core.common.exception.MyException;
 import org.infinity.core.common.model.marker.Command;
 import org.infinity.core.common.validation.collection.NoNullElement;
 import org.infinity.core.common.validation.id.station.StationId;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.infinity.core.common.constants.I12306Constants.MAX_ENTER_LENGTH;
+import static org.infinity.core.common.exception.ErrorCodeEnum.INVALID_TIME_DURATION;
 
 /**
  * @author Ricky
@@ -59,6 +61,18 @@ public class EnterTripBatchCommand implements Command {
         @NotNull
         LocalDateTime endAt;
 
+        public void correctAndValidate() {
+            if (!endAt.isAfter(startAt)) {
+                throw new MyException(INVALID_TIME_DURATION, "End time must be after start time.",
+                        "trainId", trainId, "startAt", startAt, "endAt", endAt);
+            }
+        }
+
     }
 
+    @Override
+    public void correctAndValidate() {
+        Command.super.correctAndValidate();
+        tripInfos.forEach(TripInfo::correctAndValidate);
+    }
 }

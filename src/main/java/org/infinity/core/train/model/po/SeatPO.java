@@ -2,6 +2,7 @@ package org.infinity.core.train.model.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
@@ -10,6 +11,8 @@ import org.infinity.core.train.model.SeatLetterEnum;
 import java.time.LocalDateTime;
 import java.util.BitSet;
 import java.util.stream.IntStream;
+
+import static org.infinity.core.common.constants.I12306Constants.SEAT_ID_PREFIX;
 
 /**
  * @author Ricky
@@ -26,6 +29,7 @@ public class SeatPO {
     /**
      * 座位ID
      */
+    @TableId
     private String id;
 
     /**
@@ -50,7 +54,7 @@ public class SeatPO {
     private LocalDateTime updateAt;
 
     public static String newSeatId() {
-        return "SEAT" + SnowflakeIdGenerator.newSnowflakeId();
+        return SEAT_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
     /**

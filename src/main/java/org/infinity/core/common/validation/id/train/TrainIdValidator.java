@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.regex.Pattern;
 
+import static org.infinity.core.common.constants.I12306Constants.TRAIN_ID_PREFIX;
 import static org.infinity.core.common.utils.ValidationUtils.isBlank;
 
 /**
@@ -16,7 +17,7 @@ import static org.infinity.core.common.utils.ValidationUtils.isBlank;
  */
 public class TrainIdValidator implements ConstraintValidator<TrainId, String> {
 
-    private static final Pattern PATTERN = Pattern.compile("^TRA[0-9]{17,19}$");
+    private static final Pattern PATTERN = Pattern.compile("^" + TRAIN_ID_PREFIX + "[0-9]{17,19}$");
 
     @Override
     public boolean isValid(String trainId, ConstraintValidatorContext constraintValidatorContext) {

@@ -79,6 +79,10 @@ public class RandomTestFixture {
         return randomAlphanumeric(10);
     }
 
+    public static String defaultId(String prefix) {
+        return prefix + "000000000000000001";
+    }
+
     /**
      * 闭区间
      */

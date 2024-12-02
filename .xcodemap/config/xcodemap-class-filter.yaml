@@ -1,5 +1,5 @@
 autoDetectedPackages:
-  - org.infinity
+- org.infinity
 enableAutoDetect: true
 ignoreSameClassCall: null
 ignoreSamePackageCall: null

@@ -2,7 +2,10 @@ package org.infinity.core.train.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.infinity.core.train.model.po.TrainPO;
+
+import java.util.List;
 
 /**
  * @author Ricky
@@ -13,4 +16,5 @@ import org.infinity.core.train.model.po.TrainPO;
  */
 @Mapper
 public interface TrainMapper extends BaseMapper<TrainPO> {
+    // boolean allIdsExist(@Param("trainIds") List<String> trainIds);
 }

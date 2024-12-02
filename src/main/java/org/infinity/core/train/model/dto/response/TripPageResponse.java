@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TripPageResponse implements Response {
 
+    String tripId;
     String trainId;
     String originStationName;
     LocalDateTime startAt;

@@ -12,6 +12,15 @@ public interface I12306Constants {
     String CHINA_TIME_ZONE = "Asia/Shanghai";
     String AUTH_COOKIE_NAME = "i12306token";
 
+    String USER_ID_PREFIX = "USR";
+    String CARRIAGE_ID_PREFIX = "CAR";
+    String SEAT_ID_PREFIX = "SEAT";
+    String TRAIN_ID_PREFIX = "TRA";
+    String TRIP_ID_PREFIX = "TRP";
+    String TRIP_STATION_ID_PREFIX = "TPS";
+    String STATION_ID_PREFIX = "STT";
+    String ORDER_ID_PREFIX = "ORD";
+
     String ORDER_CACHE = "ORDER";
     String USER_CACHE = "USER";
     String TRIP_CACHE = "TRIP";
@@ -23,6 +32,8 @@ public interface I12306Constants {
 
     String CREATE_AT = "createAt";
     String UPDATE_AT = "updateAt";
+    String DB_CREATE_AT = "create_at";
+    String DB_UPDATE_AT = "update_at";
 
     int MAX_URL_LENGTH = 1024;
     int MAX_ENTER_LENGTH = 1024;
@@ -30,6 +41,6 @@ public interface I12306Constants {
     int DEFAULT_PAGE_NO = 1;
     int DEFAULT_PAGE_SIZE = 20;
     int DEFAULT_QUERY_TPS = 20;
-    int DEFAULT_COMMAND_TPE = 10;
+    int DEFAULT_COMMAND_TPS = 10;
 
 }

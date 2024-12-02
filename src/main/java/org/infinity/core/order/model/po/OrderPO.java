@@ -12,6 +12,8 @@ import org.infinity.core.order.model.SeatLevelEnum;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static org.infinity.core.common.constants.I12306Constants.ORDER_ID_PREFIX;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -70,7 +72,7 @@ public class OrderPO {
     private LocalDateTime updateAt;
 
     public static String newOrderId() {
-        return "ORD" + SnowflakeIdGenerator.newSnowflakeId();
+        return ORDER_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
 }

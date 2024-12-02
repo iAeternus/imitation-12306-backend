@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static org.infinity.core.common.constants.I12306Constants.CREATE_AT;
-import static org.infinity.core.common.constants.I12306Constants.UPDATE_AT;
+import static org.infinity.core.common.constants.I12306Constants.*;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
 import static org.infinity.core.common.utils.ValidationUtils.isNotBlank;
 
@@ -82,7 +81,7 @@ public class PageFactory {
      */
     public static <T> Page<T> toPageDefaultSortByCreateTime(PageQuery query) {
         OrderItem orderItem = new OrderItem();
-        orderItem.setColumn(CREATE_AT);
+        orderItem.setColumn(DB_CREATE_AT);
         orderItem.setAsc(false);
         return toPage(query, orderItem);
     }
@@ -92,7 +91,7 @@ public class PageFactory {
      */
     public static <T> Page<T> toPageDefaultSortByUpdateTime(PageQuery query) {
         OrderItem orderItem = new OrderItem();
-        orderItem.setColumn(UPDATE_AT);
+        orderItem.setColumn(DB_UPDATE_AT);
         orderItem.setAsc(false);
         return toPage(query, orderItem);
     }

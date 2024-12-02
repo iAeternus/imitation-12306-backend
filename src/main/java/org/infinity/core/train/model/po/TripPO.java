@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.train.model.TripStatusEnum;
 
 import java.time.LocalDateTime;
+
+import static org.infinity.core.common.constants.I12306Constants.TRIP_ID_PREFIX;
 
 /**
  * @author Ricky
@@ -19,6 +22,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("trip")
+@NoArgsConstructor
 public class TripPO {
 
     /**
@@ -63,7 +67,7 @@ public class TripPO {
     private LocalDateTime updateAt;
 
     public static String newTripId() {
-        return "TRP" + SnowflakeIdGenerator.newSnowflakeId();
+        return TRIP_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
     public TripPO(String trainId, String originStationId, LocalDateTime startAt, String terminalStationId, LocalDateTime endAt) {

@@ -2,8 +2,10 @@ package org.infinity.core.train.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
-import org.infinity.core.common.constants.I12306Constants;
+import org.infinity.core.common.exception.MyException;
+import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.train.infrastructure.factory.TripFactory;
+import org.infinity.core.train.infrastructure.repository.TrainRepository;
 import org.infinity.core.train.infrastructure.repository.TripRepository;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
@@ -14,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPE;
+import static com.google.common.collect.ImmutableList.toImmutableList;
+import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPS;
+import static org.infinity.core.common.exception.ErrorCodeEnum.STATION_IDS_NOT_ALL_EXISTS;
+import static org.infinity.core.common.exception.ErrorCodeEnum.TRAIN_IDS_NOT_ALL_EXISTS;
 
 /**
  * @author Ricky
@@ -28,25 +33,43 @@ import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND
 public class TripCommandServiceImpl implements TripCommandService {
 
     private final TripRepository tripRepository;
+    private final TrainRepository trainRepository;
+    private final StationRepository stationRepository;
     private final TripFactory tripFactory;
     private final RateLimiter rateLimiter;
 
     @Override
     @Transactional
     public EnterTripBatchResponse enterTripBatch(EnterTripBatchCommand command) {
-        rateLimiter.applyFor("Trip:enterTripBatch", DEFAULT_COMMAND_TPE);
+        rateLimiter.applyFor("Trip:enterTripBatch", DEFAULT_COMMAND_TPS);
+
+        if (!trainRepository.allIdsExist(command.getTripInfos().stream()
+                .map(EnterTripBatchCommand.TripInfo::getTrainId)
+                .collect(toImmutableList()))) {
+            throw new MyException(TRAIN_IDS_NOT_ALL_EXISTS, "Train ids not all exists.");
+        }
+
+        if (!stationRepository.allIdsExist(command.getTripInfos().stream()
+                .map(EnterTripBatchCommand.TripInfo::getOriginStationId)
+                .collect(toImmutableList()))) {
+            throw new MyException(STATION_IDS_NOT_ALL_EXISTS, "Origin Station ids not all exists.");
+        }
+
+        if (!stationRepository.allIdsExist(command.getTripInfos().stream()
+                .map(EnterTripBatchCommand.TripInfo::getTerminalStationId)
+                .collect(toImmutableList()))) {
+            throw new MyException(STATION_IDS_NOT_ALL_EXISTS, "Terminal Station ids not all exists.");
+        }
 
         List<TripPO> trips = command.getTripInfos().stream()
                 .map(tripFactory::enterTripBatch)
-                .toList();
+                .collect(toImmutableList());
 
         tripRepository.saveBatch(trips, trips.size());
 
-        List<String> tripIds = trips.stream()
-                .map(TripPO::getId)
-                .toList();
         return EnterTripBatchResponse.builder()
-                .tripIds(tripIds)
+                .tripIds(trips.stream().map(TripPO::getId).collect(toImmutableList()))
                 .build();
     }
+
 }

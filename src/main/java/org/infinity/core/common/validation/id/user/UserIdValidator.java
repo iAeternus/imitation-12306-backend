@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.regex.Pattern;
 
+import static org.infinity.core.common.constants.I12306Constants.USER_ID_PREFIX;
 import static org.infinity.core.common.utils.ValidationUtils.isBlank;
 
 /**
@@ -15,7 +16,7 @@ import static org.infinity.core.common.utils.ValidationUtils.isBlank;
  * @desc
  */
 public class UserIdValidator implements ConstraintValidator<UserId, String> {
-    private static final Pattern PATTERN = Pattern.compile("^USR[0-9]{17,19}$");
+    private static final Pattern PATTERN = Pattern.compile("^" + USER_ID_PREFIX + "[0-9]{17,19}$");
 
     @Override
     public boolean isValid(String userId, ConstraintValidatorContext constraintValidatorContext) {
