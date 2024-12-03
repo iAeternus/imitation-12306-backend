@@ -7,7 +7,7 @@ import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
+import org.infinity.core.train.model.dto.response.TripResponse;
 
 /**
  * @author Ricky
@@ -42,13 +42,27 @@ public class TripApi {
                 .post(ROOT_URL + "/pages");
     }
 
-    public static PageResponse<TripPageResponse> pages(String jwt, TripPageQuery pageQuery) {
+    public static PageResponse<TripResponse> pages(String jwt, TripPageQuery pageQuery) {
         return pagesRaw(jwt, pageQuery)
                 .then()
                 .statusCode(200)
                 .extract()
                 .as(new TypeRef<>() {
                 });
+    }
+
+    public static Response byIdRaw(String jwt, String tripId) {
+        return BaseApiTest.given(jwt)
+                .when()
+                .get(ROOT_URL + "/{tripId}", tripId);
+    }
+
+    public static TripResponse byId(String jwt, String tripId) {
+        return byIdRaw(jwt, tripId)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(TripResponse.class);
     }
 
 }

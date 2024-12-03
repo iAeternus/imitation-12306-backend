@@ -1,19 +1,14 @@
 package org.infinity.core.train.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
-import org.infinity.core.common.constants.I12306Constants;
-import org.infinity.core.common.model.page.PageFactory;
 import org.infinity.core.common.model.page.PageResponse;
-import org.infinity.core.common.utils.ValidationUtils;
-import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.train.infrastructure.factory.TripFactory;
 import org.infinity.core.train.infrastructure.repository.TripRepository;
 import org.infinity.core.train.model.TripStatusEnum;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
+import org.infinity.core.train.model.dto.response.TripResponse;
 import org.infinity.core.train.model.po.TripPO;
 import org.infinity.core.train.service.TripQueryService;
 import org.springframework.stereotype.Service;
@@ -41,7 +36,7 @@ public class TripQueryServiceImpl implements TripQueryService {
     private final RateLimiter rateLimiter;
 
     @Override
-    public PageResponse<TripPageResponse> pages(TripPageQuery pageQuery) {
+    public PageResponse<TripResponse> pages(TripPageQuery pageQuery) {
         rateLimiter.applyFor("Trip:pages", DEFAULT_QUERY_TPS);
 
         String trainId = pageQuery.getTrainId();
@@ -60,6 +55,14 @@ public class TripQueryServiceImpl implements TripQueryService {
                 .eq(nonNull(status), TripPO::getStatus, status)
                 .page(toPageDefaultSortByUpdateTime(pageQuery));
 
-        return toPageResponse(page, tripFactory::toTripPageResponse);
+        return toPageResponse(page, tripFactory::toTripResponse);
+    }
+
+    @Override
+    public TripResponse byId(String tripId) {
+        rateLimiter.applyFor("Trip:byId", DEFAULT_QUERY_TPS);
+
+        TripPO trip = tripRepository.cachedById(tripId);
+        return tripFactory.toTripResponse(trip);
     }
 }

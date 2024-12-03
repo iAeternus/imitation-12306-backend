@@ -2,7 +2,7 @@ package org.infinity.core.train.service;
 
 import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
+import org.infinity.core.train.model.dto.response.TripResponse;
 
 /**
  * @author Ricky
@@ -12,5 +12,7 @@ import org.infinity.core.train.model.dto.response.TripPageResponse;
  * @desc
  */
 public interface TripQueryService {
-    PageResponse<TripPageResponse> pages(TripPageQuery pageQuery);
+    PageResponse<TripResponse> pages(TripPageQuery pageQuery);
+
+    TripResponse byId(String tripId);
 }

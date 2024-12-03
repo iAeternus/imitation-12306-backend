@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.station.model.po.StationPO;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
+import org.infinity.core.train.model.dto.response.TripResponse;
 import org.infinity.core.train.model.po.TripPO;
 import org.springframework.stereotype.Component;
 
@@ -31,10 +31,10 @@ public class TripFactory {
         );
     }
 
-    public TripPageResponse toTripPageResponse(TripPO trip) {
+    public TripResponse toTripResponse(TripPO trip) {
         StationPO originalStation = stationRepository.cachedById(trip.getOriginStationId());
         StationPO terminalStation = stationRepository.cachedById(trip.getTerminalStationId());
-        return TripPageResponse.builder()
+        return TripResponse.builder()
                 .tripId(trip.getId())
                 .trainId(trip.getTrainId())
                 .originStationName(originalStation.getStationName())

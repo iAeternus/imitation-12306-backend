@@ -1,10 +1,7 @@
 package org.infinity.core.train.service;
 
-import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.train.model.dto.query.TripPageQuery;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
 
 /**
  * @author Ricky

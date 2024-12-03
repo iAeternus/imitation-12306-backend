@@ -1,7 +1,6 @@
 package org.infinity.core.train.infrastructure.repository;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
 import org.infinity.core.train.model.po.TripPO;
 
 /**

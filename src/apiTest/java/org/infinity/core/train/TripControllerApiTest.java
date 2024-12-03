@@ -1,12 +1,11 @@
 package org.infinity.core.train;
 
-import com.google.common.collect.ImmutableList;
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
+import org.infinity.core.train.model.dto.response.TripResponse;
 import org.infinity.core.train.model.po.TripPO;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.junit.jupiter.api.Test;
@@ -120,12 +119,30 @@ public class TripControllerApiTest extends BaseApiTest {
                 .build();
 
         // When
-        PageResponse<TripPageResponse> pageResponse = TripApi.pages(operator.getToken(), pageQuery);
+        PageResponse<TripResponse> pageResponse = TripApi.pages(operator.getToken(), pageQuery);
 
         // Then
-        List<String> tripIds = pageResponse.getRecords().stream().map(TripPageResponse::getTripId).collect(toImmutableList());
+        List<String> tripIds = pageResponse.getRecords().stream().map(TripResponse::getTripId).collect(toImmutableList());
 
         assertTrue(tripIds.contains(trip.getId()));
+    }
+
+    @Test
+    public void should_get_by_id() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        EnterTripBatchCommand command = EnterTripBatchCommand.builder()
+                .tripInfos(List.of(rTripInfo()))
+                .build();
+        EnterTripBatchResponse response = TripApi.enterTripBatch(operator.getToken(), command);
+        String tripId = response.getTripIds().get(0);
+
+        // When
+        TripResponse tripResponse = TripApi.byId(operator.getToken(), tripId);
+
+        // Given
+        assertEquals(tripId, tripResponse.getTripId());
     }
 
     private EnterTripBatchCommand.TripInfo rTripInfo(String trainId, String originStationId, String terminalStationId) {

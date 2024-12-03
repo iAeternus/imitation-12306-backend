@@ -6,7 +6,6 @@ import org.infinity.core.common.exception.MyException;
 import org.infinity.core.train.infrastructure.mapper.TripMapper;
 import org.infinity.core.train.infrastructure.repository.TripRepository;
 import org.infinity.core.train.infrastructure.repository.cache.MysqlTripCachedRepository;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
 import org.infinity.core.train.model.po.TripPO;
 import org.springframework.stereotype.Repository;
 

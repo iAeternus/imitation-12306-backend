@@ -5,10 +5,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.model.page.PageResponse;
+import org.infinity.core.common.validation.id.train.TrainId;
+import org.infinity.core.common.validation.id.trip.TripId;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.train.model.dto.response.TripPageResponse;
+import org.infinity.core.train.model.dto.response.TripResponse;
 import org.infinity.core.train.service.TripCommandService;
 import org.infinity.core.train.service.TripQueryService;
 import org.springframework.http.HttpStatus;
@@ -41,10 +43,14 @@ public class TripController {
 
     @PostMapping("/pages")
     @Operation(summary = "分页查询车次信息")
-    public PageResponse<TripPageResponse> pages(@RequestBody @Valid TripPageQuery pageQuery) {
+    public PageResponse<TripResponse> pages(@RequestBody @Valid TripPageQuery pageQuery) {
         return tripQueryService.pages(pageQuery);
     }
 
-    // TODO byId
+    @GetMapping("/{tripId}")
+    @Operation(summary = "根据ID查询车次信息")
+    public TripResponse byId(@PathVariable @TripId String tripId) {
+        return tripQueryService.byId(tripId);
+    }
 
 }
