@@ -1,15 +1,22 @@
 package org.infinity.core.train.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.infinity.common.event.EventProducer;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.train.infrastructure.factory.TripFactory;
 import org.infinity.core.train.infrastructure.repository.TrainRepository;
 import org.infinity.core.train.infrastructure.repository.TripRepository;
+import org.infinity.core.train.infrastructure.repository.TripStationRepository;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.train.model.dto.command.EnterTripStationsCommand;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
+import org.infinity.core.train.model.dto.response.EnterTripStationsResponse;
+import org.infinity.core.train.model.event.TripCreatedEvent;
+import org.infinity.core.train.model.event.TripStationsEnteredEvent;
 import org.infinity.core.train.model.po.TripPO;
+import org.infinity.core.train.model.po.TripStationPO;
 import org.infinity.core.train.service.TripCommandService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +25,8 @@ import java.util.List;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPS;
+import static org.infinity.core.common.constants.I12306EventIdConstants.TRIP_CREATED;
+import static org.infinity.core.common.constants.I12306EventIdConstants.TRIP_STATIONS_ENTERED;
 import static org.infinity.core.common.exception.ErrorCodeEnum.STATION_IDS_NOT_ALL_EXISTS;
 import static org.infinity.core.common.exception.ErrorCodeEnum.TRAIN_IDS_NOT_ALL_EXISTS;
 
@@ -35,8 +44,10 @@ public class TripCommandServiceImpl implements TripCommandService {
     private final TripRepository tripRepository;
     private final TrainRepository trainRepository;
     private final StationRepository stationRepository;
+    private final TripStationRepository tripStationRepository;
     private final TripFactory tripFactory;
     private final RateLimiter rateLimiter;
+    private final EventProducer eventProducer;
 
     @Override
     @Transactional
@@ -61,14 +72,40 @@ public class TripCommandServiceImpl implements TripCommandService {
             throw new MyException(STATION_IDS_NOT_ALL_EXISTS, "Terminal Station ids not all exists.");
         }
 
+        // 车次落库
         List<TripPO> trips = command.getTripInfos().stream()
                 .map(tripFactory::enterTripBatch)
                 .collect(toImmutableList());
 
         tripRepository.saveBatch(trips, trips.size());
 
+        // 初始化车次座位，将本列车的所有座位导入车次座位表
+        List<String> tripIds = trips.stream().map(TripPO::getId).collect(toImmutableList());
+        eventProducer.post(TRIP_CREATED, new TripCreatedEvent(tripIds));
+
         return EnterTripBatchResponse.builder()
                 .tripIds(trips.stream().map(TripPO::getId).collect(toImmutableList()))
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public EnterTripStationsResponse enterTripStations(EnterTripStationsCommand command) {
+        rateLimiter.applyFor("Trip:enterTripStations", DEFAULT_COMMAND_TPS);
+
+        List<TripStationPO> tripStations = command.getTripStationInfos().stream()
+                .map(tripStationInfo -> tripFactory.enterTripStations(command.getTripId(), tripStationInfo))
+                .collect(toImmutableList());
+
+        // 由于没有以图状结构存储高铁网络，无法校验两个站点之间是否存在路径
+
+        tripStationRepository.saveBatch(tripStations);
+
+        // 初始化座位区间占用标记
+        eventProducer.post(TRIP_STATIONS_ENTERED, new TripStationsEnteredEvent(command.getTripId(), command.getTripStationInfos().size()));
+
+        return EnterTripStationsResponse.builder()
+                .tripStationIds(tripStations.stream().map(TripStationPO::getId).collect(toImmutableList()))
                 .build();
     }
 

@@ -1,6 +1,6 @@
 package org.infinity.core.order.infrastructure.handler.seatallocate;
 
-import org.infinity.core.train.model.po.SeatPO;
+import org.infinity.core.train.model.po.TripSeatPO;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ public interface SeatAllocateStrategy {
     /**
      * 分配座位
      *
-     * @param seats              该车次所有座位的区间占用标记
+     * @param tripSeats          该车次的所有座位
      * @param sourceStationIndex 起点站ID
      * @param distStationIndex   目的地ID
      * @return 分配的座位
      */
-    SeatPO allocateSeat(List<SeatPO> seats, int sourceStationIndex, int distStationIndex);
+    TripSeatPO allocateSeat(List<TripSeatPO> tripSeats, int sourceStationIndex, int distStationIndex);
 
 }

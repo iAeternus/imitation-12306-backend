@@ -20,12 +20,15 @@ public interface I12306Constants {
     String TRIP_STATION_ID_PREFIX = "TPS";
     String STATION_ID_PREFIX = "STT";
     String ORDER_ID_PREFIX = "ORD";
+    String TRIP_SEAT_ID_PREFIX = "TST";
 
     String ORDER_CACHE = "ORDER";
     String USER_CACHE = "USER";
     String TRIP_CACHE = "TRIP";
     String TRAIN_CACHE = "TRAIN";
     String STATION_CACHE = "STATION";
+    String SEAT_CACHE = "SEAT";
+    String CARRIAGE_CACHE = "CARRIAGE";
 
     String AUTHORIZATION = "Authorization";
     String BEARER = "Bearer ";
@@ -37,6 +40,7 @@ public interface I12306Constants {
 
     int MAX_URL_LENGTH = 1024;
     int MAX_ENTER_LENGTH = 1024;
+    int MAX_CARRIAGE_COUNT = 18;
 
     int DEFAULT_PAGE_NO = 1;
     int DEFAULT_PAGE_SIZE = 20;

@@ -10,7 +10,7 @@ import lombok.Data;
  * @desc
  */
 @Data
-public class SomethingDeletedEvent {
+public class SomethingDeletedEvent implements Event {
 
     private String somethingId;
 

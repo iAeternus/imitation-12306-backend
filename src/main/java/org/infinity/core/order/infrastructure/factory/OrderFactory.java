@@ -18,14 +18,14 @@ import java.math.BigDecimal;
 @Component
 public class OrderFactory {
 
-    public OrderPO createByBuyTicketCommand(BuyTicketCommand command, BigDecimal price) {
+    public OrderPO createByBuyTicketCommand(BuyTicketCommand command, String seatId, BigDecimal price) {
         return OrderPO.builder()
                 .id(OrderPO.newOrderId())
                 .userId(command.getUserId())
                 .tripId(command.getTripId())
+                .seatId(seatId)
                 .originTripStationId(command.getSourceTripStationId())
                 .terminalTripStationId(command.getDistTripStationId())
-                .seatLevel(SeatLevelEnum.of(command.getSeatLevel()))
                 .price(price)
                 .status(OrderStatusEnum.TO_BE_PAID)
                 .build();

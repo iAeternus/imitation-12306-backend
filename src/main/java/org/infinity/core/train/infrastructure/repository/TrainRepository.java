@@ -16,4 +16,6 @@ public interface TrainRepository extends IService<TrainPO> {
     TrainPO cachedById(String trainId);
 
     boolean allIdsExist(List<String> trainIds);
+
+    boolean existsById(String trainId);
 }

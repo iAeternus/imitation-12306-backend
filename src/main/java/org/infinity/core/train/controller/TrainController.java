@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.infinity.core.train.model.dto.command.EnterCarriageCommand;
 import org.infinity.core.train.model.dto.command.EnterTrainBatchCommand;
+import org.infinity.core.train.model.dto.response.EnterCarriageResponse;
 import org.infinity.core.train.model.dto.response.EnterTrainBatchResponse;
 import org.infinity.core.train.service.TrainCommandService;
 import org.springframework.http.HttpStatus;
@@ -27,11 +29,18 @@ public class TrainController {
 
     private final TrainCommandService trainCommandService;
 
-    @PostMapping("/enter")
+    @PostMapping("/enter/train")
     @Operation(summary = "批量录入列车信息")
     @ResponseStatus(HttpStatus.CREATED)
     public EnterTrainBatchResponse enterTrainBatch(@RequestBody @Valid EnterTrainBatchCommand command) {
         return trainCommandService.enterTrainBatch(command);
+    }
+
+    @PostMapping("/enter/carriage")
+    @Operation(summary = "录入车厢信息")
+    @ResponseStatus(HttpStatus.CREATED)
+    public EnterCarriageResponse enterCarriages(@RequestBody @Valid EnterCarriageCommand command) {
+        return trainCommandService.enterCarriages(command);
     }
 
 }

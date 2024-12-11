@@ -42,6 +42,11 @@ public class OrderPO {
     private String tripId;
 
     /**
+     * 座位ID
+     */
+    private String seatId;
+
+    /**
      * 起点站车次站点ID
      */
     private String originTripStationId;
@@ -50,11 +55,6 @@ public class OrderPO {
      * 终点站车次站点ID
      */
     private String terminalTripStationId;
-
-    /**
-     * 座位等级
-     */
-    private SeatLevelEnum seatLevel;
 
     /**
      * 价格

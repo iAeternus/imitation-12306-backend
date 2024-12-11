@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 public @interface EventConsume {
 
     /**
-     * 事件标识
+     * 事件主题
      */
-    String identifier();
+    String topic();
 
 }

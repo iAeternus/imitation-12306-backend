@@ -1,7 +1,9 @@
 package org.infinity.core.train.service;
 
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.train.model.dto.command.EnterTripStationsCommand;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
+import org.infinity.core.train.model.dto.response.EnterTripStationsResponse;
 
 /**
  * @author Ricky
@@ -12,4 +14,6 @@ import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
  */
 public interface TripCommandService {
     EnterTripBatchResponse enterTripBatch(EnterTripBatchCommand command);
+
+    EnterTripStationsResponse enterTripStations(EnterTripStationsCommand command);
 }

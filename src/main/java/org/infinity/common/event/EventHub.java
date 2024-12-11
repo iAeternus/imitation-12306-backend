@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static org.infinity.common.taskexcutor.TaskExecutorConfiguration.consumeEventTaskExecutor;
 import static org.infinity.core.common.utils.ObjectUtils.defaultIfNull;
 import static org.infinity.core.common.utils.ValidationUtils.isBlank;
+import static org.infinity.core.common.utils.ValidationUtils.isNull;
 
 @Slf4j
 @Component
@@ -39,16 +40,16 @@ public class EventHub {
 
     private void register(EventHandler eventHandler) {
         EventConsume eventConsume = eventHandler.getClass().getAnnotation(EventConsume.class);
-        if (eventConsume == null || isBlank(eventConsume.identifier())) {
-            log.error("EventHandler[ {} ]没有配置 identifier ，注册失败", eventHandler.getClass().getSimpleName());
+        if (isNull(eventConsume) || isBlank(eventConsume.topic())) {
+            log.error("EventHandler[ {} ]没有配置 topic ，注册失败", eventHandler.getClass().getSimpleName());
             return;
         }
 
-        String identifier = eventConsume.identifier();
-        AsyncEventBus eventBus = eventBusMap.get(identifier);
-        if (eventBus == null) {
-            AsyncEventBus asyncEventBus = new AsyncEventBus(identifier, consumeEventTaskExecutor(identifier));
-            eventBus = defaultIfNull(eventBusMap.putIfAbsent(identifier, asyncEventBus), asyncEventBus);
+        String topic = eventConsume.topic();
+        AsyncEventBus eventBus = eventBusMap.get(topic);
+        if (isNull(eventBus)) {
+            AsyncEventBus asyncEventBus = new AsyncEventBus(topic, consumeEventTaskExecutor(topic));
+            eventBus = defaultIfNull(eventBusMap.putIfAbsent(topic, asyncEventBus), asyncEventBus);
         }
         eventBus.register(eventHandler);
     }
@@ -56,4 +57,5 @@ public class EventHub {
     public EventBus getEventBus(String identifier) {
         return eventBusMap.get(identifier);
     }
+
 }

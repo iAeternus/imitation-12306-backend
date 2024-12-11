@@ -8,8 +8,10 @@ import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.common.validation.id.train.TrainId;
 import org.infinity.core.common.validation.id.trip.TripId;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.train.model.dto.command.EnterTripStationsCommand;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
+import org.infinity.core.train.model.dto.response.EnterTripStationsResponse;
 import org.infinity.core.train.model.dto.response.TripResponse;
 import org.infinity.core.train.service.TripCommandService;
 import org.infinity.core.train.service.TripQueryService;
@@ -39,6 +41,13 @@ public class TripController {
     @ResponseStatus(HttpStatus.CREATED)
     public EnterTripBatchResponse enterTripBatch(@RequestBody @Valid EnterTripBatchCommand command) {
         return tripCommandService.enterTripBatch(command);
+    }
+
+    @PostMapping("/enter-trip-stations")
+    @Operation(summary = "补充车次的车次站点信息")
+    @ResponseStatus(HttpStatus.CREATED)
+    public EnterTripStationsResponse enterTripStations(@RequestBody @Valid EnterTripStationsCommand command) {
+        return tripCommandService.enterTripStations(command);
     }
 
     @PostMapping("/pages")

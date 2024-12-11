@@ -36,7 +36,7 @@ public class BuyTicketCommand implements Command {
     @NotNull
     @Min(value = 0)
     @Max(value = 2)
-    Integer seatLevel;
+    Short seatLevel;
 
     @NotBlank
     @TripStationId

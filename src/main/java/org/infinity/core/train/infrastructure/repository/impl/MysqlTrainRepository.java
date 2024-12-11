@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -38,6 +40,13 @@ public class MysqlTrainRepository extends ServiceImpl<TrainMapper, TrainPO> impl
      */
     @Override
     public boolean allIdsExist(List<String> trainIds) {
-        return trainIds.size() == lambdaQuery().in(TrainPO::getId, trainIds).count();
+        long trainCount = trainIds.stream().distinct().count();
+        long dbTrainCount = lambdaQuery().in(TrainPO::getId, trainIds).count();
+        return trainCount == dbTrainCount;
+    }
+
+    @Override
+    public boolean existsById(String trainId) {
+        return lambdaQuery().eq(TrainPO::getId, trainId).exists();
     }
 }

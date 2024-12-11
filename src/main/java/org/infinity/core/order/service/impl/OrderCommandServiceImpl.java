@@ -11,16 +11,12 @@ import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.P
 import org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateHandler;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
 import org.infinity.core.order.model.dto.command.BuyTicketCommand;
+import org.infinity.core.order.model.dto.response.BuyTicketResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.order.service.OrderCommandService;
-import org.infinity.core.train.infrastructure.repository.CarriageRepository;
-import org.infinity.core.train.infrastructure.repository.SeatRepository;
-import org.infinity.core.train.infrastructure.repository.TripRepository;
-import org.infinity.core.train.infrastructure.repository.TripStationRepository;
-import org.infinity.core.train.model.po.CarriagePO;
-import org.infinity.core.train.model.po.SeatPO;
-import org.infinity.core.train.model.po.TripPO;
-import org.infinity.core.train.model.po.TripStationPO;
+import org.infinity.core.train.infrastructure.repository.*;
+import org.infinity.core.train.model.CarriageLevelEnum;
+import org.infinity.core.train.model.po.*;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.model.po.UserPO;
 import org.springframework.stereotype.Service;
@@ -28,12 +24,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.collect.ImmutableSet.toImmutableSet;
+import static java.util.stream.Collectors.toMap;
 import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPS;
-import static org.infinity.core.common.exception.ErrorCodeEnum.LEFT_GREATER_THAN_RIGHT;
-import static org.infinity.core.common.exception.ErrorCodeEnum.TRIP_STATION_NOT_FOUND;
+import static org.infinity.core.common.exception.ErrorCodeEnum.*;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
+import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
+import static org.infinity.core.common.utils.ValidationUtils.isNull;
 import static org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateHandler.SeatAllocateStrategyEnum.LINEAR;
 
 /**
@@ -53,6 +56,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     private final SeatRepository seatRepository;
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
+    private final TripSeatRepository tripSeatRepository;
     private final RateLimiter rateLimiter;
     private final OrderFactory orderFactory;
     private final PriceCalculateHandler priceCalculateHandler;
@@ -61,7 +65,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
     @Override
     @Transactional
-    public void buyTicket(BuyTicketCommand command) {
+    public BuyTicketResponse buyTicket(BuyTicketCommand command) {
         rateLimiter.applyFor("Order:buyTicket", DEFAULT_COMMAND_TPS);
 
         // 座位分配
@@ -73,17 +77,26 @@ public class OrderCommandServiceImpl implements OrderCommandService {
             throw new MyException(LEFT_GREATER_THAN_RIGHT, "Interval is valid.",
                     mapOf("sourceStationId", sourceStationIndex, "distStationId", distStationIndex));
         }
-        List<CarriagePO> cars = carriageRepository.listByTrainId(trip.getTrainId());
-        List<SeatPO> seats = seatRepository.listByCarIds(cars.stream().map(CarriagePO::getId).toList());
-        SeatPO seat = handler.allocateSeat(seats, sourceStationIndex, distStationIndex);
-        seatRepository.updateById(seat);
+        List<TripSeatPO> tripSeats = tripSeatRepository.listByTripId(trip.getId());
+        List<TripSeatPO> filteredTripSeats = filterTripSeatsByLevel(tripSeats, CarriageLevelEnum.of(command.getSeatLevel()));
+        if (isEmpty(filteredTripSeats)) {
+            throw new MyException(NO_SUCH_SEAT, "There is no seat that satisfies the condition.",
+                    mapOf("sourceStationId", sourceStationIndex, "distStationId", distStationIndex, "seatLevel", command.getSeatLevel()));
+        }
+        TripSeatPO tripSeat = handler.allocateSeat(filteredTripSeats, sourceStationIndex, distStationIndex);
+        tripSeatRepository.updateById(tripSeat);
 
-        // 计算价格，订单落库
+        // 计算价格
         UserPO user = userRepository.cachedById(command.getUserId());
         BigDecimal price = priceCalculateHandler.calculatePrice(PriceContext.builder().tripStations(tripStations).build(),
                 PromotionContext.builder().role(user.getRole()).build());
-        OrderPO order = orderFactory.createByBuyTicketCommand(command, price);
+
+        // 订单落库
+        OrderPO order = orderFactory.createByBuyTicketCommand(command, tripSeat.getSeatId(), price);
         orderRepository.save(order);
+        return BuyTicketResponse.builder()
+                .orderId(order.getId())
+                .build();
     }
 
     private int findTripStationIndex(List<TripStationPO> tripStations, String tripStationId) {
@@ -92,5 +105,35 @@ public class OrderCommandServiceImpl implements OrderCommandService {
                 .findFirst()
                 .orElseThrow(() -> new MyException(TRIP_STATION_NOT_FOUND, "Trip Station not found.", mapOf("sourceStationId", tripStationId)));
     }
+
+    public List<TripSeatPO> filterTripSeatsByLevel(List<TripSeatPO> tripSeats, CarriageLevelEnum level) {
+        Set<String> seatIds = tripSeats.stream()
+                .map(TripSeatPO::getSeatId)
+                .collect(toImmutableSet());
+        Map<String, SeatPO> seatMap = seatRepository.listByIds(seatIds).stream()
+                .collect(toMap(SeatPO::getId, Function.identity()));
+
+        Set<String> carriageIds = seatMap.values().stream()
+                .map(SeatPO::getCarriageId)
+                .collect(toImmutableSet());
+        Map<String, CarriagePO> carriageMap = carriageRepository.listByIds(carriageIds)
+                .stream()
+                .collect(toMap(CarriagePO::getId, Function.identity()));
+
+        return tripSeats.stream()
+                .filter(tripSeat -> {
+                    SeatPO seat = seatMap.get(tripSeat.getSeatId());
+                    if (isNull(seat)) {
+                        return false;
+                    }
+                    CarriagePO carriage = carriageMap.get(seat.getCarriageId());
+                    if (isNull(carriage)) {
+                        return false;
+                    }
+                    return carriage.getLevel() == level;
+                })
+                .collect(toImmutableList());
+    }
+
 
 }

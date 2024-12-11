@@ -10,5 +10,7 @@ package org.infinity.core.common.constants;
 public interface I12306EventIdConstants {
 
     String ORDER_CREATED = "Order:Created";
+    String TRIP_CREATED = "Trip:Created";
+    String TRIP_STATIONS_ENTERED = "Trip:Entered";
 
 }

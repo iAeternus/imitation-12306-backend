@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.train.model.po.CarriagePO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ricky
@@ -14,4 +15,8 @@ import java.util.List;
  */
 public interface CarriageRepository extends IService<CarriagePO> {
     List<CarriagePO> listByTrainId(String trainId);
+
+    Map<String, List<CarriagePO>> listByTrainIds(List<String> trainIds);
+
+    CarriagePO cachedById(String id);
 }

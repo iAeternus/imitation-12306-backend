@@ -19,7 +19,7 @@ import static org.infinity.core.common.constants.I12306EventIdConstants.ORDER_CR
  */
 @Component
 @RequiredArgsConstructor
-@EventConsume(identifier = ORDER_CREATED)
+@EventConsume(topic = ORDER_CREATED)
 public class OrderCreatedEventHandler implements EventHandler<OrderCreatedEvent> {
 
     private final TaskExecutor taskExecutor;
@@ -27,8 +27,6 @@ public class OrderCreatedEventHandler implements EventHandler<OrderCreatedEvent>
 
     @Override
     public boolean handle(OrderCreatedEvent data) {
-        // TODO
-
         taskExecutor.execute(orderCreatedTask::run);
         taskExecutor.execute(orderCreatedTask::run);
         taskExecutor.execute(orderCreatedTask::run);

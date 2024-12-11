@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -25,6 +27,23 @@ public class ListUtils {
         HashSet<T> result = new HashSet<>(list1);
         result.removeAll(new HashSet<>(list2));
         return result;
+    }
+
+    public static <T> String listToString(List<T> list, String begin, String end, String separator) {
+        if(list == null || list.isEmpty()) {
+            return begin + end;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(begin + list.get(0));
+        for (int i = 1; i < list.size(); i++) {
+            stringBuilder.append(separator).append(list.get(i));
+        }
+        stringBuilder.append(end);
+        return stringBuilder.toString();
+    }
+
+    public static <T> String listToString(List<T> list) {
+        return listToString(list, "[", "]", ",");
     }
 
 }

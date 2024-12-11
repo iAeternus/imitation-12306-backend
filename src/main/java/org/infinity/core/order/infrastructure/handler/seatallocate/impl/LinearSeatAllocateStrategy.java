@@ -3,6 +3,7 @@ package org.infinity.core.order.infrastructure.handler.seatallocate.impl;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateStrategy;
 import org.infinity.core.train.model.po.SeatPO;
+import org.infinity.core.train.model.po.TripSeatPO;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ import static org.infinity.core.common.utils.MapUtils.mapOf;
  */
 public class LinearSeatAllocateStrategy implements SeatAllocateStrategy {
     @Override
-    public SeatPO allocateSeat(List<SeatPO> seats, int sourceStationIndex, int distStationIndex) {
-        SeatPO allocatedSeat = seats.stream()
+    public TripSeatPO allocateSeat(List<TripSeatPO> tripSeats, int sourceStationIndex, int distStationIndex) {
+        TripSeatPO allocatedSeat = tripSeats.stream()
                 .filter(seat -> seat.isSeatEffectiveDuringInterval(sourceStationIndex, distStationIndex))
                 .findFirst()
                 .orElseThrow(() -> new MyException(NO_SUCH_SEAT, "There is no seat that satisfies the condition.",

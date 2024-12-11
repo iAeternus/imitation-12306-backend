@@ -10,6 +10,8 @@ import org.infinity.core.train.model.po.CarriagePO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
@@ -26,15 +28,31 @@ import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
 @RequiredArgsConstructor
 public class MysqlCarriageRepository extends ServiceImpl<CarriageMapper, CarriagePO> implements CarriageRepository {
 
-    private final MysqlCarriageCachedRepository carCachedRepository;
+    private final MysqlCarriageCachedRepository carriageCachedRepository;
 
     @Override
     public List<CarriagePO> listByTrainId(String trainId) {
-        List<CarriagePO> cars = lambdaQuery().eq(CarriagePO::getTrainId, trainId).list();
-        if (isEmpty(cars)) {
+        List<CarriagePO> carriages = lambdaQuery().eq(CarriagePO::getTrainId, trainId).list();
+        if (isEmpty(carriages)) {
             throw new MyException(EMPTY_COLLECTION, "The train with train ID [" + trainId + "] has an empty carriage list",
                     mapOf("trainId", trainId));
         }
-        return cars;
+        return carriages;
+    }
+
+    @Override
+    public Map<String, List<CarriagePO>> listByTrainIds(List<String> trainIds) {
+        List<CarriagePO> carriages = lambdaQuery().in(CarriagePO::getTrainId, trainIds).list();
+        if (isEmpty(carriages)) {
+            String trainIdsStr = String.join(", ", trainIds);
+            throw new MyException(EMPTY_COLLECTION, "The train in [" + trainIdsStr + "] has an empty carriage list",
+                    mapOf("trainIds", trainIdsStr));
+        }
+        return carriages.stream().collect(Collectors.groupingBy(CarriagePO::getTrainId));
+    }
+
+    @Override
+    public CarriagePO cachedById(String id) {
+        return carriageCachedRepository.cachedById(id);
     }
 }

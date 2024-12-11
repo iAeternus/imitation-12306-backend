@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.order.model.dto.command.BuyTicketCommand;
+import org.infinity.core.order.model.dto.response.BuyTicketResponse;
 import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.order.service.OrderQueryService;
 import org.springframework.validation.annotation.Validated;
@@ -32,8 +33,8 @@ public class OrderController {
 
     @PostMapping("/buy")
     @Operation(summary = "购票")
-    public void buyTicket(@RequestBody @Valid BuyTicketCommand command) {
-        orderCommandService.buyTicket(command);
+    public BuyTicketResponse buyTicket(@RequestBody @Valid BuyTicketCommand command) {
+        return orderCommandService.buyTicket(command);
     }
 
 }

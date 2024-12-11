@@ -5,8 +5,10 @@ import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.train.model.dto.command.EnterTripStationsCommand;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
+import org.infinity.core.train.model.dto.response.EnterTripStationsResponse;
 import org.infinity.core.train.model.dto.response.TripResponse;
 
 /**
@@ -33,6 +35,22 @@ public class TripApi {
                 .statusCode(201)
                 .extract()
                 .as(EnterTripBatchResponse.class);
+    }
+
+    public static Response enterTripStationsRaw(String jwt, EnterTripStationsCommand command) {
+        return BaseApiTest.given(jwt)
+                .body(command)
+                .when()
+                .post(ROOT_URL + "/enter-trip-stations");
+    }
+
+    // TODO Api Test
+    public static EnterTripStationsResponse enterTripStations(String jwt, EnterTripStationsCommand command) {
+        return enterTripStationsRaw(jwt, command)
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(EnterTripStationsResponse.class);
     }
 
     public static Response pagesRaw(String jwt, TripPageQuery pageQuery) {

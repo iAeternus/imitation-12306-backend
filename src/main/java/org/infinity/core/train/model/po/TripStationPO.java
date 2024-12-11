@@ -16,7 +16,7 @@ import static org.infinity.core.common.constants.I12306Constants.TRIP_STATION_ID
  * @version 1.0
  * @date 2024/11/12
  * @className TripStationPO
- * @desc
+ * @desc 车次站点信息，常作为List的元素，此时为闭区间
  */
 @Data
 @TableName("trip_station")
@@ -33,7 +33,20 @@ public class TripStationPO {
      */
     private String tripId;
 
-    // TODO add here...
+    /**
+     * 站点ID
+     */
+    private String stationId;
+
+    /**
+     * 到点（开点 = 到点 + 停留时间）
+     */
+    private LocalDateTime arrivalAt;
+
+    /**
+     * 停留时间（单位 分钟）
+     */
+    private Integer retentionTime;
 
     /**
      * 站点顺序
@@ -44,6 +57,15 @@ public class TripStationPO {
     private LocalDateTime createAt;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
+
+    public TripStationPO(String tripId, String stationId, LocalDateTime arrivalAt, Integer retentionTime, Integer order) {
+        this.id = newTripStationId();
+        this.tripId = tripId;
+        this.stationId = stationId;
+        this.arrivalAt = arrivalAt;
+        this.retentionTime = retentionTime;
+        this.order = order;
+    }
 
     public static String newTripStationId() {
         return TRIP_STATION_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();

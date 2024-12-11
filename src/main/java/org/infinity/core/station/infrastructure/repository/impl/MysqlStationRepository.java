@@ -38,6 +38,8 @@ public class MysqlStationRepository extends ServiceImpl<StationMapper, StationPO
 
     @Override
     public boolean allIdsExist(List<String> stationIds) {
-        return stationIds.size() == lambdaQuery().in(StationPO::getId, stationIds).count();
+        long stationCount = stationIds.stream().distinct().count();
+        long dbStationCount = lambdaQuery().in(StationPO::getId, stationIds).count();
+        return stationCount == dbStationCount;
     }
 }

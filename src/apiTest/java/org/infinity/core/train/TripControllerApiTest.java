@@ -1,12 +1,16 @@
 package org.infinity.core.train;
 
+import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.train.model.dto.command.EnterTripStationsCommand;
 import org.infinity.core.train.model.dto.query.TripPageQuery;
 import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
+import org.infinity.core.train.model.dto.response.EnterTripStationsResponse;
 import org.infinity.core.train.model.dto.response.TripResponse;
 import org.infinity.core.train.model.po.TripPO;
+import org.infinity.core.train.model.po.TripStationPO;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.junit.jupiter.api.Test;
 
@@ -102,6 +106,33 @@ public class TripControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    public void should_enter_trip_stations() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        String tripId = TripApi.enterTripBatch(operator.getToken(), EnterTripBatchCommand.builder()
+                .tripInfos(List.of(rTripInfo()))
+                .build()).getTripIds().get(0);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        EnterTripStationsCommand command = EnterTripStationsCommand.builder()
+                .tripId(tripId)
+                .tripStationInfos(List.of(rTripStationInfo(now, 1), rTripStationInfo(now.plusHours(5), 2)))
+                .build();
+
+        // When
+        EnterTripStationsResponse response = TripApi.enterTripStations(operator.getToken(), command);
+
+        // Then
+        assertEquals(2, response.getTripStationIds().size());
+
+        TripStationPO tripStation1 = tripStationRepository.getById(response.getTripStationIds().get(0));
+        TripStationPO tripStation2 = tripStationRepository.getById(response.getTripStationIds().get(1));
+        assertTrue(tripStation1.getOrder() < tripStation2.getOrder());
+    }
+
+    @Test
     public void should_page_trips() {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
@@ -166,6 +197,15 @@ public class TripControllerApiTest extends BaseApiTest {
 
     private EnterTripBatchCommand.TripInfo rTripInfo(String originStationId, String terminalStationId) {
         return rTripInfo(randQueryOne(trainRepository).getId(), originStationId, terminalStationId);
+    }
+
+    private EnterTripStationsCommand.TripStationInfo rTripStationInfo(LocalDateTime now, int order) {
+        return EnterTripStationsCommand.TripStationInfo.builder()
+                .stationId(randQueryOne(stationRepository).getId())
+                .arrivalAt(now)
+                .retentionTime(10)
+                .order(order)
+                .build();
     }
 
 }

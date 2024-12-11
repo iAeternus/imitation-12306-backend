@@ -9,8 +9,6 @@ import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.train.model.SeatLetterEnum;
 
 import java.time.LocalDateTime;
-import java.util.BitSet;
-import java.util.stream.IntStream;
 
 import static org.infinity.core.common.constants.I12306Constants.SEAT_ID_PREFIX;
 
@@ -20,7 +18,6 @@ import static org.infinity.core.common.constants.I12306Constants.SEAT_ID_PREFIX;
  * @date 2024/11/12
  * @className SeatPO
  * @desc 座位
- * @see <a href="https://zhuanlan.zhihu.com/p/266329767">使用类BitMap方式实现12306余票分配设计思路与基本算法</a>
  */
 @Data
 @TableName("seat")
@@ -33,42 +30,38 @@ public class SeatPO {
     private String id;
 
     /**
-     * 座位所在编组号
+     * 座位所在车厢号
      */
-    private String carId;
+    private String carriageId;
+
+    /**
+     * 排数
+     */
+    private Integer rowNumber;
 
     /**
      * 座位字母
      */
     private SeatLetterEnum letter;
 
-    /**
-     * 区间占用标记
-     * true=可用 false=不可用
-     */
-    private BitSet occupiedIntervalFlag;
-
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
 
+    public SeatPO(String carriageId, Integer rowNumber, SeatLetterEnum letter) {
+        this.id = newSeatId();
+        this.carriageId = carriageId;
+        this.rowNumber = rowNumber;
+        this.letter = letter;
+    }
+
     public static String newSeatId() {
         return SEAT_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
-    /**
-     * 判断请求区间是否可用
-     */
-    public boolean isSeatEffectiveDuringInterval(int sourceStationId, int distStationId) {
-        return IntStream.range(sourceStationId, distStationId).allMatch(i -> occupiedIntervalFlag.get(i));
-    }
-
-    /**
-     * 修改区间为不可用
-     */
-    public void occupyInterval(int sourceStationId, int distStationId) {
-        IntStream.range(sourceStationId, distStationId).forEach(i -> occupiedIntervalFlag.set(i));
+    public String getSeatNumber() {
+        return String.format("%02d", rowNumber) + letter.name();
     }
 
 }

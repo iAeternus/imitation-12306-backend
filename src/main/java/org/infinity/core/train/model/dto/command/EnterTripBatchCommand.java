@@ -1,5 +1,6 @@
 package org.infinity.core.train.model.dto.command;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -52,6 +53,7 @@ public class EnterTripBatchCommand implements Command {
         String originStationId;
 
         @NotNull
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime startAt;
 
         @NotBlank
@@ -59,6 +61,7 @@ public class EnterTripBatchCommand implements Command {
         String terminalStationId;
 
         @NotNull
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime endAt;
 
         public void correctAndValidate() {
@@ -75,4 +78,5 @@ public class EnterTripBatchCommand implements Command {
         Command.super.correctAndValidate();
         tripInfos.forEach(TripInfo::correctAndValidate);
     }
+
 }

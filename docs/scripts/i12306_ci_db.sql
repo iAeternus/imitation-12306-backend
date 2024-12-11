@@ -1,7 +1,7 @@
-drop schema if exists i12306_ci_db;
-create schema i12306_ci_db;
+DROP SCHEMA IF EXISTS i12306_ci_db;
+CREATE SCHEMA i12306_ci_db;
 
-use i12306_ci_db;
+USE i12306_ci_db;
 
 DROP TABLE IF EXISTS `carriage`;
 CREATE TABLE `carriage`
@@ -41,7 +41,6 @@ CREATE TABLE `order`
     `seat_id`                  varchar(24)    NOT NULL COMMENT '座位ID',
     `origin_trip_station_id`   varchar(24)    NOT NULL COMMENT '起点站车次站点ID',
     `terminal_trip_station_id` varchar(24)    NOT NULL COMMENT '终点站车次站点ID',
-    `seat_level`               tinyint        NOT NULL COMMENT '座位等级',
     `price`                    decimal(10, 2) NOT NULL COMMENT '价格',
     `status`                   tinyint        NOT NULL COMMENT '状态（待支付，已支付，已上车，已出站）',
     `create_at`                datetime       NOT NULL,
@@ -54,16 +53,30 @@ CREATE TABLE `order`
 DROP TABLE IF EXISTS `seat`;
 CREATE TABLE `seat`
 (
+    `id`          varchar(24) NOT NULL,
+    `carriage_id` varchar(24) NOT NULL COMMENT '车厢ID',
+    `row_number`  int         NOT NULL COMMENT '排数',
+    `letter`      char(1)     NOT NULL COMMENT '座位字母',
+    `create_at`   datetime    NOT NULL,
+    `update_at`   datetime    NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci COMMENT ='座位表';
+
+DROP TABLE IF EXISTS `trip_seat`;
+CREATE TABLE `trip_seat`
+(
     `id`                     varchar(24) NOT NULL,
-    `carriage_id`            varchar(24) NOT NULL COMMENT '车厢ID',
-    `letter`                 char(1)     NOT NULL COMMENT '座位字母',
-    `occupied_interval_flag` bit(64)     NOT NULL COMMENT '区间占用标记',
+    `trip_id`                varchar(24) NOT NULL COMMENT '车次ID',
+    `seat_id`                varchar(24) NOT NULL COMMENT '座位ID',
+    `occupied_interval_flag` bit(64) DEFAULT NULL COMMENT '区间占用标记',
     `create_at`              datetime    NOT NULL,
     `update_at`              datetime    NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci COMMENT ='座位表';
+  COLLATE = utf8mb4_0900_ai_ci COMMENT ='车次座位表';
 
 CREATE TABLE `station`
 (

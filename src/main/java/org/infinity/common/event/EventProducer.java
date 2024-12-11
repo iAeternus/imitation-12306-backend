@@ -12,10 +12,10 @@ public class EventProducer {
     @Resource
     private EventHub eventHub;
 
-    public <T> void post(String identifier, T data) {
-        EventBus eventBus = eventHub.getEventBus(identifier);
+    public <T> void post(String topic, T data) {
+        EventBus eventBus = eventHub.getEventBus(topic);
         if (eventBus == null) {
-            log.error("identifier [ {} ] 没有事件监听者", identifier);
+            log.error("topic [ {} ] 没有事件监听者", topic);
             return;
         }
         eventBus.post(data);

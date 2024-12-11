@@ -1,6 +1,7 @@
 package org.infinity.core.order.model.event;
 
 import lombok.Data;
+import org.infinity.common.event.Event;
 
 /**
  * @author Ricky
@@ -10,7 +11,7 @@ import lombok.Data;
  * @desc
  */
 @Data
-public class OrderCreatedEvent {
+public class OrderCreatedEvent implements Event {
 
     // TODO..
 

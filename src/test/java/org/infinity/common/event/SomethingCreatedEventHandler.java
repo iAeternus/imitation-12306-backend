@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @desc
  */
 @Component
-@EventConsume(identifier = "EVT001")
+@EventConsume(topic = "EVT001")
 public class SomethingCreatedEventHandler implements EventHandler<SomethingCreatedEvent> {
     @Override
     public boolean handle(SomethingCreatedEvent data) {
