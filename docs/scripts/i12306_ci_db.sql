@@ -55,7 +55,7 @@ CREATE TABLE `seat`
 (
     `id`          varchar(24) NOT NULL,
     `carriage_id` varchar(24) NOT NULL COMMENT '车厢ID',
-    `row_number`  int         NOT NULL COMMENT '排数',
+    `ith_row`     int         NOT NULL COMMENT '排数',
     `letter`      char(1)     NOT NULL COMMENT '座位字母',
     `create_at`   datetime    NOT NULL,
     `update_at`   datetime    NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE `trip_station`
     `station_id`     varchar(24) NOT NULL COMMENT '站点ID',
     `arrival_at`     datetime    NOT NULL COMMENT '到点（开点 = 到点 + 停留时间）',
     `retention_time` int         NOT NULL COMMENT '停留时间（单位 分钟）',
-    `order`          int         NOT NULL COMMENT '顺序',
+    `order_num`      int         NOT NULL COMMENT '顺序',
     `create_at`      datetime    NOT NULL,
     `update_at`      datetime    NOT NULL,
     PRIMARY KEY (`id`)

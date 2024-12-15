@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.train.model.SeatLetterEnum;
 
@@ -20,6 +21,7 @@ import static org.infinity.core.common.constants.I12306Constants.SEAT_ID_PREFIX;
  * @desc 座位
  */
 @Data
+@NoArgsConstructor
 @TableName("seat")
 public class SeatPO {
 
@@ -32,27 +34,30 @@ public class SeatPO {
     /**
      * 座位所在车厢号
      */
+    @TableField
     private String carriageId;
 
     /**
      * 排数
      */
-    private Integer rowNumber;
+    @TableField
+    private Integer ithRow;
 
     /**
      * 座位字母
      */
-    private SeatLetterEnum letter;
+    @TableField
+    private Character letter;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
 
-    public SeatPO(String carriageId, Integer rowNumber, SeatLetterEnum letter) {
+    public SeatPO(String carriageId, Integer ithRow, Character letter) {
         this.id = newSeatId();
         this.carriageId = carriageId;
-        this.rowNumber = rowNumber;
+        this.ithRow = ithRow;
         this.letter = letter;
     }
 
@@ -61,7 +66,7 @@ public class SeatPO {
     }
 
     public String getSeatNumber() {
-        return String.format("%02d", rowNumber) + letter.name();
+        return String.format("%02d", ithRow) + letter;
     }
 
 }

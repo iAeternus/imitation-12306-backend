@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import static org.infinity.core.common.constants.I12306Constants.TRIP_STATION_ID
  * @desc 车次站点信息，常作为List的元素，此时为闭区间
  */
 @Data
+@NoArgsConstructor
 @TableName("trip_station")
 public class TripStationPO {
 
@@ -51,20 +53,20 @@ public class TripStationPO {
     /**
      * 站点顺序
      */
-    private Integer order;
+    private Integer orderNum;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
 
-    public TripStationPO(String tripId, String stationId, LocalDateTime arrivalAt, Integer retentionTime, Integer order) {
+    public TripStationPO(String tripId, String stationId, LocalDateTime arrivalAt, Integer retentionTime, Integer orderNum) {
         this.id = newTripStationId();
         this.tripId = tripId;
         this.stationId = stationId;
         this.arrivalAt = arrivalAt;
         this.retentionTime = retentionTime;
-        this.order = order;
+        this.orderNum = orderNum;
     }
 
     public static String newTripStationId() {

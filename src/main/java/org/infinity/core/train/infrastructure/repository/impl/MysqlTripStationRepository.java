@@ -32,7 +32,7 @@ public class MysqlTripStationRepository extends ServiceImpl<TripStationMapper, T
     public List<TripStationPO> listByTripId(String tripId) {
         List<TripStationPO> tripStations = lambdaQuery()
                 .eq(TripStationPO::getTripId, tripId)
-                .orderBy(true, true, TripStationPO::getOrder)
+                .orderBy(true, true, TripStationPO::getOrderNum)
                 .list();
         if (isEmpty(tripStations)) {
             throw new MyException(EMPTY_COLLECTION, "The trip with trip ID [" + tripId + "] has an empty trip_station list",

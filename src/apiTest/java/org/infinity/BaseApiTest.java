@@ -19,9 +19,7 @@ import org.infinity.core.common.exception.QErrorResponse;
 import org.infinity.core.common.utils.MyObjectMapper;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
-import org.infinity.core.train.infrastructure.repository.TrainRepository;
-import org.infinity.core.train.infrastructure.repository.TripRepository;
-import org.infinity.core.train.infrastructure.repository.TripStationRepository;
+import org.infinity.core.train.infrastructure.repository.*;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.utils.SetupApi;
 import org.junit.jupiter.api.AfterEach;
@@ -89,6 +87,12 @@ public class BaseApiTest {
 
     @Autowired
     protected TripStationRepository tripStationRepository;
+
+    @Autowired
+    protected CarriageRepository carriageRepository;
+
+    @Autowired
+    protected SeatRepository seatRepository;
 
     // TODO add repository here...
 

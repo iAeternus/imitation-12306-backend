@@ -26,7 +26,7 @@ public class TracingService {
      *
      * @return 当前线程的追踪ID，如果没有则为null。
      */
-    public String currentTrackId() {
+    public String currentTraceId() {
         Span span = tracer.currentSpan();
         return span != null ? span.context().traceId() : null;
     }

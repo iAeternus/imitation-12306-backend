@@ -1,4 +1,4 @@
-package org.infinity.core.train;
+package org.infinity.core.trip;
 
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;

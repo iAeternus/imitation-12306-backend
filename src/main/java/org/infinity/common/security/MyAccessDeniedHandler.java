@@ -40,7 +40,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
         response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(CharEncoding.UTF_8);
 
-        String traceId = tracingService.currentTrackId();
+        String traceId = tracingService.currentTraceId();
         MyError myError = new MyError(ACCESS_DENIED, 403, "Access denied.", request.getRequestURI(), traceId, null);
         PrintWriter writer = response.getWriter();
         writer.print(objectMapper.writeValueAsString(myError.toErrorResponse()));

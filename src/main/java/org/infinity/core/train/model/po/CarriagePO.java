@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.train.model.CarriageLevelEnum;
@@ -22,6 +23,7 @@ import static org.infinity.core.common.constants.I12306Constants.CARRIAGE_ID_PRE
  * @desc 车厢
  */
 @Data
+@NoArgsConstructor
 @TableName("carriage")
 public class CarriagePO {
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.common.utils.ValidationUtils;
 
@@ -23,6 +24,7 @@ import static org.infinity.core.common.utils.ValidationUtils.isNull;
  * @see <a href="https://zhuanlan.zhihu.com/p/266329767">使用类BitMap方式实现12306余票分配设计思路与基本算法</a>
  */
 @Data
+@NoArgsConstructor
 @TableName("trip_seat")
 public class TripSeatPO {
 

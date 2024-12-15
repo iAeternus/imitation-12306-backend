@@ -59,7 +59,7 @@ public class TrainCommandServiceImpl implements TrainCommandService {
     public EnterTrainBatchResponse enterTrainBatch(EnterTrainBatchCommand command) {
         rateLimiter.applyFor("Train:enterTrainBatch", DEFAULT_COMMAND_TPS);
 
-        ImmutableList<TrainPO> trains = command.getTrainInfos().stream()
+        List<TrainPO> trains = command.getTrainInfos().stream()
                 .map(trainFactory::enterTrainBatch)
                 .collect(toImmutableList());
 
@@ -99,7 +99,7 @@ public class TrainCommandServiceImpl implements TrainCommandService {
         carriageRepository.saveBatch(carriages);
 
         // 批量生成座位
-        List<SeatPO> seats = IntStream.range(1, carriageCount + 1)
+        List<SeatPO> seats = IntStream.range(0, carriageCount)
                 .mapToObj(idx -> {
                     Integer capacity = command.getCapacities().get(idx);
                     CarriagePO carriage = carriages.get(idx);

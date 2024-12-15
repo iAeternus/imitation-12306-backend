@@ -80,7 +80,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 response.setStatus(status);
                 response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
                 response.setCharacterEncoding(CharEncoding.UTF_8);
-                String trackId = tracingService.currentTrackId();
+                String trackId = tracingService.currentTraceId();
                 MyError myError = new MyError(ex.getCode(), status, ex.getUserMessage(), request.getRequestURI(), trackId, null);
 
                 PrintWriter writer = response.getWriter();

@@ -37,7 +37,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(401);
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(UTF_8);
-        String traceId = tracingService.currentTrackId();
+        String traceId = tracingService.currentTraceId();
         MyError myError = new MyError(AUTHENTICATION_FAILED, 401, "Authentication failed.", request.getRequestURI(), traceId, null);
 
         PrintWriter writer = response.getWriter();

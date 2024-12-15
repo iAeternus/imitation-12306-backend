@@ -25,23 +25,23 @@ public enum SeatLetterEnum {
         this.letter = letter;
     }
 
-    public static SeatLetterEnum firstClassOf(int col) {
+    public static char firstClassOf(int col) {
         return switch (col) {
-            case 1 -> A;
-            case 2 -> C;
-            case 3 -> D;
-            case 4 -> F;
+            case 1 -> 'A';
+            case 2 -> 'C';
+            case 3 -> 'D';
+            case 4 -> 'F';
             default -> throw new IllegalStateException("Unexpected value: " + col);
         };
     }
 
-    public static SeatLetterEnum secondClassOf(int col) {
+    public static char secondClassOf(int col) {
         return switch (col) {
-            case 1 -> A;
-            case 2 -> B;
-            case 3 -> C;
-            case 4 -> D;
-            case 5 -> F;
+            case 1 -> 'A';
+            case 2 -> 'B';
+            case 3 -> 'C';
+            case 4 -> 'D';
+            case 5 -> 'F';
             default -> throw new IllegalStateException("Unexpected value: " + col);
         };
     }

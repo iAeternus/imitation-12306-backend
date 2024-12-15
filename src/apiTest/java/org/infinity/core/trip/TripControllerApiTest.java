@@ -1,6 +1,5 @@
-package org.infinity.core.train;
+package org.infinity.core.trip;
 
-import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
@@ -129,7 +128,7 @@ public class TripControllerApiTest extends BaseApiTest {
 
         TripStationPO tripStation1 = tripStationRepository.getById(response.getTripStationIds().get(0));
         TripStationPO tripStation2 = tripStationRepository.getById(response.getTripStationIds().get(1));
-        assertTrue(tripStation1.getOrder() < tripStation2.getOrder());
+        assertTrue(tripStation1.getOrderNum() < tripStation2.getOrderNum());
     }
 
     @Test

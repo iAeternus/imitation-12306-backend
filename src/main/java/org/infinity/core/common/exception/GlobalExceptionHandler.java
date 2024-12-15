@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<?> handleGeneralException(Throwable ex, HttpServletRequest request) {
         String path = request.getRequestURI();
-        String traceId = tracingService.currentTrackId();
+        String traceId = tracingService.currentTraceId();
 
         log.error("Error access[{}]:", path, ex);
         MyError myError = new MyError(SYSTEM_ERROR, SYSTEM_ERROR.getStatus(), "系统错误。", path, traceId, null);
@@ -92,7 +92,7 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<QErrorResponse> createErrorResponse(MyException exception, String path) {
-        String traceId = tracingService.currentTrackId();
+        String traceId = tracingService.currentTraceId();
         MyError myError = new MyError(exception, path, traceId);
         QErrorResponse representation = myError.toErrorResponse();
         return new ResponseEntity<>(representation, new HttpHeaders(), valueOf(representation.getError().getStatus()));
