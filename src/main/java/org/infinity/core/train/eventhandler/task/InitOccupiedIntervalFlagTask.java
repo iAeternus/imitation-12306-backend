@@ -1,6 +1,7 @@
 package org.infinity.core.train.eventhandler.task;
 
 import lombok.RequiredArgsConstructor;
+import org.infinity.core.common.model.intervalset.LongIntervalSeatHandler;
 import org.infinity.core.common.model.task.OnetimeTask;
 import org.infinity.core.train.infrastructure.repository.TripSeatRepository;
 import org.infinity.core.train.model.po.TripSeatPO;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static org.infinity.core.common.model.intervalset.LongIntervalSeatHandler.initOccupiedInterval;
 
 /**
  * @author Ricky
@@ -17,6 +20,7 @@ import java.util.List;
  * @desc
  */
 @Component
+@Deprecated
 @RequiredArgsConstructor
 public class InitOccupiedIntervalFlagTask implements OnetimeTask {
 
@@ -24,9 +28,7 @@ public class InitOccupiedIntervalFlagTask implements OnetimeTask {
 
     @Transactional
     public void run(String tripId, Integer stationCount) {
-        List<TripSeatPO> tripSeats = tripSeatRepository.listByTripId(tripId);
-        tripSeats.forEach(tripSeat -> tripSeat.initOccupiedIntervalFlag(stationCount));
-        tripSeatRepository.updateBatchById(tripSeats);
+
     }
 
 }

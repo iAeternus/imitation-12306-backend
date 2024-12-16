@@ -14,4 +14,7 @@ import java.util.List;
  */
 public interface TripSeatRepository extends IService<TripSeatPO> {
     List<TripSeatPO> listByTripId(String tripId);
+
+    void insertBatch(List<TripSeatPO> tripSeats);
+
 }

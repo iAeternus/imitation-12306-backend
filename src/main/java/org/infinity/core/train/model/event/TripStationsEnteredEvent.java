@@ -11,6 +11,7 @@ import org.infinity.common.event.Event;
  * @desc
  */
 @Data
+@Deprecated
 public class TripStationsEnteredEvent implements Event {
 
     private String tripId;

@@ -1,6 +1,7 @@
 package org.infinity.core.train.eventhandler.task;
 
 import lombok.RequiredArgsConstructor;
+import org.infinity.core.common.model.intervalset.LongIntervalSeatHandler;
 import org.infinity.core.common.model.task.OnetimeTask;
 import org.infinity.core.train.infrastructure.repository.CarriageRepository;
 import org.infinity.core.train.infrastructure.repository.SeatRepository;
@@ -35,7 +36,6 @@ public class InitTripSeatTask implements OnetimeTask {
     private final SeatRepository seatRepository;
     private final TripSeatRepository tripSeatRepository;
 
-    @Transactional
     public void run(List<String> tripIds) {
         List<TripPO> trips = tripRepository.listByIds(tripIds);
         List<String> trainIds = trips.stream().map(TripPO::getTrainId).collect(toImmutableList());
@@ -50,7 +50,7 @@ public class InitTripSeatTask implements OnetimeTask {
                 .flatMap(trip -> trainSeats.get(trip.getTrainId()).stream()
                         .map(seat -> new TripSeatPO(trip.getId(), seat.getId())))
                 .collect(toImmutableList());
-        tripSeatRepository.saveBatch(tripSeats);
+        tripSeatRepository.insertBatch(tripSeats);
     }
 
 }

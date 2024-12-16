@@ -34,19 +34,16 @@ public class SeatPO {
     /**
      * 座位所在车厢号
      */
-    @TableField
     private String carriageId;
 
     /**
      * 排数
      */
-    @TableField
     private Integer ithRow;
 
     /**
      * 座位字母
      */
-    @TableField
     private Character letter;
 
     @TableField(fill = FieldFill.INSERT)

@@ -18,6 +18,7 @@ import static org.infinity.core.common.constants.I12306EventIdConstants.TRIP_STA
  * @desc
  */
 @Component
+@Deprecated
 @RequiredArgsConstructor
 @EventConsume(topic = TRIP_STATIONS_ENTERED)
 public class TripStationsEnteredEventHandler implements EventHandler<TripStationsEnteredEvent> {

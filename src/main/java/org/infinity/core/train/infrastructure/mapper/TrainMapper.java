@@ -16,5 +16,5 @@ import java.util.List;
  */
 @Mapper
 public interface TrainMapper extends BaseMapper<TrainPO> {
-    // boolean allIdsExist(@Param("trainIds") List<String> trainIds);
+
 }

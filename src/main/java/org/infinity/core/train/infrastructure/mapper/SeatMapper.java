@@ -16,6 +16,4 @@ import java.util.List;
 @Mapper
 public interface SeatMapper extends BaseMapper<SeatPO> {
 
-    List<SeatPO> listAllByCarriageId(List<String> carriageIds);
-
 }

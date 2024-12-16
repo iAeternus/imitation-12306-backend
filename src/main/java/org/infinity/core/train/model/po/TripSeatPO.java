@@ -2,18 +2,15 @@ package org.infinity.core.train.model.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
-import org.infinity.core.common.utils.ValidationUtils;
 
 import java.time.LocalDateTime;
-import java.util.BitSet;
-import java.util.stream.IntStream;
 
 import static org.infinity.core.common.constants.I12306Constants.TRIP_SEAT_ID_PREFIX;
-import static org.infinity.core.common.utils.ValidationUtils.isNull;
 
 /**
  * @author Ricky
@@ -31,6 +28,7 @@ public class TripSeatPO {
     /**
      * ID
      */
+    @TableId
     private String id;
 
     /**
@@ -47,7 +45,10 @@ public class TripSeatPO {
      * 区间占用标记，有可能为null
      * true=可用 false=不可用
      */
-    private BitSet occupiedIntervalFlag;
+    private Long occupiedIntervalFlag;
+    // // @TableField(insertStrategy = IGNORED) TODO
+    // @TableField(typeHandler = BitSetTypeHandler.class)
+    // private BitSet occupiedIntervalFlag;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
@@ -58,31 +59,31 @@ public class TripSeatPO {
         this.id = newTripSeatId();
         this.tripId = tripId;
         this.seatId = seatId;
-        this.occupiedIntervalFlag = null;
+        this.occupiedIntervalFlag = 0L;
     }
 
     public static String newTripSeatId() {
         return TRIP_SEAT_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
-    public void initOccupiedIntervalFlag(int stationCount) {
-        if(isNull(occupiedIntervalFlag)) {
-            this.occupiedIntervalFlag = new BitSet(stationCount);
-        }
-    }
-
-    /**
-     * 判断请求区间是否可用
-     */
-    public boolean isSeatEffectiveDuringInterval(int sourceStationId, int distStationId) {
-        return IntStream.range(sourceStationId, distStationId).allMatch(i -> occupiedIntervalFlag.get(i));
-    }
-
-    /**
-     * 修改区间为不可用
-     */
-    public void occupyInterval(int sourceStationId, int distStationId) {
-        IntStream.range(sourceStationId, distStationId).forEach(i -> occupiedIntervalFlag.set(i));
-    }
+    // public void initOccupiedIntervalFlag(int stationCount) {
+    //     if (isNull(occupiedIntervalFlag)) {
+    //         this.occupiedIntervalFlag = new BitSet(stationCount);
+    //     }
+    // }
+    //
+    // /**
+    //  * 判断请求区间是否可用
+    //  */
+    // public boolean isSeatEffectiveDuringInterval(int sourceStationId, int distStationId) {
+    //     return IntStream.range(sourceStationId, distStationId).allMatch(i -> occupiedIntervalFlag.get(i));
+    // }
+    //
+    // /**
+    //  * 修改区间为不可用
+    //  */
+    // public void occupyInterval(int sourceStationId, int distStationId) {
+    //     IntStream.range(sourceStationId, distStationId).forEach(i -> occupiedIntervalFlag.set(i));
+    // }
 
 }

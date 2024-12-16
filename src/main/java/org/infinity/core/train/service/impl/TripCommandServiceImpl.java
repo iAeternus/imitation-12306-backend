@@ -101,9 +101,6 @@ public class TripCommandServiceImpl implements TripCommandService {
 
         tripStationRepository.saveBatch(tripStations);
 
-        // 初始化座位区间占用标记
-        eventProducer.post(TRIP_STATIONS_ENTERED, new TripStationsEnteredEvent(command.getTripId(), command.getTripStationInfos().size()));
-
         return EnterTripStationsResponse.builder()
                 .tripStationIds(tripStations.stream().map(TripStationPO::getId).collect(toImmutableList()))
                 .build();

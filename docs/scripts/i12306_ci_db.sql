@@ -70,7 +70,7 @@ CREATE TABLE `trip_seat`
     `id`                     varchar(24) NOT NULL,
     `trip_id`                varchar(24) NOT NULL COMMENT '车次ID',
     `seat_id`                varchar(24) NOT NULL COMMENT '座位ID',
-    `occupied_interval_flag` bit(64) DEFAULT NULL COMMENT '区间占用标记',
+    `occupied_interval_flag` bigint DEFAULT NULL COMMENT '区间占用标记',
     `create_at`              datetime    NOT NULL,
     `update_at`              datetime    NOT NULL,
     PRIMARY KEY (`id`)
