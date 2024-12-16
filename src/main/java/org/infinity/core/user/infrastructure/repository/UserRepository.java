@@ -1,6 +1,7 @@
 package org.infinity.core.user.infrastructure.repository;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.po.UserPO;
 
 /**
@@ -20,4 +21,5 @@ public interface UserRepository extends IService<UserPO> {
 
     UserPO byMobile(String mobile);
 
+    void updateRoleById(String userId, RoleEnum role);
 }

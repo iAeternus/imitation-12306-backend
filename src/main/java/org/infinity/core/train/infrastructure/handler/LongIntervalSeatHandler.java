@@ -1,4 +1,4 @@
-package org.infinity.core.common.model.intervalset;
+package org.infinity.core.train.infrastructure.handler;
 
 import org.infinity.core.common.exception.MyException;
 import org.springframework.security.core.parameters.P;

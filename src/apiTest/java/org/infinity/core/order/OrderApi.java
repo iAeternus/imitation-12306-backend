@@ -2,8 +2,8 @@ package org.infinity.core.order;
 
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
-import org.infinity.core.order.model.dto.command.BuyTicketCommand;
-import org.infinity.core.order.model.dto.response.BuyTicketResponse;
+import org.infinity.core.order.model.dto.command.CreateOrderCommand;
+import org.infinity.core.order.model.dto.response.CreateOrderResponse;
 
 /**
  * @author Ricky
@@ -16,19 +16,19 @@ public class OrderApi {
 
     private static final String ROOT_URL = "/orders";
 
-    public static Response buyTicketRaw(String jwt, BuyTicketCommand command) {
+    public static Response createOrderRaw(String jwt, CreateOrderCommand command) {
         return BaseApiTest.given(jwt)
                 .body(command)
                 .when()
-                .post(ROOT_URL + "/buy");
+                .post(ROOT_URL + "/create");
     }
 
-    public static BuyTicketResponse buyTicket(String jwt, BuyTicketCommand command) {
-        return buyTicketRaw(jwt, command)
+    public static CreateOrderResponse createOrder(String jwt, CreateOrderCommand command) {
+        return createOrderRaw(jwt, command)
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(BuyTicketResponse.class);
+                .as(CreateOrderResponse.class);
     }
 
 }

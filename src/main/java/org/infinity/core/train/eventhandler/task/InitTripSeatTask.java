@@ -1,7 +1,6 @@
 package org.infinity.core.train.eventhandler.task;
 
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.model.intervalset.LongIntervalSeatHandler;
 import org.infinity.core.common.model.task.OnetimeTask;
 import org.infinity.core.train.infrastructure.repository.CarriageRepository;
 import org.infinity.core.train.infrastructure.repository.SeatRepository;
@@ -12,7 +11,6 @@ import org.infinity.core.train.model.po.SeatPO;
 import org.infinity.core.train.model.po.TripPO;
 import org.infinity.core.train.model.po.TripSeatPO;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;

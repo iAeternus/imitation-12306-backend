@@ -8,6 +8,7 @@ import org.infinity.core.common.exception.MyException;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.StatusEnum;
+import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
@@ -18,9 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPS;
-import static org.infinity.core.common.exception.ErrorCodeEnum.ACCOUNT_NOT_EXIST;
-import static org.infinity.core.common.exception.ErrorCodeEnum.MOBILE_DUPLICATED;
+import static org.infinity.core.common.exception.ErrorCodeEnum.*;
+import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
+import static org.infinity.core.user.model.RoleEnum.STUDENT;
 
 /**
  * @author Ricky
@@ -78,5 +80,19 @@ public class UserCommandServiceImpl implements UserCommandService {
                 .userId(user.getId())
                 .token(token)
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public void stuVerify(StuVerifyCommand command) {
+        rateLimiter.applyFor("User:stuVerify", DEFAULT_COMMAND_TPS);
+
+        if (command.getAge() > 18) {
+            throw new MyException(AGE_NOT_REQUIRE, "Student authentication was unsuccessful.",
+                    mapOf("userId", command.getUserId(), "age", command.getAge()));
+        }
+
+        userRepository.updateRoleById(command.getUserId(), STUDENT);
+
     }
 }

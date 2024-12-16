@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.order.model.dto.command.BuyTicketCommand;
-import org.infinity.core.order.model.dto.response.BuyTicketResponse;
+import org.infinity.core.order.model.dto.command.CreateOrderCommand;
+import org.infinity.core.order.model.dto.response.CreateOrderResponse;
 import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.order.service.OrderQueryService;
 import org.springframework.validation.annotation.Validated;
@@ -31,10 +31,10 @@ public class OrderController {
     private final OrderCommandService orderCommandService;
     private final OrderQueryService orderQueryService;
 
-    @PostMapping("/buy")
-    @Operation(summary = "购票")
-    public BuyTicketResponse buyTicket(@RequestBody @Valid BuyTicketCommand command) {
-        return orderCommandService.buyTicket(command);
+    @PostMapping("/create")
+    @Operation(summary = "生成订单")
+    public CreateOrderResponse createOrder(@RequestBody @Valid CreateOrderCommand command) {
+        return orderCommandService.createOrder(command);
     }
 
 }

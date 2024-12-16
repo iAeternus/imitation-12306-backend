@@ -10,13 +10,13 @@ import org.infinity.core.common.model.marker.Response;
  * @author Ricky
  * @version 1.0
  * @date 2024/12/3
- * @className BuyTicketResponse
+ * @className CreateOrderResponse
  * @desc
  */
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class BuyTicketResponse implements Response {
+public class CreateOrderResponse implements Response {
 
     String orderId;
 

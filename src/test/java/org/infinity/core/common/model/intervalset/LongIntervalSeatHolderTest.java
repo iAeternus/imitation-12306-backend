@@ -3,7 +3,7 @@ package org.infinity.core.common.model.intervalset;
 import org.infinity.core.common.exception.MyException;
 import org.junit.jupiter.api.Test;
 
-import static org.infinity.core.common.model.intervalset.LongIntervalSeatHandler.*;
+import static org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

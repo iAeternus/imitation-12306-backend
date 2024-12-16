@@ -21,12 +21,12 @@ APPLICATION FAILED TO START
 
 Description:
 
-Parameter 1 of constructor in org.infinity.core.train.eventhandler.task.InitOccupiedIntervalFlagTask required a bean of type 'org.infinity.core.common.model.intervalset.LongIntervalSeatHandler' that could not be found.
+Parameter 1 of constructor in org.infinity.core.train.eventhandler.task.InitOccupiedIntervalFlagTask required a bean of type 'org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler' that could not be found.
 
 
 Action:
 
-Consider defining a bean of type 'org.infinity.core.common.model.intervalset.LongIntervalSeatHandler' in your configuration.
+Consider defining a bean of type 'org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler' in your configuration.
 
 2024-12-16 15:07:36 [Test worker] ERROR o.s.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6a2057e] to prepare test instance [org.infinity.core.trip.TripControllerApiTest@25d9298e]
 java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@49005dc4 testClass = org.infinity.core.trip.TripControllerApiTest, locations = [], classes = [org.infinity.Imitation12306Application], contextInitializerClasses = [], activeProfiles = ["ci"], propertySourceLocations = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true", "server.port=0"], contextCustomizers = [org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@9da1, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@33aeca0b, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@1ae67cad, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@463b4ac8, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@a4ca3f6, org.springframework.boot.test.context.SpringBootTestAnnotation@67179599], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
@@ -144,7 +144,7 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:183)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
 	... 86 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'tripStationsEnteredEventHandler' defined in file [F:\develop\imitation-12306\imitation-12306-backend\build\classes\java\main\org\infinity\core\train\eventhandler\handler\TripStationsEnteredEventHandler.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'initOccupiedIntervalFlagTask' defined in file [F:\develop\imitation-12306\imitation-12306-backend\build\classes\java\main\org\infinity\core\train\eventhandler\task\InitOccupiedIntervalFlagTask.class]: Unsatisfied dependency expressed through constructor parameter 1: No qualifying bean of type 'org.infinity.core.common.model.intervalset.LongIntervalSeatHandler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'tripStationsEnteredEventHandler' defined in file [F:\develop\imitation-12306\imitation-12306-backend\build\classes\java\main\org\infinity\core\train\eventhandler\handler\TripStationsEnteredEventHandler.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'initOccupiedIntervalFlagTask' defined in file [F:\develop\imitation-12306\imitation-12306-backend\build\classes\java\main\org\infinity\core\train\eventhandler\task\InitOccupiedIntervalFlagTask.class]: Unsatisfied dependency expressed through constructor parameter 1: No qualifying bean of type 'org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:793)
 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:242)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1344)
@@ -168,7 +168,7 @@ Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Err
 	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:368)
 	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:192)
 	... 110 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'initOccupiedIntervalFlagTask' defined in file [F:\develop\imitation-12306\imitation-12306-backend\build\classes\java\main\org\infinity\core\train\eventhandler\task\InitOccupiedIntervalFlagTask.class]: Unsatisfied dependency expressed through constructor parameter 1: No qualifying bean of type 'org.infinity.core.common.model.intervalset.LongIntervalSeatHandler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'initOccupiedIntervalFlagTask' defined in file [F:\develop\imitation-12306\imitation-12306-backend\build\classes\java\main\org\infinity\core\train\eventhandler\task\InitOccupiedIntervalFlagTask.class]: Unsatisfied dependency expressed through constructor parameter 1: No qualifying bean of type 'org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:793)
 	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:242)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1344)
@@ -185,7 +185,7 @@ Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Err
 	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:880)
 	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:784)
 	... 131 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.infinity.core.common.model.intervalset.LongIntervalSeatHandler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1812)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1371)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1325)
@@ -626,7 +626,7 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2024-12-16 15:51:34 [http-nio-auto-1-exec-3] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@50e1523d
 2024-12-16 15:51:34 [http-nio-auto-1-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 2024-12-16 15:51:35 [http-nio-auto-1-exec-3] INFO  o.i.c.u.i.r.c.MysqlUserCachedRepository - Evicted cache for user[USR656387747784036352].
-2024-12-16 15:51:35 [http-nio-auto-1-exec-1] ERROR o.i.c.c.e.GlobalExceptionHandler - Method argument validation myError[org.infinity.core.order.model.dto.command.BuyTicketCommand]: {sourceTripStationId=Trip station ID format is incorrect., distTripStationId=Trip station ID format is incorrect.}
+2024-12-16 15:51:35 [http-nio-auto-1-exec-1] ERROR o.i.c.c.e.GlobalExceptionHandler - Method argument validation myError[org.infinity.core.order.model.dto.command.CreateOrderCommand]: {sourceTripStationId=Trip station ID format is incorrect., distTripStationId=Trip station ID format is incorrect.}
 2024-12-16 15:51:36 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
 2024-12-16 15:51:36 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
 2024-12-16 15:51:36 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
@@ -676,7 +676,7 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2024-12-16 16:30:47 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e8eaf68
 2024-12-16 16:30:47 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 2024-12-16 16:30:47 [http-nio-auto-1-exec-1] INFO  o.i.c.u.i.r.c.MysqlUserCachedRepository - Evicted cache for user[USR656397614406045696].
-2024-12-16 16:31:13 [http-nio-auto-1-exec-5] ERROR o.i.c.c.e.GlobalExceptionHandler - Method argument validation myError[org.infinity.core.order.model.dto.command.BuyTicketCommand]: {sourceTripStationId=Trip station ID format is incorrect., dstTripStationId=Trip station ID format is incorrect.}
+2024-12-16 16:31:13 [http-nio-auto-1-exec-5] ERROR o.i.c.c.e.GlobalExceptionHandler - Method argument validation myError[org.infinity.core.order.model.dto.command.CreateOrderCommand]: {sourceTripStationId=Trip station ID format is incorrect., dstTripStationId=Trip station ID format is incorrect.}
 2024-12-16 16:31:13 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
 2024-12-16 16:31:13 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
 2024-12-16 16:31:14 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
@@ -1229,3 +1229,102 @@ Caused by: java.sql.SQLSyntaxErrorException: You have an error in your SQL synta
 2024-12-16 16:58:36 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
 2024-12-16 16:58:36 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-12-16 16:58:36 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-12-16 17:32:21 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2024-12-16 17:32:21 [Test worker] INFO  o.i.core.user.UserControllerApiTest - Starting UserControllerApiTest using Java 17.0.7 with PID 156836 (started by lenovo in F:\develop\imitation-12306\imitation-12306-backend)
+2024-12-16 17:32:21 [Test worker] INFO  o.i.core.user.UserControllerApiTest - The following 1 profile is active: "ci"
+2024-12-16 17:32:21 [Test worker] WARN  o.s.c.a.AnnotationTypeMapping - Support for convention-based annotation attribute overrides is deprecated and will be removed in Spring Framework 6.1. Please annotate the following attributes in @org.springframework.retry.annotation.EnableRetry with appropriate @AliasFor declarations: [proxyTargetClass]
+2024-12-16 17:32:22 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16 17:32:22 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16 17:32:22 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 0 Redis repository interfaces.
+2024-12-16 17:32:23 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+2024-12-16 17:32:23 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-1"]
+2024-12-16 17:32:23 [Test worker] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-16 17:32:23 [Test worker] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.1]
+2024-12-16 17:32:23 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-16 17:32:23 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2398 ms
+2024-12-16 17:32:26 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2cc82c83, org.springframework.security.web.header.HeaderWriterFilter@23263586, org.infinity.common.security.jwt.JwtAuthenticationFilter@75a5a912, org.infinity.common.security.jwt.JwtAnonymousAuthenticationFilter@5f3bc119, org.infinity.common.security.MdcFilter@1b9cfc19, org.springframework.security.web.access.ExceptionTranslationFilter@7aa5292d, org.springframework.security.web.access.intercept.AuthorizationFilter@36618b3b, org.infinity.common.security.jwt.AutoRefreshJwtFilter@765d67dd]
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/about']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/about']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/favicon.ico']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/error']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/error']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/MP_verify_qXC2acLZ7a7qm3Xp.txt']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/MP_verify_qXC2acLZ7a7qm3Xp.txt']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/local-manual-test/orders/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/local-manual-test/orders/**']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/local-manual-test/receive-webhook']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/local-manual-test/receive-webhook']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/api-testing/webhook']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/api-testing/webhook']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/api-testing/orders/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/api-testing/orders/**']
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login', POST]
+2024-12-16 17:32:27 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/registration', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:32:27 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/registration', POST]
+2024-12-16 17:32:27 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-1"]
+2024-12-16 17:32:27 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 53668 (http) with context path ''
+2024-12-16 17:32:27 [Test worker] INFO  o.i.core.user.UserControllerApiTest - Started UserControllerApiTest in 6.896 seconds (process running for 8.112)
+2024-12-16 17:32:29 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16 17:32:29 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-12-16 17:32:29 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2024-12-16 17:32:29 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-12-16 17:32:29 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3b398986
+2024-12-16 17:32:29 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-12-16 17:32:29 [http-nio-auto-1-exec-1] INFO  o.i.c.u.i.r.c.MysqlUserCachedRepository - Evicted cache for user[USR656413142759641088].
+2024-12-16 17:32:30 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2024-12-16 17:32:30 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2024-12-16 17:32:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-16 17:32:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-12-16 17:35:19 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2024-12-16 17:35:19 [Test worker] INFO  o.i.core.user.UserControllerApiTest - Starting UserControllerApiTest using Java 17.0.7 with PID 138412 (started by lenovo in F:\develop\imitation-12306\imitation-12306-backend)
+2024-12-16 17:35:19 [Test worker] INFO  o.i.core.user.UserControllerApiTest - The following 1 profile is active: "ci"
+2024-12-16 17:35:19 [Test worker] WARN  o.s.c.a.AnnotationTypeMapping - Support for convention-based annotation attribute overrides is deprecated and will be removed in Spring Framework 6.1. Please annotate the following attributes in @org.springframework.retry.annotation.EnableRetry with appropriate @AliasFor declarations: [proxyTargetClass]
+2024-12-16 17:35:20 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16 17:35:20 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16 17:35:20 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 0 Redis repository interfaces.
+2024-12-16 17:35:22 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+2024-12-16 17:35:22 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-1"]
+2024-12-16 17:35:22 [Test worker] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-16 17:35:22 [Test worker] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.1]
+2024-12-16 17:35:22 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-16 17:35:22 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2593 ms
+2024-12-16 17:35:26 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5dfb078, org.springframework.security.web.header.HeaderWriterFilter@16ca4532, org.infinity.common.security.jwt.JwtAuthenticationFilter@2d21d12b, org.infinity.common.security.jwt.JwtAnonymousAuthenticationFilter@669b8190, org.infinity.common.security.MdcFilter@5fdcc63f, org.springframework.security.web.access.ExceptionTranslationFilter@120661d2, org.springframework.security.web.access.intercept.AuthorizationFilter@63767d, org.infinity.common.security.jwt.AutoRefreshJwtFilter@27f8f1cc]
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/about']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/about']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/favicon.ico']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/error']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/error']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/MP_verify_qXC2acLZ7a7qm3Xp.txt']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/MP_verify_qXC2acLZ7a7qm3Xp.txt']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/local-manual-test/orders/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/local-manual-test/orders/**']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/local-manual-test/receive-webhook']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/local-manual-test/receive-webhook']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/api-testing/webhook']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/api-testing/webhook']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/api-testing/orders/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/api-testing/orders/**']
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login', POST]
+2024-12-16 17:35:26 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/registration', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 17:35:26 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/registration', POST]
+2024-12-16 17:35:26 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-1"]
+2024-12-16 17:35:27 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 53891 (http) with context path ''
+2024-12-16 17:35:27 [Test worker] INFO  o.i.core.user.UserControllerApiTest - Started UserControllerApiTest in 7.986 seconds (process running for 9.121)
+2024-12-16 17:35:28 [http-nio-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16 17:35:28 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-12-16 17:35:28 [http-nio-auto-1-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-12-16 17:35:28 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-12-16 17:35:29 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6a20a41f
+2024-12-16 17:35:29 [http-nio-auto-1-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-12-16 17:35:29 [http-nio-auto-1-exec-1] INFO  o.i.c.u.i.r.c.MysqlUserCachedRepository - Evicted cache for user[USR656413895704317952].
+2024-12-16 17:35:30 [http-nio-auto-1-exec-3] INFO  o.i.c.u.i.r.c.MysqlUserCachedRepository - Evicted cache for user[USR656413895704317952].
+2024-12-16 17:35:30 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2024-12-16 17:35:30 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2024-12-16 17:35:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-16 17:35:30 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

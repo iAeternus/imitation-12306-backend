@@ -1,6 +1,5 @@
 package org.infinity.core.order.service.impl;
 
-import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.common.exception.MyException;
@@ -11,8 +10,8 @@ import org.infinity.core.order.infrastructure.handler.pricecalculate.PriceContex
 import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.PromotionContext;
 import org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateHandler;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
-import org.infinity.core.order.model.dto.command.BuyTicketCommand;
-import org.infinity.core.order.model.dto.response.BuyTicketResponse;
+import org.infinity.core.order.model.dto.command.CreateOrderCommand;
+import org.infinity.core.order.model.dto.response.CreateOrderResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.train.infrastructure.repository.*;
@@ -66,7 +65,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
     @Override
     @Transactional
-    public BuyTicketResponse buyTicket(BuyTicketCommand command) {
+    public CreateOrderResponse createOrder(CreateOrderCommand command) {
         rateLimiter.applyFor("Order:buyTicket", DEFAULT_COMMAND_TPS);
 
         // 座位分配
@@ -104,7 +103,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         // 订单落库
         OrderPO order = orderFactory.createByBuyTicketCommand(command, tripSeat.getSeatId(), price, stationsBeRidden.size());
         orderRepository.save(order);
-        return BuyTicketResponse.builder()
+        return CreateOrderResponse.builder()
                 .orderId(order.getId())
                 .build();
     }

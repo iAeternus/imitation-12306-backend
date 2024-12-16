@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.validation.id.user.UserId;
+import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
@@ -44,6 +45,12 @@ public class UserController {
     @Operation(summary = "用户登录")
     public JwtTokenResponse login(@RequestBody @Valid UserLoginCommand command) {
         return userCommandService.login(command);
+    }
+
+    @PutMapping("/stu")
+    @Operation(summary = "学生认证")
+    public void stuVerify(@RequestBody @Valid StuVerifyCommand command) {
+        userCommandService.stuVerify(command);
     }
 
     @GetMapping("/me/{userId}")

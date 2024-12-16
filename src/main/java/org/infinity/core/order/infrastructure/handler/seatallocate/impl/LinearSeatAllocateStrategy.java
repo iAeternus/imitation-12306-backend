@@ -1,15 +1,14 @@
 package org.infinity.core.order.infrastructure.handler.seatallocate.impl;
 
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.model.intervalset.LongIntervalSeatHandler;
 import org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateStrategy;
 import org.infinity.core.train.model.po.TripSeatPO;
 
 import java.util.List;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.NO_SUCH_SEAT;
-import static org.infinity.core.common.model.intervalset.LongIntervalSeatHandler.isValid;
-import static org.infinity.core.common.model.intervalset.LongIntervalSeatHandler.occupy;
+import static org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler.isValid;
+import static org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler.occupy;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 
 /**

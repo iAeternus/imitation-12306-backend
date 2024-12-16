@@ -1,15 +1,19 @@
 package org.infinity.core.user;
 
 import org.infinity.BaseApiTest;
+import org.infinity.core.user.model.RoleEnum;
+import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
+import org.infinity.core.user.model.dto.response.UserProfileResponse;
 import org.infinity.core.user.model.dto.response.UserRegisterResponse;
 import org.infinity.core.user.model.po.UserPO;
 import org.junit.jupiter.api.Test;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.AUTHENTICATION_FAILED;
 import static org.infinity.core.common.exception.ErrorCodeEnum.MOBILE_DUPLICATED;
+import static org.infinity.core.user.model.RoleEnum.STUDENT;
 import static org.infinity.utils.RandomTestFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -74,7 +78,8 @@ public class UserControllerApiTest extends BaseApiTest {
         JwtTokenResponse response = UserApi.login(command);
 
         // Then
-        UserApi.fetchMyProfile(response.getToken(), response.getUserId());
+        UserProfileResponse response1 = UserApi.fetchMyProfile(response.getToken(), response.getUserId());
+        assertNotNull(response1);
     }
 
     @Test
@@ -91,6 +96,24 @@ public class UserControllerApiTest extends BaseApiTest {
 
         // When & Then
         assertError(() -> UserApi.loginRaw(command), AUTHENTICATION_FAILED);
+    }
+
+    @Test
+    public void should_student_verify() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        StuVerifyCommand command = StuVerifyCommand.builder()
+                .userId(operator.getUserId())
+                .age(16)
+                .build();
+
+        // When
+        UserApi.stuVerify(operator.getToken(), command);
+
+        // Then
+        UserPO user = userRepository.cachedById(command.getUserId());
+        assertEquals(STUDENT, user.getRole());
     }
 
 }

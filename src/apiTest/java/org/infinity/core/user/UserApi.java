@@ -2,6 +2,7 @@ package org.infinity.core.user;
 
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
+import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
@@ -61,6 +62,19 @@ public class UserApi {
                 .statusCode(200)
                 .extract()
                 .as(UserProfileResponse.class);
+    }
+
+    public static Response stuVerifyRaw(String jwt, StuVerifyCommand command) {
+        return BaseApiTest.given(jwt)
+                .body(command)
+                .when()
+                .put(URL_ROOT + "/stu");
+    }
+
+    public static void stuVerify(String jwt, StuVerifyCommand command) {
+        stuVerifyRaw(jwt, command)
+                .then()
+                .statusCode(200);
     }
 
 }

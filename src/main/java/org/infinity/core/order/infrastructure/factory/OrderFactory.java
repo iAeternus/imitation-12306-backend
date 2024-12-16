@@ -1,7 +1,7 @@
 package org.infinity.core.order.infrastructure.factory;
 
 import org.infinity.core.order.model.OrderStatusEnum;
-import org.infinity.core.order.model.dto.command.BuyTicketCommand;
+import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.po.OrderPO;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Component
 public class OrderFactory {
 
-    public OrderPO createByBuyTicketCommand(BuyTicketCommand command, String seatId, BigDecimal price, int stationCount) {
+    public OrderPO createByBuyTicketCommand(CreateOrderCommand command, String seatId, BigDecimal price, int stationCount) {
         return OrderPO.builder()
                 .id(OrderPO.newOrderId())
                 .userId(command.getUserId())

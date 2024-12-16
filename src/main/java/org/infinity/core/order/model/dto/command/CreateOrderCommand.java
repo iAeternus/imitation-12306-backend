@@ -17,13 +17,13 @@ import org.infinity.core.common.validation.id.user.UserId;
  * @author Ricky
  * @version 1.0
  * @date 2024/11/12
- * @className BuyTicketCommand
+ * @className CreateOrderCommand
  * @desc
  */
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class BuyTicketCommand implements Command {
+public class CreateOrderCommand implements Command {
 
     @UserId
     @NotBlank

@@ -1,5 +1,6 @@
 package org.infinity.core.user.service;
 
+import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
@@ -16,4 +17,6 @@ public interface UserCommandService {
     UserRegisterResponse register(UserRegisterCommand command);
 
     JwtTokenResponse login(UserLoginCommand command);
+
+    void stuVerify(StuVerifyCommand command);
 }

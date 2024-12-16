@@ -1,7 +1,7 @@
 package org.infinity.core.order.service;
 
-import org.infinity.core.order.model.dto.command.BuyTicketCommand;
-import org.infinity.core.order.model.dto.response.BuyTicketResponse;
+import org.infinity.core.order.model.dto.command.CreateOrderCommand;
+import org.infinity.core.order.model.dto.response.CreateOrderResponse;
 
 /**
  * @author Ricky
@@ -12,6 +12,6 @@ import org.infinity.core.order.model.dto.response.BuyTicketResponse;
  */
 public interface OrderCommandService {
 
-    BuyTicketResponse buyTicket(BuyTicketCommand command);
+    CreateOrderResponse createOrder(CreateOrderCommand command);
 
 }
