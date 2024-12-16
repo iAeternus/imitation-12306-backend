@@ -5,9 +5,11 @@ import org.infinity.common.password.MyPasswordEncoder;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.common.security.jwt.JwtService;
 import org.infinity.core.common.exception.MyException;
+import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.StatusEnum;
+import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
 import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
@@ -22,6 +24,7 @@ import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND
 import static org.infinity.core.common.exception.ErrorCodeEnum.*;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
+import static org.infinity.core.user.model.IdTypeEnum.HONG_KONG_AND_MACAO_PASS;
 import static org.infinity.core.user.model.RoleEnum.STUDENT;
 
 /**
@@ -94,5 +97,18 @@ public class UserCommandServiceImpl implements UserCommandService {
 
         userRepository.updateRoleById(command.getUserId(), STUDENT);
 
+    }
+
+    @Override
+    public void realNameVerify(RealNameVerifyCommand command) {
+        rateLimiter.applyFor("User:realNameVerify", DEFAULT_COMMAND_TPS);
+
+        if (ValidationUtils.equals(command.getIdType(), HONG_KONG_AND_MACAO_PASS.getKey())) {
+            throw new MyException(NOT_SUPPORTED_YET, "Hong Kong And Macao Pass are not suppoerted yet.");
+        }
+
+        // TODO 这里需要调用第三方实名认证API
+
+        userRepository.realNameVerify(command.getUserId(), command.getRealName(), command.getIdType(), command.getIdCard());
     }
 }

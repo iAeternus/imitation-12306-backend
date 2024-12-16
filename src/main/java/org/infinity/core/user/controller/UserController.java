@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.validation.id.user.UserId;
+import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
 import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
@@ -51,6 +52,12 @@ public class UserController {
     @Operation(summary = "学生认证")
     public void stuVerify(@RequestBody @Valid StuVerifyCommand command) {
         userCommandService.stuVerify(command);
+    }
+
+    @PutMapping("/real-name")
+    @Operation(summary = "实名认证")
+    public void realNameVerify(@RequestBody @Valid RealNameVerifyCommand command) {
+        userCommandService.realNameVerify(command);
     }
 
     @GetMapping("/me/{userId}")

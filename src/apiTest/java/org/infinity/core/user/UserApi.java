@@ -2,6 +2,7 @@ package org.infinity.core.user;
 
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
+import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
 import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
@@ -73,6 +74,19 @@ public class UserApi {
 
     public static void stuVerify(String jwt, StuVerifyCommand command) {
         stuVerifyRaw(jwt, command)
+                .then()
+                .statusCode(200);
+    }
+
+    public static Response realNameVerifyRaw(String jwt, RealNameVerifyCommand command) {
+        return BaseApiTest.given(jwt)
+                .body(command)
+                .when()
+                .put(URL_ROOT + "/real-name");
+    }
+
+    public static void realNameVerify(String jwt, RealNameVerifyCommand command) {
+        realNameVerifyRaw(jwt, command)
                 .then()
                 .statusCode(200);
     }

@@ -22,4 +22,6 @@ public interface UserRepository extends IService<UserPO> {
     UserPO byMobile(String mobile);
 
     void updateRoleById(String userId, RoleEnum role);
+
+    void realNameVerify(String userId, String realName, Short idType, String idCard);
 }

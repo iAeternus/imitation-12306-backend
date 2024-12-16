@@ -8,12 +8,17 @@ import org.infinity.core.order.model.dto.response.CreateOrderResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.train.model.po.TripPO;
 import org.infinity.core.train.model.po.TripStationPO;
+import org.infinity.core.user.UserApi;
+import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 
+import static java.math.RoundingMode.HALF_UP;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -54,31 +59,14 @@ public class OrderControllerApiTest extends BaseApiTest {
         assertEquals(sourceTripStationId, order.getOriginTripStationId());
         assertEquals(dstTripStationId, order.getTerminalTripStationId());
         assertNotNull(order.getSeatId());
-    }
 
-    @Test
-    public void should_promote_if_role_is_student() {
+        // When
+        UserApi.stuVerify(operator.getToken(), StuVerifyCommand.builder().userId(operator.getUserId()).age(16).build());
+        CreateOrderResponse response2 = OrderApi.createOrder(operator.getToken(), command);
 
-    }
-
-    @Test
-    public void should_promote_if_user_choose_first_class() {
-
-    }
-
-    @Test
-    public void should_fail_to_buy_if_station_invalid() {
-
-    }
-
-    @Test
-    public void should_fail_to_buy_if_no_such_seat() {
-
-    }
-
-    @Test
-    public void should_fail_to_buy_if_trip_station_not_exists() {
-
+        // Then
+        OrderPO order2 = orderRepository.cachedById(response2.getOrderId());
+        assertEquals(order.getPrice().multiply(BigDecimal.valueOf(0.8)).setScale(2, HALF_UP), order2.getPrice().setScale(2, HALF_UP));
     }
 
 }

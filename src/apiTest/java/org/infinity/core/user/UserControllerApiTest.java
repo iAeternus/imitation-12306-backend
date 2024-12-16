@@ -2,6 +2,7 @@ package org.infinity.core.user;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.user.model.RoleEnum;
+import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
 import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
@@ -114,6 +115,30 @@ public class UserControllerApiTest extends BaseApiTest {
         // Then
         UserPO user = userRepository.cachedById(command.getUserId());
         assertEquals(STUDENT, user.getRole());
+    }
+
+    @Test
+    public void should_real_name_verify() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        String realName = "吴子维";
+        String idCard = "420202200407231213";
+
+        RealNameVerifyCommand command = RealNameVerifyCommand.builder()
+                .userId(operator.getUserId())
+                .realName(realName)
+                .idType((short) 0)
+                .idCard(idCard)
+                .build();
+
+        // When
+        UserApi.realNameVerify(operator.getToken(), command);
+
+        // Then
+        UserPO user = userRepository.cachedById(command.getUserId());
+        assertEquals(realName, user.getRealName());
+        assertEquals(idCard, user.getIdCard());
     }
 
 }

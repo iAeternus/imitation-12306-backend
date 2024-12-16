@@ -53,4 +53,14 @@ public class MysqlUserRepository extends ServiceImpl<UserMapper, UserPO> impleme
         lambdaUpdate().eq(UserPO::getId, userId).set(UserPO::getRole, role).update();
         userCachedRepository.evictUserCache(userId);
     }
+
+    @Override
+    public void realNameVerify(String userId, String realName, Short idType, String idCard) {
+        lambdaUpdate().eq(UserPO::getId, userId)
+                .set(UserPO::getRealName, realName)
+                .set(UserPO::getIdType, idType)
+                .set(UserPO::getIdCard, idCard)
+                .update();
+        userCachedRepository.evictUserCache(userId);
+    }
 }
