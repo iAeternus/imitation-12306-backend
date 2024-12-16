@@ -2,10 +2,8 @@ package org.infinity.core.user;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.user.model.RoleEnum;
-import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
-import org.infinity.core.user.model.dto.command.StuVerifyCommand;
-import org.infinity.core.user.model.dto.command.UserLoginCommand;
-import org.infinity.core.user.model.dto.command.UserRegisterCommand;
+import org.infinity.core.user.model.dto.command.*;
+import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.infinity.core.user.model.dto.response.UserProfileResponse;
 import org.infinity.core.user.model.dto.response.UserRegisterResponse;
@@ -139,6 +137,25 @@ public class UserControllerApiTest extends BaseApiTest {
         UserPO user = userRepository.cachedById(command.getUserId());
         assertEquals(realName, user.getRealName());
         assertEquals(idCard, user.getIdCard());
+    }
+
+    @Test
+    public void should_change_mobile() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        String newMobile = rMobile();
+        ChangeMobileCommand command = ChangeMobileCommand.builder()
+                .userId(operator.getUserId())
+                .newMobile(newMobile)
+                .build();
+
+        // When
+        ChangeMobileResponse response = UserApi.changeMobile(operator.getToken(), command);
+
+        // Then
+        UserPO user = userRepository.cachedById(operator.getUserId());
+        assertEquals(newMobile, user.getMobile());
     }
 
 }

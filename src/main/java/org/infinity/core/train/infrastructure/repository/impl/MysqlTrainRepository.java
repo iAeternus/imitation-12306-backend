@@ -32,11 +32,8 @@ public class MysqlTrainRepository extends ServiceImpl<TrainMapper, TrainPO> impl
     }
 
     /**
-     * TODO 不能这么判断，如果trainIds存在重复就会有bug!!!]
      * 这个同理
      * org.infinity.core.train.infrastructure.repository.impl.MysqlTripRepository
-     * @param trainIds
-     * @return
      */
     @Override
     public boolean allIdsExist(List<String> trainIds) {

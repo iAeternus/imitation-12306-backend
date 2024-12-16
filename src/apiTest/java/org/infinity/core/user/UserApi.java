@@ -2,10 +2,8 @@ package org.infinity.core.user;
 
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
-import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
-import org.infinity.core.user.model.dto.command.StuVerifyCommand;
-import org.infinity.core.user.model.dto.command.UserLoginCommand;
-import org.infinity.core.user.model.dto.command.UserRegisterCommand;
+import org.infinity.core.user.model.dto.command.*;
+import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.infinity.core.user.model.dto.response.UserProfileResponse;
 import org.infinity.core.user.model.dto.response.UserRegisterResponse;
@@ -89,6 +87,21 @@ public class UserApi {
         realNameVerifyRaw(jwt, command)
                 .then()
                 .statusCode(200);
+    }
+
+    public static Response changeMobileRaw(String jwt, ChangeMobileCommand command) {
+        return BaseApiTest.given(jwt)
+                .body(command)
+                .when()
+                .put(URL_ROOT + "/change/mobile");
+    }
+
+    public static ChangeMobileResponse changeMobile(String jwt, ChangeMobileCommand command) {
+        return changeMobileRaw(jwt, command)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(ChangeMobileResponse.class);
     }
 
 }

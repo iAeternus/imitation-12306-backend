@@ -9,10 +9,8 @@ import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.StatusEnum;
-import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
-import org.infinity.core.user.model.dto.command.StuVerifyCommand;
-import org.infinity.core.user.model.dto.command.UserLoginCommand;
-import org.infinity.core.user.model.dto.command.UserRegisterCommand;
+import org.infinity.core.user.model.dto.command.*;
+import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.infinity.core.user.model.dto.response.UserRegisterResponse;
 import org.infinity.core.user.model.po.UserPO;
@@ -110,5 +108,22 @@ public class UserCommandServiceImpl implements UserCommandService {
         // TODO 这里需要调用第三方实名认证API
 
         userRepository.realNameVerify(command.getUserId(), command.getRealName(), command.getIdType(), command.getIdCard());
+    }
+
+    @Override
+    public ChangeMobileResponse changeMobile(ChangeMobileCommand command) {
+        rateLimiter.applyFor("User:changeMobile", DEFAULT_COMMAND_TPS);
+
+        UserPO user = userRepository.cachedById(command.getUserId());
+        if(user.getMobile().equals(command.getNewMobile())) {
+            throw new MyException(OLD_AND_NEW_MOBILE_CANNOT_EQUALS, "The old and new mobile should not be the same.",
+                    mapOf("userId", command.getUserId()));
+        }
+
+        userRepository.changeMobile(command.getUserId(), command.getNewMobile());
+
+        return ChangeMobileResponse.builder()
+                .oldMobile(user.getMobile())
+                .build();
     }
 }

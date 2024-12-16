@@ -5,10 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.validation.id.user.UserId;
-import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
-import org.infinity.core.user.model.dto.command.StuVerifyCommand;
-import org.infinity.core.user.model.dto.command.UserLoginCommand;
-import org.infinity.core.user.model.dto.command.UserRegisterCommand;
+import org.infinity.core.user.model.dto.command.*;
+import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.infinity.core.user.model.dto.response.UserProfileResponse;
 import org.infinity.core.user.model.dto.response.UserRegisterResponse;
@@ -58,6 +56,12 @@ public class UserController {
     @Operation(summary = "实名认证")
     public void realNameVerify(@RequestBody @Valid RealNameVerifyCommand command) {
         userCommandService.realNameVerify(command);
+    }
+
+    @PutMapping("/change/mobile")
+    @Operation(summary = "变更用户电话号码")
+    public ChangeMobileResponse changeMobile(@RequestBody @Valid ChangeMobileCommand command) {
+        return userCommandService.changeMobile(command);
     }
 
     @GetMapping("/me/{userId}")

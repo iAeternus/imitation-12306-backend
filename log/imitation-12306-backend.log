@@ -1578,3 +1578,53 @@ Caused by: java.sql.SQLSyntaxErrorException: You have an error in your SQL synta
 2024-12-16 18:11:26 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
 2024-12-16 18:11:26 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-12-16 18:11:26 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-12-16 18:46:10 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2024-12-16 18:46:10 [Test worker] INFO  o.i.core.user.UserControllerApiTest - Starting UserControllerApiTest using Java 17.0.7 with PID 142524 (started by lenovo in F:\develop\imitation-12306\imitation-12306-backend)
+2024-12-16 18:46:10 [Test worker] INFO  o.i.core.user.UserControllerApiTest - The following 1 profile is active: "ci"
+2024-12-16 18:46:11 [Test worker] WARN  o.s.c.a.AnnotationTypeMapping - Support for convention-based annotation attribute overrides is deprecated and will be removed in Spring Framework 6.1. Please annotate the following attributes in @org.springframework.retry.annotation.EnableRetry with appropriate @AliasFor declarations: [proxyTargetClass]
+2024-12-16 18:46:12 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-12-16 18:46:12 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-12-16 18:46:12 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 0 Redis repository interfaces.
+2024-12-16 18:46:14 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+2024-12-16 18:46:14 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-1"]
+2024-12-16 18:46:14 [Test worker] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-16 18:46:14 [Test worker] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.1]
+2024-12-16 18:46:14 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-16 18:46:14 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3199 ms
+2024-12-16 18:46:17 [Test worker] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-12-16 18:46:17 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b18fa79, org.springframework.security.web.header.HeaderWriterFilter@79f82fc4, org.infinity.common.security.jwt.JwtAuthenticationFilter@24347d8b, org.infinity.common.security.jwt.JwtAnonymousAuthenticationFilter@6418075c, org.infinity.common.security.MdcFilter@f9919a2, org.springframework.security.web.access.ExceptionTranslationFilter@5e783f78, org.springframework.security.web.access.intercept.AuthorizationFilter@623c9988, org.infinity.common.security.jwt.AutoRefreshJwtFilter@530ee11a]
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/about']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/about']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/favicon.ico']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/error']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/error']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/MP_verify_qXC2acLZ7a7qm3Xp.txt']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/MP_verify_qXC2acLZ7a7qm3Xp.txt']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/local-manual-test/orders/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/local-manual-test/orders/**']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/local-manual-test/receive-webhook']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/local-manual-test/receive-webhook']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/api-testing/webhook']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/api-testing/webhook']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/api-testing/orders/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/api-testing/orders/**']
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login', POST]
+2024-12-16 18:46:18 [Test worker] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/registration', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-12-16 18:46:18 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/registration', POST]
+2024-12-16 18:46:18 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-1"]
+2024-12-16 18:46:18 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 60340 (http) with context path ''
+2024-12-16 18:46:18 [Test worker] INFO  o.i.core.user.UserControllerApiTest - Started UserControllerApiTest in 8.468 seconds (process running for 10.706)
+2024-12-16 18:46:21 [http-nio-auto-1-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-16 18:46:21 [http-nio-auto-1-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-12-16 18:46:21 [http-nio-auto-1-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2024-12-16 18:46:22 [http-nio-auto-1-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-12-16 18:46:22 [http-nio-auto-1-exec-2] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@dffacd1
+2024-12-16 18:46:22 [http-nio-auto-1-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-12-16 18:46:23 [http-nio-auto-1-exec-2] INFO  o.i.c.u.i.r.c.MysqlUserCachedRepository - Evicted cache for user[USR656431736922968064].
+2024-12-16 18:46:24 [http-nio-auto-1-exec-3] INFO  o.i.c.u.i.r.c.MysqlUserCachedRepository - Evicted cache for user[USR656431736922968064].
+2024-12-16 18:46:24 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2024-12-16 18:46:24 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2024-12-16 18:46:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-16 18:46:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

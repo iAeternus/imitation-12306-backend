@@ -46,7 +46,7 @@ public class MysqlTripSeatRepository extends ServiceImpl<TripSeatMapper, TripSea
         try {
             tripSeatMapper.insertBatch(tripSeats);
         } catch (Throwable t) {
-            log.error("司马隐藏异常：", t);
+            log.error("Fuck you hiding exceptions：", t);
         }
     }
 

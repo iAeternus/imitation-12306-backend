@@ -63,4 +63,12 @@ public class MysqlUserRepository extends ServiceImpl<UserMapper, UserPO> impleme
                 .update();
         userCachedRepository.evictUserCache(userId);
     }
+
+    @Override
+    public void changeMobile(String userId, String newMobile) {
+        lambdaUpdate().eq(UserPO::getId, userId)
+                .set(UserPO::getMobile, newMobile)
+                .update();
+        userCachedRepository.evictUserCache(userId);
+    }
 }
