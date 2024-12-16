@@ -22,7 +22,7 @@ import static org.infinity.core.common.constants.I12306Constants.TRIP_STATION_ID
 @Data
 @NoArgsConstructor
 @TableName("trip_station")
-public class TripStationPO {
+public class TripStationPO implements Comparable<TripStationPO> {
 
     /**
      * ID
@@ -73,4 +73,8 @@ public class TripStationPO {
         return TRIP_STATION_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
+    @Override
+    public int compareTo(TripStationPO o) {
+        return this.orderNum.compareTo(o.orderNum);
+    }
 }

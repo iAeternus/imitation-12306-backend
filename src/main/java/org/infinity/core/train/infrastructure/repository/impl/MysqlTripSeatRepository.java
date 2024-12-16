@@ -3,6 +3,7 @@ package org.infinity.core.train.infrastructure.repository.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.infinity.core.common.exception.MyException;
 import org.infinity.core.train.infrastructure.mapper.TripSeatMapper;
 import org.infinity.core.train.infrastructure.repository.TripSeatRepository;
 import org.infinity.core.train.model.po.TripSeatPO;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Collections;
 import java.util.List;
 
+import static org.infinity.core.common.exception.ErrorCodeEnum.TRIP_SEAT_NOT_FOUND;
+import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
+import static org.infinity.core.common.utils.ValidationUtils.isNull;
 
 /**
  * @author Ricky
@@ -44,5 +48,14 @@ public class MysqlTripSeatRepository extends ServiceImpl<TripSeatMapper, TripSea
         } catch (Throwable t) {
             log.error("司马隐藏异常：", t);
         }
+    }
+
+    @Override
+    public TripSeatPO getByTripIdAnsSeatId(String tripId, String seatId) {
+        TripSeatPO tripSeat = lambdaQuery().eq(TripSeatPO::getTripId, tripId).eq(TripSeatPO::getSeatId, seatId).one();
+        if (isNull(tripSeat)) {
+            throw new MyException(TRIP_SEAT_NOT_FOUND, "Trip seat not found.", mapOf("tripId", tripId, "seatId", seatId));
+        }
+        return tripSeat;
     }
 }

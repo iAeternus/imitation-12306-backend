@@ -24,7 +24,7 @@ import static org.infinity.core.common.constants.I12306Constants.ORDER_ID_PREFIX
  */
 @Data
 @Builder
-@TableName("order")
+@TableName("ticket_order")
 public class OrderPO {
 
     /**
@@ -56,6 +56,11 @@ public class OrderPO {
      * 终点站车次站点ID
      */
     private String terminalTripStationId;
+
+    /**
+     * 乘坐的站点数量
+     */
+    private Integer stationCount;
 
     /**
      * 价格

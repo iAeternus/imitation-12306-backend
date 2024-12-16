@@ -35,7 +35,7 @@ public class BuyTicketCommand implements Command {
 
     @NotNull
     @Min(value = 0)
-    @Max(value = 2)
+    @Max(value = 1)
     Short seatLevel;
 
     @NotBlank
@@ -44,6 +44,6 @@ public class BuyTicketCommand implements Command {
 
     @NotBlank
     @TripStationId
-    String distTripStationId;
+    String dstTripStationId;
 
 }

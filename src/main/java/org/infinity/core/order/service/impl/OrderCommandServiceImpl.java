@@ -1,5 +1,6 @@
 package org.infinity.core.order.service.impl;
 
+import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.common.exception.MyException;
@@ -61,7 +62,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     private final OrderFactory orderFactory;
     private final PriceCalculateHandler priceCalculateHandler;
 
-    private final SeatAllocateHandler handler = SeatAllocateHandler.newInstance(LINEAR);
+    private static final SeatAllocateHandler SEAT_ALLOCATE_HANDLER = SeatAllocateHandler.newInstance(LINEAR);
 
     @Override
     @Transactional
@@ -72,36 +73,48 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         TripPO trip = tripRepository.cachedById(command.getTripId());
         List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
         int sourceStationIndex = findTripStationIndex(tripStations, command.getSourceTripStationId());
-        int distStationIndex = findTripStationIndex(tripStations, command.getDistTripStationId());
-        if (sourceStationIndex > distStationIndex) {
-            throw new MyException(LEFT_GREATER_THAN_RIGHT, "Interval is valid.",
-                    mapOf("sourceStationId", sourceStationIndex, "distStationId", distStationIndex));
+        int dstStationIndex = findTripStationIndex(tripStations, command.getDstTripStationId());
+        if (sourceStationIndex > dstStationIndex) {
+            throw new MyException(LEFT_GREATER_THAN_RIGHT, "Interval is invalid.",
+                    mapOf("sourceStationId", sourceStationIndex, "distStationId", dstStationIndex));
         }
         List<TripSeatPO> tripSeats = tripSeatRepository.listByTripId(trip.getId());
         List<TripSeatPO> filteredTripSeats = filterTripSeatsByLevel(tripSeats, CarriageLevelEnum.of(command.getSeatLevel()));
         if (isEmpty(filteredTripSeats)) {
             throw new MyException(NO_SUCH_SEAT, "There is no seat that satisfies the condition.",
-                    mapOf("sourceStationId", sourceStationIndex, "distStationId", distStationIndex, "seatLevel", command.getSeatLevel()));
+                    mapOf("sourceStationId", sourceStationIndex, "distStationId", dstStationIndex, "seatLevel", command.getSeatLevel()));
         }
-        TripSeatPO tripSeat = handler.allocateSeat(filteredTripSeats, sourceStationIndex, distStationIndex);
+        TripSeatPO tripSeat = SEAT_ALLOCATE_HANDLER.allocateSeat(filteredTripSeats, sourceStationIndex, dstStationIndex);
         tripSeatRepository.updateById(tripSeat);
 
         // 计算价格
+        List<TripStationPO> stationsBeRidden = IntStream.rangeClosed(sourceStationIndex, dstStationIndex)
+                .mapToObj(tripStations::get)
+                .collect(toImmutableList());
         UserPO user = userRepository.cachedById(command.getUserId());
-        BigDecimal price = priceCalculateHandler.calculatePrice(PriceContext.builder().tripStations(tripStations).build(),
-                PromotionContext.builder().role(user.getRole()).build());
+        BigDecimal price = priceCalculateHandler.calculatePrice(
+                PriceContext.builder()
+                        .tripStations(stationsBeRidden)
+                        .build(),
+                PromotionContext.builder()
+                        .role(user.getRole())
+                        .build()
+        );
 
         // 订单落库
-        OrderPO order = orderFactory.createByBuyTicketCommand(command, tripSeat.getSeatId(), price);
+        OrderPO order = orderFactory.createByBuyTicketCommand(command, tripSeat.getSeatId(), price, stationsBeRidden.size());
         orderRepository.save(order);
         return BuyTicketResponse.builder()
                 .orderId(order.getId())
                 .build();
     }
 
+    /**
+     * 寻找站点索引，索引从0开始
+     */
     private int findTripStationIndex(List<TripStationPO> tripStations, String tripStationId) {
         return IntStream.range(0, tripStations.size())
-                .filter(i -> ValidationUtils.equals(tripStations.get(i), tripStationId))
+                .filter(i -> ValidationUtils.equals(tripStations.get(i).getId(), tripStationId))
                 .findFirst()
                 .orElseThrow(() -> new MyException(TRIP_STATION_NOT_FOUND, "Trip Station not found.", mapOf("sourceStationId", tripStationId)));
     }

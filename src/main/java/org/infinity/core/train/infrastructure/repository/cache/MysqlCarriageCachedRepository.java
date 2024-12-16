@@ -34,7 +34,7 @@ public class MysqlCarriageCachedRepository extends ServiceImpl<CarriageMapper, C
     public void evictCarriageCache(String carriageId) {
         requireNonBlank(carriageId, "Carriage ID must not be blank.");
 
-        log.info("Evicted cache for seat[{}].", carriageId);
+        log.info("Evicted cache for carriage[{}].", carriageId);
     }
 
 }

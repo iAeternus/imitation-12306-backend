@@ -21,4 +21,8 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
 
     private final MysqlOrderCachedRepository orderCachedRepository;
 
+    @Override
+    public OrderPO cachedById(String orderId) {
+        return orderCachedRepository.cachedById(orderId);
+    }
 }

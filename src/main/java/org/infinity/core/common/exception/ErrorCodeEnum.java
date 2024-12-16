@@ -43,6 +43,7 @@ public enum ErrorCodeEnum {
     USER_NOT_FOUND(404),
     STATION_NOT_FOUND(404),
     TRAIN_NOT_FOUND(404),
+    TRIP_SEAT_NOT_FOUND(404),
 
     // 409
     NO_SUCH_SEAT(409),

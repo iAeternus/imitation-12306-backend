@@ -32,8 +32,8 @@ CREATE TABLE `cs`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci COMMENT ='在线客服信息表';
 
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order`
+DROP TABLE IF EXISTS `ticket_order`;
+CREATE TABLE `ticket_order`
 (
     `id`                       varchar(24)    NOT NULL,
     `user_id`                  varchar(24)    NOT NULL COMMENT '用户ID',
@@ -41,6 +41,7 @@ CREATE TABLE `order`
     `seat_id`                  varchar(24)    NOT NULL COMMENT '座位ID',
     `origin_trip_station_id`   varchar(24)    NOT NULL COMMENT '起点站车次站点ID',
     `terminal_trip_station_id` varchar(24)    NOT NULL COMMENT '终点站车次站点ID',
+    `station_count`            int            NOT NULL COMMENT '乘坐的站点数量',
     `price`                    decimal(10, 2) NOT NULL COMMENT '价格',
     `status`                   tinyint        NOT NULL COMMENT '状态（待支付，已支付，已上车，已出站）',
     `create_at`                datetime       NOT NULL,

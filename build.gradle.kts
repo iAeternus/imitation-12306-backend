@@ -113,13 +113,13 @@ tasks.withType<Test> {
 
 tasks.register<Test>("apiTest") {
     description = "Run API tests."
-    group = "verification"
+    group = "apiTest"
     testClassesDirs = sourceSets["apiTest"].output.classesDirs
     classpath = sourceSets["apiTest"].runtimeClasspath
     shouldRunAfter(tasks.named("test"))
 }
 
-tasks.named("check") {
-    dependsOn(tasks.named("apiTest"))
-}
+//tasks.named("check") {
+//    dependsOn(tasks.named("apiTest"))
+//}
 

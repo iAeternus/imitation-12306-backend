@@ -94,6 +94,9 @@ public class BaseApiTest {
     @Autowired
     protected SeatRepository seatRepository;
 
+    @Autowired
+    protected TripSeatRepository tripSeatRepository;
+
     // TODO add repository here...
 
     @LocalServerPort

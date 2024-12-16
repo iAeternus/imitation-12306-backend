@@ -11,4 +11,7 @@ import org.infinity.core.order.model.po.OrderPO;
  * @desc
  */
 public interface OrderRepository extends IService<OrderPO> {
+
+    OrderPO cachedById(String orderId);
+
 }

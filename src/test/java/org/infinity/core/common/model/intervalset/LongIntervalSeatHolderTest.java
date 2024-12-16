@@ -38,4 +38,20 @@ class LongIntervalSeatHolderTest {
         assertThrows(MyException.class, () -> isValid(finalFlag, 10, 10));
     }
 
+    @Test
+    void should_maintain_flag2() {
+        // Given
+        int stationCount = 10;
+        long flag = initOccupiedInterval(stationCount);
+
+        // When
+        flag = occupy(flag, 0, 3);
+        flag = occupy(flag, 5, 7);
+
+        // Then
+        assertTrue(isValid(flag, 3, 5));
+        assertTrue(isValid(flag, 7, 9));
+        assertFalse(isValid(flag, 2, 6));
+    }
+
 }

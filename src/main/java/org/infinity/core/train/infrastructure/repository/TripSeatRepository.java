@@ -17,4 +17,6 @@ public interface TripSeatRepository extends IService<TripSeatPO> {
 
     void insertBatch(List<TripSeatPO> tripSeats);
 
+    TripSeatPO getByTripIdAnsSeatId(String tripId, String seatId);
+
 }
