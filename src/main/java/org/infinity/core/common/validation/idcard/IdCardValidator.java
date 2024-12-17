@@ -2,7 +2,6 @@ package org.infinity.core.common.validation.idcard;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.infinity.core.common.constants.I12306RegexConstants;
 
 import java.util.regex.Pattern;
 
@@ -22,7 +21,7 @@ public class IdCardValidator implements ConstraintValidator<IdCard, String> {
 
     @Override
     public boolean isValid(String idCard, ConstraintValidatorContext constraintValidatorContext) {
-        if(isBlank(idCard)) {
+        if (isBlank(idCard)) {
             return true;
         }
 

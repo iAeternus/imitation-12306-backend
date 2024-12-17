@@ -1,9 +1,5 @@
 package org.infinity.core.train.model.po;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Ricky
  * @version 1.0

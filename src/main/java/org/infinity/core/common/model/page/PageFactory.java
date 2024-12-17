@@ -3,13 +3,13 @@ package org.infinity.core.common.model.page;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.infinity.core.common.model.marker.Response;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.function.Function;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static org.infinity.core.common.constants.I12306Constants.*;
+import static org.infinity.core.common.constants.I12306Constants.DB_CREATE_AT;
+import static org.infinity.core.common.constants.I12306Constants.DB_UPDATE_AT;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
 import static org.infinity.core.common.utils.ValidationUtils.isNotBlank;
 
@@ -29,7 +29,7 @@ public class PageFactory {
      * @param convertor 对象转换的逻辑
      * @return 返回分页结果
      */
-    public static  <PO, RES extends Response> PageResponse<RES> toPageResponse(Page<PO> page, Function<PO, RES> convertor) {
+    public static <PO, RES extends Response> PageResponse<RES> toPageResponse(Page<PO> page, Function<PO, RES> convertor) {
         List<PO> records = page.getRecords();
         if (isEmpty(records)) {
             return PageResponse.emptyPageResponse();

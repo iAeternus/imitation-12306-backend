@@ -1,11 +1,11 @@
 package org.infinity.core.common.model.page;
 
-import com.google.common.collect.ImmutableList;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
 import org.infinity.core.common.model.marker.Response;
 
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.emptyList;

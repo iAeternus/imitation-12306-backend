@@ -2,7 +2,6 @@ package org.infinity.core.user.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
-import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.model.dto.response.UserProfileResponse;

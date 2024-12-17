@@ -8,7 +8,10 @@ import org.infinity.core.train.model.dto.query.SearchSpareTicketQuery;
 import org.infinity.core.train.model.dto.response.SearchSpareTicketResponse;
 import org.infinity.core.trip.service.TripSeatQueryService;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Ricky

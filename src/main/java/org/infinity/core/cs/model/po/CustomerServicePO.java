@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Builder;
 import lombok.Data;
-import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 
 import java.time.LocalDateTime;

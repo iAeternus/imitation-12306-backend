@@ -1,17 +1,12 @@
 package org.infinity.core.common.model.page;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.infinity.core.common.model.marker.Query;
-
-import static org.infinity.core.common.constants.I12306Constants.DEFAULT_PAGE_NO;
-import static org.infinity.core.common.constants.I12306Constants.DEFAULT_PAGE_SIZE;
 
 /**
  * @author Ricky

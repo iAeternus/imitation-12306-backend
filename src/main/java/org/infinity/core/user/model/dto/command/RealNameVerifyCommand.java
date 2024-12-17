@@ -1,6 +1,5 @@
 package org.infinity.core.user.model.dto.command;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

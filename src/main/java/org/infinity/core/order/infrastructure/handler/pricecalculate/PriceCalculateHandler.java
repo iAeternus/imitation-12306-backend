@@ -31,14 +31,14 @@ public class PriceCalculateHandler {
     /**
      * 计算最终价格
      *
-     * @param priceContext 价格上下文
+     * @param priceContext     价格上下文
      * @param promotionContext 优惠上下文
      * @return 最终价格
      */
     public BigDecimal calculatePrice(PriceContext priceContext, PromotionContext promotionContext) {
         AtomicReference<BigDecimal> price = new AtomicReference<>(calculateBasicPrice(priceContext));
         for (PromotionStrategy strategy : STRATEGIES) {
-            if(price.get().compareTo(BigDecimal.ZERO) < 0) {
+            if (price.get().compareTo(BigDecimal.ZERO) < 0) {
                 price.set(BigDecimal.ZERO);
                 break;
             }

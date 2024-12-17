@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
-import org.infinity.core.train.model.SeatLetterEnum;
 
 import java.time.LocalDateTime;
 

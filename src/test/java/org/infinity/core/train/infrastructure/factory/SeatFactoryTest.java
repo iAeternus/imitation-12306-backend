@@ -1,6 +1,5 @@
 package org.infinity.core.train.infrastructure.factory;
 
-import org.infinity.core.train.model.CarriageLevelEnum;
 import org.infinity.core.train.model.po.CarriagePO;
 import org.infinity.core.train.model.po.SeatPO;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.infinity.core.train.model.CarriageLevelEnum.FIRST_CLASS;
 import static org.infinity.core.train.model.CarriageLevelEnum.SECOND_CLASS;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Ricky

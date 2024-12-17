@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
 import org.infinity.core.train.model.CarriageLevelEnum;
 import org.infinity.core.train.model.CarriageTypeEnum;

@@ -1,7 +1,6 @@
 package org.infinity.core.train.infrastructure.handler;
 
 import org.infinity.core.common.exception.MyException;
-import org.springframework.security.core.parameters.P;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.INVALID_INTERVAL;
 import static org.infinity.core.common.exception.ErrorCodeEnum.INVALID_STATION_COUNT;
@@ -20,7 +19,7 @@ public class LongIntervalSeatHandler {
     public static final int MAX_STATION_COUNT = 64;
 
     public static long initOccupiedInterval(int stationCount) {
-        if(stationCount < MIN_STATION_COUNT || stationCount > MAX_STATION_COUNT) {
+        if (stationCount < MIN_STATION_COUNT || stationCount > MAX_STATION_COUNT) {
             throw new MyException(INVALID_STATION_COUNT, "Invalid station count", mapOf("stationCount", stationCount));
         }
         return 0L;

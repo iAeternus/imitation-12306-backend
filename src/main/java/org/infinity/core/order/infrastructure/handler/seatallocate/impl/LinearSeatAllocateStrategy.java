@@ -7,9 +7,9 @@ import org.infinity.core.trip.model.po.TripSeatPO;
 import java.util.List;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.NO_SUCH_SEAT;
+import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler.isValid;
 import static org.infinity.core.train.infrastructure.handler.LongIntervalSeatHandler.occupy;
-import static org.infinity.core.common.utils.MapUtils.mapOf;
 
 /**
  * @author Ricky

@@ -115,7 +115,7 @@ public class UserCommandServiceImpl implements UserCommandService {
         rateLimiter.applyFor("User:changeMobile", DEFAULT_COMMAND_TPS);
 
         UserPO user = userRepository.cachedById(command.getUserId());
-        if(user.getMobile().equals(command.getNewMobile())) {
+        if (user.getMobile().equals(command.getNewMobile())) {
             throw new MyException(OLD_AND_NEW_MOBILE_CANNOT_EQUALS, "The old and new mobile should not be the same.",
                     mapOf("userId", command.getUserId()));
         }

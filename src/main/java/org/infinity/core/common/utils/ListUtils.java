@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
-
 /**
  * @author Ricky
  * @version 1.0
@@ -30,7 +28,7 @@ public class ListUtils {
     }
 
     public static <T> String listToString(List<T> list, String begin, String end, String separator) {
-        if(list == null || list.isEmpty()) {
+        if (list == null || list.isEmpty()) {
             return begin + end;
         }
 

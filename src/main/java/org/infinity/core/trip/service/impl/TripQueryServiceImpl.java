@@ -18,7 +18,8 @@ import java.time.LocalDateTime;
 import static org.infinity.core.common.constants.I12306Constants.DEFAULT_QUERY_TPS;
 import static org.infinity.core.common.model.page.PageFactory.toPageDefaultSortByUpdateTime;
 import static org.infinity.core.common.model.page.PageFactory.toPageResponse;
-import static org.infinity.core.common.utils.ValidationUtils.*;
+import static org.infinity.core.common.utils.ValidationUtils.isNotBlank;
+import static org.infinity.core.common.utils.ValidationUtils.nonNull;
 
 /**
  * @author Ricky

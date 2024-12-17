@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
 /**
  * @author Ricky
  * @version 1.0

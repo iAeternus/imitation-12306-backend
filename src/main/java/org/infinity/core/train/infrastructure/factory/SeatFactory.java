@@ -1,9 +1,7 @@
 package org.infinity.core.train.infrastructure.factory;
 
 import org.infinity.core.train.model.CarriageLevelEnum;
-import org.infinity.core.train.model.SeatLetterEnum;
 import org.infinity.core.train.model.po.SeatPO;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import static org.infinity.core.train.model.CarriageLevelEnum.FIRST_CLASS;
@@ -26,7 +24,7 @@ public class SeatFactory {
     public static final int SECOND_CLASS_COLUMN = 5;
 
     public SeatPO create(String carriageId, int index, CarriageLevelEnum level) {
-        if(level == FIRST_CLASS) {
+        if (level == FIRST_CLASS) {
             return createFirstClass(carriageId, index);
         }
         return createSecondClass(carriageId, index);

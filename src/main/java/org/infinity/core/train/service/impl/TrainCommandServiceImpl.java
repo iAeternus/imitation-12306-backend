@@ -1,10 +1,8 @@
 package org.infinity.core.train.service.impl;
 
-import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.MapUtils;
 import org.infinity.core.train.infrastructure.factory.SeatFactory;
 import org.infinity.core.train.infrastructure.factory.TrainFactory;
 import org.infinity.core.train.infrastructure.repository.CarriageRepository;
@@ -22,8 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
@@ -116,7 +112,6 @@ public class TrainCommandServiceImpl implements TrainCommandService {
                 .carriageIds(carriages.stream().map(CarriagePO::getId).collect(toImmutableList()))
                 .build();
     }
-
 
 
 }

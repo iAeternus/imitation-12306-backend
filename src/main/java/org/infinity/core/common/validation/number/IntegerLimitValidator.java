@@ -24,7 +24,7 @@ public class IntegerLimitValidator implements ConstraintValidator<IntegerLimit, 
 
     @Override
     public boolean isValid(Integer number, ConstraintValidatorContext constraintValidatorContext) {
-        if(ValidationUtils.isNull(number)) {
+        if (ValidationUtils.isNull(number)) {
             return true;
         }
 

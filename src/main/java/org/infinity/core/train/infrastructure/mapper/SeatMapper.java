@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.infinity.core.train.model.po.SeatPO;
 
-import java.util.List;
-
 /**
  * @author Ricky
  * @version 1.0

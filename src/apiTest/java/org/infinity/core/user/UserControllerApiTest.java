@@ -1,7 +1,6 @@
 package org.infinity.core.user;
 
 import org.infinity.BaseApiTest;
-import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.dto.command.*;
 import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;

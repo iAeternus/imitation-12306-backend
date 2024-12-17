@@ -4,14 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.infinity.core.station.infrastructure.mapper.StationMapper;
 import org.infinity.core.station.model.po.StationPO;
-import org.infinity.core.user.model.po.UserPO;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 
 import static org.infinity.core.common.constants.I12306Constants.STATION_CACHE;
-import static org.infinity.core.common.constants.I12306Constants.USER_CACHE;
 import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 
 /**
