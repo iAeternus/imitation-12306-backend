@@ -2,12 +2,9 @@ package org.infinity.core.trip;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.model.page.PageResponse;
-import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.trip.model.dto.command.EnterTripStationsCommand;
+import org.infinity.core.trip.model.dto.command.*;
 import org.infinity.core.trip.model.dto.query.TripPageQuery;
-import org.infinity.core.trip.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.trip.model.dto.response.EnterTripStationsResponse;
-import org.infinity.core.trip.model.dto.response.TripResponse;
+import org.infinity.core.trip.model.dto.response.*;
 import org.infinity.core.trip.model.po.TripPO;
 import org.infinity.core.trip.model.po.TripStationPO;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
@@ -21,8 +18,8 @@ import static org.infinity.core.common.exception.ErrorCodeEnum.*;
 import static org.infinity.core.common.utils.MyBatisPlusUtils.randQueryOne;
 import static org.infinity.core.station.model.po.StationPO.newStationId;
 import static org.infinity.core.train.model.po.TrainPO.newTrainId;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.infinity.core.trip.model.TripStatusEnum.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Ricky
@@ -130,6 +127,81 @@ public class TripControllerApiTest extends BaseApiTest {
         TripStationPO tripStation1 = tripStationRepository.getById(response.getTripStationIds().get(0));
         TripStationPO tripStation2 = tripStationRepository.getById(response.getTripStationIds().get(1));
         assertTrue(tripStation1.getOrderNum() < tripStation2.getOrderNum());
+    }
+
+    @Test
+    public void should_late() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        TripPO trip = randQueryOne(tripRepository);
+
+        LateCommand command = LateCommand.builder()
+                .tripId(trip.getId())
+                .build();
+
+        // When
+        TripApi.late(operator.getToken(), command);
+
+        // Then
+        TripPO newTrip = tripRepository.cachedById(command.getTripId());
+        assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        assertEquals(BE_LATE, newTrip.getStatus());
+    }
+
+    @Test
+    public void should_on_schedule() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        TripPO trip = randQueryOne(tripRepository);
+
+        OnScheduleCommand command = OnScheduleCommand.builder()
+                .tripId(trip.getId())
+                .build();
+
+        // When
+        TripApi.onSchedule(operator.getToken(), command);
+
+        // Then
+        TripPO newTrip = tripRepository.cachedById(command.getTripId());
+        assertEquals(ON_SCHEDULE, newTrip.getStatus());
+    }
+
+    @Test
+    public void should_cancel() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        TripPO trip = randQueryOne(tripRepository);
+
+        CancelCommand command = CancelCommand.builder()
+                .tripId(trip.getId())
+                .build();
+
+        // When
+        TripApi.cancel(operator.getToken(), command);
+
+        // Then
+        TripPO newTrip = tripRepository.cachedById(command.getTripId());
+        assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        assertEquals(CANCEL, newTrip.getStatus());
+    }
+
+    @Test
+    public void should_end() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        TripPO trip = randQueryOne(tripRepository);
+
+        EndCommand command = EndCommand.builder()
+                .tripId(trip.getId())
+                .build();
+
+        // When
+        TripApi.end(operator.getToken(), command);
+
+        // Then
+        TripPO newTrip = tripRepository.cachedById(command.getTripId());
+        assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        assertEquals(END, newTrip.getStatus());
     }
 
     @Test

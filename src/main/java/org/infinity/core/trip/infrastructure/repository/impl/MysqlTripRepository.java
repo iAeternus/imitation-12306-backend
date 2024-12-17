@@ -6,13 +6,13 @@ import org.infinity.core.common.exception.MyException;
 import org.infinity.core.trip.infrastructure.mapper.TripMapper;
 import org.infinity.core.trip.infrastructure.repository.TripRepository;
 import org.infinity.core.trip.infrastructure.repository.cache.MysqlTripCachedRepository;
+import org.infinity.core.trip.model.TripStatusEnum;
 import org.infinity.core.trip.model.po.TripPO;
 import org.springframework.stereotype.Repository;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.TRIP_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
-import static org.infinity.core.common.utils.ValidationUtils.isNull;
-import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
+import static org.infinity.core.common.utils.ValidationUtils.*;
 
 
 /**
@@ -38,5 +38,14 @@ public class MysqlTripRepository extends ServiceImpl<TripMapper, TripPO> impleme
         }
 
         return tripPO;
+    }
+
+    @Override
+    public void updateStatus(String tripId, TripStatusEnum newStatus) {
+        requireNonBlank(tripId, "Trip ID must not be blank.");
+        requireNonNull(newStatus, "Order status must not be null.");
+
+        lambdaUpdate().eq(TripPO::getId, tripId).set(TripPO::getStatus, newStatus).update();
+        tripCachedRepository.evictTripCache(tripId);
     }
 }

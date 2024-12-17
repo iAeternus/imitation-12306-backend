@@ -1,6 +1,7 @@
 package org.infinity.core.trip.infrastructure.repository;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.infinity.core.trip.model.TripStatusEnum;
 import org.infinity.core.trip.model.po.TripPO;
 
 /**
@@ -13,4 +14,5 @@ import org.infinity.core.trip.model.po.TripPO;
 public interface TripRepository extends IService<TripPO> {
     TripPO cachedById(String tripId);
 
+    void updateStatus(String tripId, TripStatusEnum newStatus);
 }

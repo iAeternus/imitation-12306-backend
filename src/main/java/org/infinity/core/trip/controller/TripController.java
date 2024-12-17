@@ -6,12 +6,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.model.page.PageResponse;
 import org.infinity.core.common.validation.id.trip.TripId;
-import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.trip.model.dto.command.EnterTripStationsCommand;
+import org.infinity.core.trip.model.dto.command.*;
 import org.infinity.core.trip.model.dto.query.TripPageQuery;
-import org.infinity.core.trip.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.trip.model.dto.response.EnterTripStationsResponse;
-import org.infinity.core.trip.model.dto.response.TripResponse;
+import org.infinity.core.trip.model.dto.response.*;
 import org.infinity.core.trip.service.TripCommandService;
 import org.infinity.core.trip.service.TripQueryService;
 import org.springframework.http.HttpStatus;
@@ -47,6 +44,30 @@ public class TripController {
     @ResponseStatus(HttpStatus.CREATED)
     public EnterTripStationsResponse enterTripStations(@RequestBody @Valid EnterTripStationsCommand command) {
         return tripCommandService.enterTripStations(command);
+    }
+
+    @PostMapping("/late")
+    @Operation(summary = "晚点")
+    public void late(@RequestBody @Valid LateCommand command) {
+        tripCommandService.late(command);
+    }
+
+    @PostMapping("/on-schedule")
+    @Operation(summary = "恢复正点")
+    public void onSchedule(@RequestBody @Valid OnScheduleCommand command) {
+        tripCommandService.onSchedule(command);
+    }
+
+    @PostMapping("/cancel")
+    @Operation(summary = "取消车次")
+    public void cancel(@RequestBody @Valid CancelCommand command) {
+        tripCommandService.cancel(command);
+    }
+
+    @PostMapping("/end")
+    @Operation(summary = "车次结束")
+    public void end(@RequestBody @Valid EndCommand command) {
+        tripCommandService.end(command);
     }
 
     @PostMapping("/pages")

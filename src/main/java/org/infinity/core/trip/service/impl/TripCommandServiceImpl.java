@@ -9,10 +9,8 @@ import org.infinity.core.train.infrastructure.repository.TrainRepository;
 import org.infinity.core.trip.infrastructure.factory.TripFactory;
 import org.infinity.core.trip.infrastructure.repository.TripRepository;
 import org.infinity.core.trip.infrastructure.repository.TripStationRepository;
-import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.trip.model.dto.command.EnterTripStationsCommand;
-import org.infinity.core.trip.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.trip.model.dto.response.EnterTripStationsResponse;
+import org.infinity.core.trip.model.dto.command.*;
+import org.infinity.core.trip.model.dto.response.*;
 import org.infinity.core.trip.model.event.TripCreatedEvent;
 import org.infinity.core.trip.model.po.TripPO;
 import org.infinity.core.trip.model.po.TripStationPO;
@@ -27,6 +25,7 @@ import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND
 import static org.infinity.core.common.constants.I12306EventIdConstants.TRIP_CREATED;
 import static org.infinity.core.common.exception.ErrorCodeEnum.STATION_IDS_NOT_ALL_EXISTS;
 import static org.infinity.core.common.exception.ErrorCodeEnum.TRAIN_IDS_NOT_ALL_EXISTS;
+import static org.infinity.core.trip.model.TripStatusEnum.*;
 
 /**
  * @author Ricky
@@ -102,6 +101,34 @@ public class TripCommandServiceImpl implements TripCommandService {
         return EnterTripStationsResponse.builder()
                 .tripStationIds(tripStations.stream().map(TripStationPO::getId).collect(toImmutableList()))
                 .build();
+    }
+
+    @Override
+    public void late(LateCommand command) {
+        rateLimiter.applyFor("Trip:late", DEFAULT_COMMAND_TPS);
+
+        tripRepository.updateStatus(command.getTripId(), BE_LATE);
+    }
+
+    @Override
+    public void onSchedule(OnScheduleCommand command) {
+        rateLimiter.applyFor("Trip:onSchedule", DEFAULT_COMMAND_TPS);
+
+        tripRepository.updateStatus(command.getTripId(), ON_SCHEDULE);
+    }
+
+    @Override
+    public void cancel(CancelCommand command) {
+        rateLimiter.applyFor("Trip:cancel", DEFAULT_COMMAND_TPS);
+
+        tripRepository.updateStatus(command.getTripId(), CANCEL);
+    }
+
+    @Override
+    public void end(EndCommand command) {
+        rateLimiter.applyFor("Trip:cancel", DEFAULT_COMMAND_TPS);
+
+        tripRepository.updateStatus(command.getTripId(), END);
     }
 
 }

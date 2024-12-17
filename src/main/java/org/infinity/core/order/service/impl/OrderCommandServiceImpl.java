@@ -133,13 +133,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     public CheckInResponse checkin(CheckInCommand command) {
         rateLimiter.applyFor("Order:checkin", DEFAULT_COMMAND_TPS);
 
-        OrderPO order = orderRepository.cachedById(command.getOrderId());
-        if(isNull(order)) {
-            throw new MyException(ORDER_NOT_FOUND, "Order not found.", mapOf("orderId", command.getOrderId()));
-        }
-
         orderRepository.updateStatus(command.getOrderId(), ON_BOARD);
-
         return CheckInResponse.builder()
                 .isSuccess(true)
                 .build();
@@ -149,13 +143,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     public OutboundResponse outbound(OutboundCommand command) {
         rateLimiter.applyFor("Order:outbound", DEFAULT_COMMAND_TPS);
 
-        OrderPO order = orderRepository.cachedById(command.getOrderId());
-        if(isNull(order)) {
-            throw new MyException(ORDER_NOT_FOUND, "Order not found.", mapOf("orderId", command.getOrderId()));
-        }
-
         orderRepository.updateStatus(command.getOrderId(), OUT_OF_STATION);
-
         return OutboundResponse.builder()
                 .isSuccess(true)
                 .build();

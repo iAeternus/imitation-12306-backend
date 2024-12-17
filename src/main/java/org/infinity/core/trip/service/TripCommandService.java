@@ -1,9 +1,7 @@
 package org.infinity.core.trip.service;
 
-import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.trip.model.dto.command.EnterTripStationsCommand;
-import org.infinity.core.trip.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.trip.model.dto.response.EnterTripStationsResponse;
+import org.infinity.core.trip.model.dto.command.*;
+import org.infinity.core.trip.model.dto.response.*;
 
 /**
  * @author Ricky
@@ -16,4 +14,12 @@ public interface TripCommandService {
     EnterTripBatchResponse enterTripBatch(EnterTripBatchCommand command);
 
     EnterTripStationsResponse enterTripStations(EnterTripStationsCommand command);
+
+    void late(LateCommand command);
+
+    void onSchedule(OnScheduleCommand command);
+
+    void cancel(CancelCommand command);
+
+    void end(EndCommand command);
 }
