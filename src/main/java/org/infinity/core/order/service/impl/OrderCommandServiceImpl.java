@@ -9,8 +9,13 @@ import org.infinity.core.order.infrastructure.handler.pricecalculate.PriceContex
 import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.PromotionContext;
 import org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateHandler;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
+import org.infinity.core.order.model.OrderStatusEnum;
+import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
+import org.infinity.core.order.model.dto.command.OutboundCommand;
+import org.infinity.core.order.model.dto.response.CheckInResponse;
 import org.infinity.core.order.model.dto.response.CreateOrderResponse;
+import org.infinity.core.order.model.dto.response.OutboundResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.train.infrastructure.repository.CarriageRepository;
@@ -45,6 +50,8 @@ import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
 import static org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateHandler.SeatAllocateStrategyEnum.LINEAR;
+import static org.infinity.core.order.model.OrderStatusEnum.ON_BOARD;
+import static org.infinity.core.order.model.OrderStatusEnum.OUT_OF_STATION;
 import static org.infinity.core.trip.model.po.TripStationPO.findTripStationIndex;
 
 /**
@@ -119,6 +126,38 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         orderRepository.save(order);
         return CreateOrderResponse.builder()
                 .orderId(order.getId())
+                .build();
+    }
+
+    @Override
+    public CheckInResponse checkin(CheckInCommand command) {
+        rateLimiter.applyFor("Order:checkin", DEFAULT_COMMAND_TPS);
+
+        OrderPO order = orderRepository.cachedById(command.getOrderId());
+        if(isNull(order)) {
+            throw new MyException(ORDER_NOT_FOUND, "Order not found.", mapOf("orderId", command.getOrderId()));
+        }
+
+        orderRepository.updateStatus(command.getOrderId(), ON_BOARD);
+
+        return CheckInResponse.builder()
+                .isSuccess(true)
+                .build();
+    }
+
+    @Override
+    public OutboundResponse outbound(OutboundCommand command) {
+        rateLimiter.applyFor("Order:outbound", DEFAULT_COMMAND_TPS);
+
+        OrderPO order = orderRepository.cachedById(command.getOrderId());
+        if(isNull(order)) {
+            throw new MyException(ORDER_NOT_FOUND, "Order not found.", mapOf("orderId", command.getOrderId()));
+        }
+
+        orderRepository.updateStatus(command.getOrderId(), OUT_OF_STATION);
+
+        return OutboundResponse.builder()
+                .isSuccess(true)
                 .build();
     }
 

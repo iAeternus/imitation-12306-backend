@@ -5,8 +5,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.validation.id.order.OrderId;
+import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
+import org.infinity.core.order.model.dto.command.OutboundCommand;
+import org.infinity.core.order.model.dto.response.CheckInResponse;
 import org.infinity.core.order.model.dto.response.CreateOrderResponse;
+import org.infinity.core.order.model.dto.response.OutboundResponse;
 import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.order.service.OrderQueryService;
@@ -34,6 +38,18 @@ public class OrderController {
     @Operation(summary = "生成订单")
     public CreateOrderResponse createOrder(@RequestBody @Valid CreateOrderCommand command) {
         return orderCommandService.createOrder(command);
+    }
+
+    @PostMapping("/checkin")
+    @Operation(summary = "检票")
+    public CheckInResponse checkin(@RequestBody @Valid CheckInCommand command) {
+        return orderCommandService.checkin(command);
+    }
+
+    @PostMapping("/outbound")
+    @Operation(summary = "出站")
+    public OutboundResponse outbound(@RequestBody @Valid OutboundCommand command) {
+        return orderCommandService.outbound(command);
     }
 
     @GetMapping("/{orderId}")

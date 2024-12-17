@@ -10,14 +10,14 @@ import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.order.infrastructure.mapper.OrderMapper;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
 import org.infinity.core.order.infrastructure.repository.cache.MysqlOrderCachedRepository;
+import org.infinity.core.order.model.OrderStatusEnum;
 import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.springframework.stereotype.Repository;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.ORDER_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
-import static org.infinity.core.common.utils.ValidationUtils.isNull;
-import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
+import static org.infinity.core.common.utils.ValidationUtils.*;
 
 /**
  * @author Ricky
@@ -48,5 +48,14 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
         requireNonBlank(orderId, "Order ID must not be blank");
 
         return orderCachedRepository.searchOrderDetail(orderId);
+    }
+
+    @Override
+    public void updateStatus(String orderId, OrderStatusEnum newStatus) {
+        requireNonBlank(orderId, "Order ID must not be blank");
+        requireNonNull(newStatus, "Order status must not be null.");
+
+        lambdaUpdate().eq(OrderPO::getId, orderId).set(OrderPO::getStatus, newStatus).update();
+        orderCachedRepository.evictOrderCache(orderId);
     }
 }

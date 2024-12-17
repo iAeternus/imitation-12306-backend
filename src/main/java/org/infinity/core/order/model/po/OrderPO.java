@@ -72,6 +72,9 @@ public class OrderPO {
      */
     private OrderStatusEnum status;
 
+    // TODO 改签标记 bool
+    // 改签时间
+
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
     @TableField(fill = FieldFill.INSERT_UPDATE)

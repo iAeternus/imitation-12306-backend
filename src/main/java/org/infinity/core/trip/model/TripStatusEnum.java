@@ -16,6 +16,7 @@ public enum TripStatusEnum {
     ON_SCHEDULE((short) 0, "正点"),
     BE_LATE((short) 1, "晚点"),
     CANCEL((short) 2, "取消"),
+    // TODO 结束
     ;
 
     @EnumValue

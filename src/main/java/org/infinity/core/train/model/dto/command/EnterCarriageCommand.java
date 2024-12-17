@@ -41,7 +41,7 @@ public class EnterCarriageCommand implements Command {
     @NoNullElement
     @Size(max = MAX_CARRIAGE_COUNT)
     @Schema(description = "一等车厢索引")
-    List<Integer> firstClass;
+    List<Integer> firstClass; // TODO
 
     @NotNull
     @NoNullElement

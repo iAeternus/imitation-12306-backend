@@ -2,8 +2,12 @@ package org.infinity.core.order;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.utils.MyBatisPlusUtils;
+import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
+import org.infinity.core.order.model.dto.command.OutboundCommand;
+import org.infinity.core.order.model.dto.response.CheckInResponse;
 import org.infinity.core.order.model.dto.response.CreateOrderResponse;
+import org.infinity.core.order.model.dto.response.OutboundResponse;
 import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.train.model.CarriageLevelEnum;
@@ -21,8 +25,10 @@ import java.util.List;
 
 import static java.math.RoundingMode.HALF_UP;
 import static org.infinity.core.common.exception.ErrorCodeEnum.NOT_REAL_NAME_VERIFY_YET;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.infinity.core.common.utils.MyBatisPlusUtils.randQueryOne;
+import static org.infinity.core.order.model.OrderStatusEnum.ON_BOARD;
+import static org.infinity.core.order.model.OrderStatusEnum.OUT_OF_STATION;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Ricky
@@ -39,7 +45,7 @@ public class OrderControllerApiTest extends BaseApiTest {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLoginAndRealNameVerify();
 
-        TripPO trip = MyBatisPlusUtils.randQueryOne(tripRepository);
+        TripPO trip = randQueryOne(tripRepository);
         List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
         tripStations.sort(Comparator.naturalOrder());
         String sourceTripStationId = tripStations.get(0).getId();
@@ -78,7 +84,7 @@ public class OrderControllerApiTest extends BaseApiTest {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
 
-        TripPO trip = MyBatisPlusUtils.randQueryOne(tripRepository);
+        TripPO trip = randQueryOne(tripRepository);
         List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
         tripStations.sort(Comparator.naturalOrder());
         String sourceTripStationId = tripStations.get(0).getId();
@@ -101,7 +107,7 @@ public class OrderControllerApiTest extends BaseApiTest {
     public void should_search_order_detail() {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLoginAndRealNameVerify();
-        TripPO trip = MyBatisPlusUtils.randQueryOne(tripRepository);
+        TripPO trip = randQueryOne(tripRepository);
         List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
         tripStations.sort(Comparator.naturalOrder());
         String sourceTripStationId = tripStations.get(0).getId();
@@ -123,6 +129,48 @@ public class OrderControllerApiTest extends BaseApiTest {
         // Then
         assertNotNull(response);
         assertEquals(tripStations.size(), response.getStations().size());
+    }
+
+    @Test
+    public void should_checkin() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        OrderPO order = randQueryOne(orderRepository);
+
+        CheckInCommand command = CheckInCommand.builder()
+                .orderId(order.getId())
+                .build();
+
+        // When
+        CheckInResponse response = OrderApi.checkin(operator.getToken(), command);
+
+        // Then
+        assertTrue(response.getIsSuccess());
+
+        OrderPO newOrder = orderRepository.cachedById(command.getOrderId());
+        assertNotEquals(order.getStatus(), newOrder.getStatus());
+        assertEquals(ON_BOARD, newOrder.getStatus());
+    }
+
+    @Test
+    public void should_outbound() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        OrderPO order = randQueryOne(orderRepository);
+
+        OutboundCommand command = OutboundCommand.builder()
+                .orderId(order.getId())
+                .build();
+
+        // When
+        OutboundResponse response = OrderApi.outbound(operator.getToken(), command);
+
+        // Then
+        assertTrue(response.getIsSuccess());
+
+        OrderPO newOrder = orderRepository.cachedById(command.getOrderId());
+        assertNotEquals(order.getStatus(), newOrder.getStatus());
+        assertEquals(OUT_OF_STATION, newOrder.getStatus());
     }
 
 }
