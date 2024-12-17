@@ -46,9 +46,6 @@ public class TripSeatPO {
      * true=可用 false=不可用
      */
     private Long occupiedIntervalFlag;
-    // // @TableField(insertStrategy = IGNORED) TODO
-    // @TableField(typeHandler = BitSetTypeHandler.class)
-    // private BitSet occupiedIntervalFlag;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createAt;
@@ -65,25 +62,5 @@ public class TripSeatPO {
     public static String newTripSeatId() {
         return TRIP_SEAT_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
-
-    // public void initOccupiedIntervalFlag(int stationCount) {
-    //     if (isNull(occupiedIntervalFlag)) {
-    //         this.occupiedIntervalFlag = new BitSet(stationCount);
-    //     }
-    // }
-    //
-    // /**
-    //  * 判断请求区间是否可用
-    //  */
-    // public boolean isSeatEffectiveDuringInterval(int sourceStationId, int distStationId) {
-    //     return IntStream.range(sourceStationId, distStationId).allMatch(i -> occupiedIntervalFlag.get(i));
-    // }
-    //
-    // /**
-    //  * 修改区间为不可用
-    //  */
-    // public void occupyInterval(int sourceStationId, int distStationId) {
-    //     IntStream.range(sourceStationId, distStationId).forEach(i -> occupiedIntervalFlag.set(i));
-    // }
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.station.model.po.StationPO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ricky
@@ -13,7 +14,11 @@ import java.util.List;
  * @desc
  */
 public interface StationRepository extends IService<StationPO> {
+
     StationPO cachedById(String stationId);
 
     boolean allIdsExist(List<String> stationIds);
+
+    Map<String, String> listStationIdAndStationName(List<String> stationIds);
+
 }

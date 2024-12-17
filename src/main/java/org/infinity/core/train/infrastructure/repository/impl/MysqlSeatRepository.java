@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
 import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
-import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
+import static org.infinity.core.common.utils.ValidationUtils.*;
 
 /**
  * @author Ricky
@@ -63,6 +63,8 @@ public class MysqlSeatRepository extends ServiceImpl<SeatMapper, SeatPO> impleme
 
     @Override
     public SeatPO cachedById(String id) {
+        requireNonBlank(id, "Seat ID must not be blank");
+
         return seatCachedRepository.cachedById(id);
     }
 }

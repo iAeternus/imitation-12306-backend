@@ -31,7 +31,7 @@ public class MysqlStationCachedRepository extends ServiceImpl<StationMapper, Sta
     }
 
     @Caching(evict = {@CacheEvict(value = STATION_CACHE, key = "#stationId")})
-    public void evictUserCache(String stationId) {
+    public void evictStationCache(String stationId) {
         requireNonBlank(stationId, "Station ID must not be blank.");
 
         log.info("Evicted cache for station[{}].", stationId);

@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.response.CreateOrderResponse;
+import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 
 /**
  * @author Ricky
@@ -29,6 +30,20 @@ public class OrderApi {
                 .statusCode(200)
                 .extract()
                 .as(CreateOrderResponse.class);
+    }
+
+    public static Response searchOrderDetailRaw(String jwt, String orderId) {
+        return BaseApiTest.given(jwt)
+                .when()
+                .get(ROOT_URL + "/{orderId}", orderId);
+    }
+
+    public static SearchOrderDetailResponse searchOrderDetail(String jwt, String orderId) {
+        return searchOrderDetailRaw(jwt, orderId)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(SearchOrderDetailResponse.class);
     }
 
 }

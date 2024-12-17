@@ -1,6 +1,7 @@
 package org.infinity.utils;
 
 import org.infinity.core.user.UserApi;
+import org.infinity.core.user.model.dto.command.RealNameVerifyCommand;
 import org.infinity.core.user.model.dto.command.UserLoginCommand;
 import org.infinity.core.user.model.dto.command.UserRegisterCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
@@ -47,6 +48,20 @@ public class SetupApi {
 
     public JwtTokenResponse registerWithLogin() {
         return registerWithLogin(rMobile(), rPassword());
+    }
+
+    public JwtTokenResponse registerWithLoginAndRealNameVerify() {
+        JwtTokenResponse response = registerWithLogin();
+        String realName = "吴子维";
+        String idCard = "420202200407231213";
+        RealNameVerifyCommand command = RealNameVerifyCommand.builder()
+                .userId(response.getUserId())
+                .realName(realName)
+                .idType((short) 0)
+                .idCard(idCard)
+                .build();
+        UserApi.realNameVerify(response.getToken(), command);
+        return response;
     }
 
 }

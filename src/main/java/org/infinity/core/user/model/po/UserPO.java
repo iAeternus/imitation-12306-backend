@@ -7,12 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
+import org.infinity.core.common.utils.UUIDGenerator;
 import org.infinity.core.user.model.IdTypeEnum;
 import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.StatusEnum;
 
 import java.time.LocalDateTime;
 
+import static com.baomidou.mybatisplus.core.toolkit.ObjectUtils.isNotNull;
 import static org.infinity.core.common.constants.I12306Constants.USER_ID_PREFIX;
 import static org.infinity.core.common.utils.ValidationUtils.*;
 
@@ -140,8 +142,15 @@ public class UserPO {
         return new UserPO(newUserId(), nickname, mobile, password);
     }
 
+    /**
+     * 默认昵称
+     */
     public static String newNickname() {
-        return "nickname"; // TODO
+        return "NIK" + UUIDGenerator.newShortUuid();
+    }
+
+    public boolean isRealNameVerify() {
+        return isNotBlank(realName) && isNotNull(idType) && isNotBlank(idCard);
     }
 
 }

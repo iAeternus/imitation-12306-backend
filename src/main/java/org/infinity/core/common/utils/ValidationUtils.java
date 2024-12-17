@@ -4,6 +4,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -46,8 +47,26 @@ public class ValidationUtils {
         return CollectionUtils.isEmpty(coll);
     }
 
+    public static boolean isEmpty(Map<?, ?> map) {
+        return map == null || map.isEmpty();
+    }
+
     public static boolean isNotEmpty(Collection<?> coll) {
         return CollectionUtils.isNotEmpty(coll);
+    }
+
+    public static <T> Collection<T> requireNotEmpty(Collection<T> coll, String message) {
+        if (isEmpty(coll)) {
+            throw new IllegalArgumentException(message);
+        }
+        return coll;
+    }
+
+    public static <K, V> Map<K, V> requireNotEmpty(Map<K, V> map, String message) {
+        if (isEmpty(map)) {
+            throw new IllegalArgumentException(message);
+        }
+        return map;
     }
 
     public static boolean isNull(Object obj) {

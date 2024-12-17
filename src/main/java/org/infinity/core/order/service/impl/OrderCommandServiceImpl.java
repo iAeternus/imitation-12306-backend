@@ -40,8 +40,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.collect.ImmutableSet.toImmutableSet;
 import static java.util.stream.Collectors.toMap;
 import static org.infinity.core.common.constants.I12306Constants.DEFAULT_COMMAND_TPS;
-import static org.infinity.core.common.exception.ErrorCodeEnum.LEFT_GREATER_THAN_RIGHT;
-import static org.infinity.core.common.exception.ErrorCodeEnum.NO_SUCH_SEAT;
+import static org.infinity.core.common.exception.ErrorCodeEnum.*;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
@@ -77,6 +76,13 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     public CreateOrderResponse createOrder(CreateOrderCommand command) {
         rateLimiter.applyFor("Order:buyTicket", DEFAULT_COMMAND_TPS);
 
+        // 校验实名认证
+        UserPO user = userRepository.cachedById(command.getUserId());
+        if(!user.isRealNameVerify()) {
+            throw new MyException(NOT_REAL_NAME_VERIFY_YET, "You have no real name authentication.",
+                    mapOf("userId", command.getUserId()));
+        }
+
         // 座位分配
         TripPO trip = tripRepository.cachedById(command.getTripId());
         List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
@@ -99,7 +105,6 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         List<TripStationPO> stationsBeRidden = IntStream.rangeClosed(sourceStationIndex, dstStationIndex)
                 .mapToObj(tripStations::get)
                 .collect(toImmutableList());
-        UserPO user = userRepository.cachedById(command.getUserId());
         BigDecimal price = priceCalculateHandler.calculatePrice(
                 PriceContext.builder()
                         .tripStations(stationsBeRidden)

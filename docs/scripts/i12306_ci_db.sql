@@ -35,17 +35,17 @@ CREATE TABLE `cs`
 DROP TABLE IF EXISTS `ticket_order`;
 CREATE TABLE `ticket_order`
 (
-    `id`                       varchar(24)    NOT NULL,
-    `user_id`                  varchar(24)    NOT NULL COMMENT '用户ID',
-    `trip_id`                  varchar(24)    NOT NULL COMMENT '车次ID',
-    `seat_id`                  varchar(24)    NOT NULL COMMENT '座位ID',
-    `origin_trip_station_id`   varchar(24)    NOT NULL COMMENT '起点站车次站点ID',
-    `terminal_trip_station_id` varchar(24)    NOT NULL COMMENT '终点站车次站点ID',
-    `station_count`            int            NOT NULL COMMENT '乘坐的站点数量',
-    `price`                    decimal(10, 2) NOT NULL COMMENT '价格',
-    `status`                   tinyint        NOT NULL COMMENT '状态（待支付，已支付，已上车，已出站）',
-    `create_at`                datetime       NOT NULL,
-    `update_at`                datetime       NOT NULL,
+    `id`                     varchar(24)    NOT NULL,
+    `user_id`                varchar(24)    NOT NULL COMMENT '用户ID',
+    `trip_id`                varchar(24)    NOT NULL COMMENT '车次ID',
+    `seat_id`                varchar(24)    NOT NULL COMMENT '座位ID',
+    `source_trip_station_id` varchar(24)    NOT NULL COMMENT '起始地车次站点ID',
+    `dst_trip_station_id`    varchar(24)    NOT NULL COMMENT '目的地车次站点ID',
+    `station_count`          int            NOT NULL COMMENT '乘坐的站点数量',
+    `price`                  decimal(10, 2) NOT NULL COMMENT '价格',
+    `status`                 tinyint        NOT NULL COMMENT '状态（待支付，已支付，已上车，已出站）',
+    `create_at`              datetime       NOT NULL,
+    `update_at`              datetime       NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

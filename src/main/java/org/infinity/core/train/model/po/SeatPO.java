@@ -61,7 +61,7 @@ public class SeatPO {
         return SEAT_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();
     }
 
-    public String getSeatNumber() {
+    public String getSeatCode() {
         return String.format("%02d", ithRow) + letter;
     }
 

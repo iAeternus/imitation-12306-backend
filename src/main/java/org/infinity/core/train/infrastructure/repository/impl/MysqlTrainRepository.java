@@ -2,6 +2,7 @@ package org.infinity.core.train.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.train.infrastructure.mapper.TrainMapper;
 import org.infinity.core.train.infrastructure.repository.TrainRepository;
 import org.infinity.core.train.infrastructure.repository.cache.MysqlTrainCachedRepository;
@@ -9,6 +10,8 @@ import org.infinity.core.train.model.po.TrainPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 
 /**
  * @author Ricky
@@ -42,6 +45,8 @@ public class MysqlTrainRepository extends ServiceImpl<TrainMapper, TrainPO> impl
 
     @Override
     public boolean existsById(String trainId) {
+        requireNonBlank(trainId, "Train ID must not be blank.");
+
         return lambdaQuery().eq(TrainPO::getId, trainId).exists();
     }
 }

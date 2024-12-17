@@ -14,6 +14,7 @@ import java.util.List;
 import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
+import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 
 /**
  * @author Ricky
@@ -30,6 +31,8 @@ public class MysqlTripStationRepository extends ServiceImpl<TripStationMapper, T
 
     @Override
     public List<TripStationPO> listByTripId(String tripId) {
+        requireNonBlank(tripId, "Trip ID must not be blank.");
+
         List<TripStationPO> tripStations = lambdaQuery()
                 .eq(TripStationPO::getTripId, tripId)
                 .orderBy(true, true, TripStationPO::getOrderNum)

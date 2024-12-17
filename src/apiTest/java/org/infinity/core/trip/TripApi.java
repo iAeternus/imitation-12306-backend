@@ -44,7 +44,6 @@ public class TripApi {
                 .post(ROOT_URL + "/enter-trip-stations");
     }
 
-    // TODO Api Test
     public static EnterTripStationsResponse enterTripStations(String jwt, EnterTripStationsCommand command) {
         return enterTripStationsRaw(jwt, command)
                 .then()

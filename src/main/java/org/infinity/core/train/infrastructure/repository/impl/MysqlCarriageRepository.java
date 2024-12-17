@@ -20,6 +20,7 @@ import static org.infinity.core.common.exception.ErrorCodeEnum.CARRIAGE_NOT_FOUN
 import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
+import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 
 /**
  * @author Ricky
@@ -36,6 +37,8 @@ public class MysqlCarriageRepository extends ServiceImpl<CarriageMapper, Carriag
 
     @Override
     public List<CarriagePO> listByTrainId(String trainId) {
+        requireNonBlank(trainId, "Train ID must not be blank");
+
         List<CarriagePO> carriages = lambdaQuery().eq(CarriagePO::getTrainId, trainId).list();
         if (isEmpty(carriages)) {
             throw new MyException(EMPTY_COLLECTION, "The train with train ID [" + trainId + "] has an empty carriage list",

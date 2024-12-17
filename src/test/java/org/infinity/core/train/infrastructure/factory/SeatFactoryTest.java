@@ -40,11 +40,11 @@ class SeatFactoryTest {
         SeatPO seat5 = seatFactory.create(carriageId, index4, SECOND_CLASS); // 02A
 
         // Then
-        assertEquals("01A", seat1.getSeatNumber());
-        assertEquals("01F", seat2.getSeatNumber());
-        assertEquals("01F", seat3.getSeatNumber());
-        assertEquals("02A", seat4.getSeatNumber());
-        assertEquals("02A", seat5.getSeatNumber());
+        assertEquals("01A", seat1.getSeatCode());
+        assertEquals("01F", seat2.getSeatCode());
+        assertEquals("01F", seat3.getSeatCode());
+        assertEquals("02A", seat4.getSeatCode());
+        assertEquals("02A", seat5.getSeatCode());
     }
 
 }

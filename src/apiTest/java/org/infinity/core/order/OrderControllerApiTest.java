@@ -4,6 +4,7 @@ import org.infinity.BaseApiTest;
 import org.infinity.core.common.utils.MyBatisPlusUtils;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.response.CreateOrderResponse;
+import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.train.model.CarriageLevelEnum;
 import org.infinity.core.trip.model.po.TripPO;
@@ -19,6 +20,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static java.math.RoundingMode.HALF_UP;
+import static org.infinity.core.common.exception.ErrorCodeEnum.NOT_REAL_NAME_VERIFY_YET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -35,7 +37,7 @@ public class OrderControllerApiTest extends BaseApiTest {
     @DisplayName("分别创建成人和学生的订单，会买两张票")
     public void should_create_order() {
         // Given
-        JwtTokenResponse operator = setupApi.registerWithLogin();
+        JwtTokenResponse operator = setupApi.registerWithLoginAndRealNameVerify();
 
         TripPO trip = MyBatisPlusUtils.randQueryOne(tripRepository);
         List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
@@ -58,8 +60,8 @@ public class OrderControllerApiTest extends BaseApiTest {
         // Then
         OrderPO order = orderRepository.cachedById(response.getOrderId());
         assertNotNull(order);
-        assertEquals(sourceTripStationId, order.getOriginTripStationId());
-        assertEquals(dstTripStationId, order.getTerminalTripStationId());
+        assertEquals(sourceTripStationId, order.getSourceTripStationId());
+        assertEquals(dstTripStationId, order.getDstTripStationId());
         assertNotNull(order.getSeatId());
 
         // When
@@ -69,6 +71,58 @@ public class OrderControllerApiTest extends BaseApiTest {
         // Then
         OrderPO order2 = orderRepository.cachedById(response2.getOrderId());
         assertEquals(order.getPrice().multiply(BigDecimal.valueOf(0.8)).setScale(2, HALF_UP), order2.getPrice().setScale(2, HALF_UP));
+    }
+
+    @Test
+    public void should_fail_to_create_if_not_real_name_verify_yet() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        TripPO trip = MyBatisPlusUtils.randQueryOne(tripRepository);
+        List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
+        tripStations.sort(Comparator.naturalOrder());
+        String sourceTripStationId = tripStations.get(0).getId();
+        String dstTripStationId = tripStations.get(tripStations.size() - 1).getId();
+
+        CreateOrderCommand command = CreateOrderCommand.builder()
+                .userId(operator.getUserId())
+                .tripId(trip.getId())
+                .seatLevel(CarriageLevelEnum.FIRST_CLASS.getKey())
+                // 从起点坐到终点
+                .sourceTripStationId(sourceTripStationId)
+                .dstTripStationId(dstTripStationId)
+                .build();
+
+        // When & Then
+        assertError(() -> OrderApi.createOrderRaw(operator.getToken(), command), NOT_REAL_NAME_VERIFY_YET);
+    }
+
+    @Test
+    public void should_search_order_detail() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLoginAndRealNameVerify();
+        TripPO trip = MyBatisPlusUtils.randQueryOne(tripRepository);
+        List<TripStationPO> tripStations = tripStationRepository.listByTripId(trip.getId());
+        tripStations.sort(Comparator.naturalOrder());
+        String sourceTripStationId = tripStations.get(0).getId();
+        String dstTripStationId = tripStations.get(tripStations.size() - 1).getId();
+
+        CreateOrderCommand command = CreateOrderCommand.builder()
+                .userId(operator.getUserId())
+                .tripId(trip.getId())
+                .seatLevel(CarriageLevelEnum.FIRST_CLASS.getKey())
+                // 从起点坐到终点
+                .sourceTripStationId(sourceTripStationId)
+                .dstTripStationId(dstTripStationId)
+                .build();
+        String orderId = OrderApi.createOrder(operator.getToken(), command).getOrderId();
+
+        // When
+        SearchOrderDetailResponse response = OrderApi.searchOrderDetail(operator.getToken(), orderId);
+
+        // Then
+        assertNotNull(response);
+        assertEquals(tripStations.size(), response.getStations().size());
     }
 
 }

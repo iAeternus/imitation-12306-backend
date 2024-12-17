@@ -12,6 +12,13 @@ import org.infinity.core.station.model.po.StationPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import static org.infinity.core.common.exception.ErrorCodeEnum.STATION_NOT_FOUND;
+import static org.infinity.core.common.utils.ListUtils.listToString;
+import static org.infinity.core.common.utils.ValidationUtils.*;
 
 /**
  * @author Ricky
@@ -25,13 +32,14 @@ import java.util.List;
 public class MysqlStationRepository extends ServiceImpl<StationMapper, StationPO> implements StationRepository {
 
     private final MysqlStationCachedRepository stationCachedRepository;
-    private final StationMapper stationMapper;
 
     @Override
     public StationPO cachedById(String stationId) {
+        requireNonBlank(stationId, "Station ID must not be blank");
+
         StationPO station = stationCachedRepository.cachedById(stationId);
-        if (ValidationUtils.isNull(station)) {
-            throw new MyException(ErrorCodeEnum.STATION_NOT_FOUND, "Station not found.", "stationId", stationId);
+        if (isNull(station)) {
+            throw new MyException(STATION_NOT_FOUND, "Station not found.", "stationId", stationId);
         }
         return station;
     }
@@ -40,6 +48,17 @@ public class MysqlStationRepository extends ServiceImpl<StationMapper, StationPO
     public boolean allIdsExist(List<String> stationIds) {
         long stationCount = stationIds.stream().distinct().count();
         long dbStationCount = lambdaQuery().in(StationPO::getId, stationIds).count();
-        return stationCount == dbStationCount;
+        return stationCount != dbStationCount;
+    }
+
+    @Override
+    public Map<String, String> listStationIdAndStationName(List<String> stationIds) {
+        List<StationPO> stations = listByIds(stationIds);
+        if(isEmpty(stations)) {
+            String msg = listToString(stationIds);
+            throw new MyException(STATION_NOT_FOUND, "Station not found.", "stationIds", msg);
+        }
+        return stations.stream()
+                .collect(Collectors.toMap(StationPO::getId, StationPO::getStationName));
     }
 }

@@ -14,8 +14,7 @@ import java.util.List;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.TRIP_SEAT_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
-import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
-import static org.infinity.core.common.utils.ValidationUtils.isNull;
+import static org.infinity.core.common.utils.ValidationUtils.*;
 
 /**
  * @author Ricky
@@ -34,6 +33,8 @@ public class MysqlTripSeatRepository extends ServiceImpl<TripSeatMapper, TripSea
 
     @Override
     public List<TripSeatPO> listByTripId(String tripId) {
+        requireNonBlank(tripId, "Trip ID must not be blank.");
+
         List<TripSeatPO> tripSeats = lambdaQuery().eq(TripSeatPO::getTripId, tripId).list();
         if (isEmpty(tripSeats)) {
             return Collections.emptyList();
@@ -52,6 +53,9 @@ public class MysqlTripSeatRepository extends ServiceImpl<TripSeatMapper, TripSea
 
     @Override
     public TripSeatPO getByTripIdAnsSeatId(String tripId, String seatId) {
+        requireNonBlank(tripId, "Trip ID must not be blank.");
+        requireNonBlank(seatId, "Seat ID must not be blank.");
+
         TripSeatPO tripSeat = lambdaQuery().eq(TripSeatPO::getTripId, tripId).eq(TripSeatPO::getSeatId, seatId).one();
         if (isNull(tripSeat)) {
             throw new MyException(TRIP_SEAT_NOT_FOUND, "Trip seat not found.", mapOf("tripId", tripId, "seatId", seatId));

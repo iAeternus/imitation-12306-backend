@@ -48,14 +48,14 @@ public class OrderPO {
     private String seatId;
 
     /**
-     * 起点站车次站点ID
+     * 起始地车次站点ID
      */
-    private String originTripStationId;
+    private String sourceTripStationId;
 
     /**
-     * 终点站车次站点ID
+     * 目的地车次站点ID
      */
-    private String terminalTripStationId;
+    private String dstTripStationId;
 
     /**
      * 乘坐的站点数量

@@ -11,6 +11,7 @@ import org.infinity.core.trip.infrastructure.repository.TripSeatRepository;
 import org.infinity.core.trip.model.po.TripPO;
 import org.infinity.core.trip.model.po.TripSeatPO;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,8 @@ public class InitTripSeatTask implements OnetimeTask {
     private final SeatRepository seatRepository;
     private final TripSeatRepository tripSeatRepository;
 
-    public void run(List<String> tripIds) {
+    @Transactional
+    public void run(List<String> tripIds) { // TODO 数据不一致时有异常发生
         List<TripPO> trips = tripRepository.listByIds(tripIds);
         List<String> trainIds = trips.stream().map(TripPO::getTrainId).collect(toImmutableList());
         Map<String, List<CarriagePO>> trainCarriages = carriageRepository.listByTrainIds(trainIds);

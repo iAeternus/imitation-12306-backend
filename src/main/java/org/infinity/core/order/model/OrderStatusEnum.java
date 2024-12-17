@@ -13,16 +13,18 @@ import lombok.Getter;
 @Getter
 public enum OrderStatusEnum {
 
-    TO_BE_PAID((short) 0),
-    ALREADY_PAID((short) 1),
-    ON_BOARD((short) 2),
-    OUT_OF_STATION((short) 3),
+    TO_BE_PAID((short) 0, "待支付"),
+    ALREADY_PAID((short) 1, "已支付"),
+    ON_BOARD((short) 2, "已上车"),
+    OUT_OF_STATION((short) 3, "已出站"),
     ;
 
     @EnumValue
     final Short key;
+    final String val;
 
-    OrderStatusEnum(Short key) {
+    OrderStatusEnum(Short key, String val) {
         this.key = key;
+        this.val = val;
     }
 }

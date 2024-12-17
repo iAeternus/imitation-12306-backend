@@ -56,6 +56,7 @@ public enum ErrorCodeEnum {
     AGE_NOT_REQUIRE(409),
     NOT_SUPPORTED_YET(409),
     OLD_AND_NEW_MOBILE_CANNOT_EQUALS(409),
+    NOT_REAL_NAME_VERIFY_YET(409),
 
     // 426
 

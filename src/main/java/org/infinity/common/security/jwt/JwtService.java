@@ -24,7 +24,7 @@ import java.util.Date;
 public class JwtService {
 
     private final JwtProperties jwtProperties;
-    private final UserRepository userRepository; // TODO
+    private final UserRepository userRepository;
 
     public String generateJwt(String userId) {
         Date now = new Date();

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import static org.infinity.core.common.exception.ErrorCodeEnum.TRIP_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
+import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 
 
 /**
@@ -29,6 +30,8 @@ public class MysqlTripRepository extends ServiceImpl<TripMapper, TripPO> impleme
 
     @Override
     public TripPO cachedById(String tripId) {
+        requireNonBlank(tripId, "Trip ID must not be blank.");
+
         TripPO tripPO = tripCachedRepository.cachedById(tripId);
         if (isNull(tripPO)) {
             throw new MyException(TRIP_NOT_FOUND, "Trip not found.", mapOf("tripId", tripId));

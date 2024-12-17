@@ -58,13 +58,13 @@ public class TripCommandServiceImpl implements TripCommandService {
             throw new MyException(TRAIN_IDS_NOT_ALL_EXISTS, "Train ids not all exists.");
         }
 
-        if (!stationRepository.allIdsExist(command.getTripInfos().stream()
+        if (stationRepository.allIdsExist(command.getTripInfos().stream()
                 .map(EnterTripBatchCommand.TripInfo::getOriginStationId)
                 .collect(toImmutableList()))) {
             throw new MyException(STATION_IDS_NOT_ALL_EXISTS, "Origin Station ids not all exists.");
         }
 
-        if (!stationRepository.allIdsExist(command.getTripInfos().stream()
+        if (stationRepository.allIdsExist(command.getTripInfos().stream()
                 .map(EnterTripBatchCommand.TripInfo::getTerminalStationId)
                 .collect(toImmutableList()))) {
             throw new MyException(STATION_IDS_NOT_ALL_EXISTS, "Terminal Station ids not all exists.");
