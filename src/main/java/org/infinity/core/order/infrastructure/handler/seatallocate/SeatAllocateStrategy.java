@@ -1,6 +1,6 @@
 package org.infinity.core.order.infrastructure.handler.seatallocate;
 
-import org.infinity.core.train.model.po.TripSeatPO;
+import org.infinity.core.trip.model.po.TripSeatPO;
 
 import java.util.List;
 

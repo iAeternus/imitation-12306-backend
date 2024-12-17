@@ -21,6 +21,7 @@ public interface I12306Constants {
     String STATION_ID_PREFIX = "STT";
     String ORDER_ID_PREFIX = "ORD";
     String TRIP_SEAT_ID_PREFIX = "TST";
+    String CUSTOMER_SERVICE_ID_PREFIX = "CS";
 
     String ORDER_CACHE = "ORDER";
     String USER_CACHE = "USER";

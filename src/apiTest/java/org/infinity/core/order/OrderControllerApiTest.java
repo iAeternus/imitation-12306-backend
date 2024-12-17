@@ -2,19 +2,19 @@ package org.infinity.core.order;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.utils.MyBatisPlusUtils;
-import org.infinity.core.order.model.SeatLevelEnum;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.response.CreateOrderResponse;
 import org.infinity.core.order.model.po.OrderPO;
-import org.infinity.core.train.model.po.TripPO;
-import org.infinity.core.train.model.po.TripStationPO;
+import org.infinity.core.train.model.CarriageLevelEnum;
+import org.infinity.core.trip.model.po.TripPO;
+import org.infinity.core.trip.model.po.TripStationPO;
 import org.infinity.core.user.UserApi;
 import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 
@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class OrderControllerApiTest extends BaseApiTest {
 
     @Test
+    @DisplayName("分别创建成人和学生的订单，会买两张票")
     public void should_create_order() {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
@@ -44,7 +45,7 @@ public class OrderControllerApiTest extends BaseApiTest {
         CreateOrderCommand command = CreateOrderCommand.builder()
                 .userId(operator.getUserId())
                 .tripId(trip.getId())
-                .seatLevel(SeatLevelEnum.FIRST_CLASS.getKey())
+                .seatLevel(CarriageLevelEnum.FIRST_CLASS.getKey())
                 // 从起点坐到终点
                 .sourceTripStationId(sourceTripStationId)
                 .dstTripStationId(dstTripStationId)

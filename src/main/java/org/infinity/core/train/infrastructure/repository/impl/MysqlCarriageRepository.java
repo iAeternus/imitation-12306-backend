@@ -7,12 +7,16 @@ import org.infinity.core.train.infrastructure.mapper.CarriageMapper;
 import org.infinity.core.train.infrastructure.repository.CarriageRepository;
 import org.infinity.core.train.infrastructure.repository.cache.MysqlCarriageCachedRepository;
 import org.infinity.core.train.model.po.CarriagePO;
+import org.infinity.core.trip.model.po.TripSeatPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.function.UnaryOperator.identity;
+import static org.infinity.core.common.exception.ErrorCodeEnum.CARRIAGE_NOT_FOUND;
 import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
@@ -55,4 +59,18 @@ public class MysqlCarriageRepository extends ServiceImpl<CarriageMapper, Carriag
     public CarriagePO cachedById(String id) {
         return carriageCachedRepository.cachedById(id);
     }
+
+    @Override
+    public Map<CarriagePO, List<TripSeatPO>> getLevelByCarriageSeats(Map<String, List<TripSeatPO>> carriageIdSeats) {
+        Set<String> carriageIds = carriageIdSeats.keySet();
+        List<CarriagePO> carriages = listByIds(carriageIds);
+        if (isEmpty(carriages)) {
+            throw new MyException(CARRIAGE_NOT_FOUND, "Carriage not found.");
+        }
+        Map<String, CarriagePO> carriagesMap = carriages.stream()
+                .collect(Collectors.toMap(CarriagePO::getId, identity()));
+        return carriageIdSeats.entrySet().stream()
+                .collect(Collectors.toMap(entry -> carriagesMap.get(entry.getKey()), Map.Entry::getValue));
+    }
+
 }

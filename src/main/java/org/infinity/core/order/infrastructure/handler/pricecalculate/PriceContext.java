@@ -2,7 +2,7 @@ package org.infinity.core.order.infrastructure.handler.pricecalculate;
 
 import lombok.Builder;
 import lombok.Data;
-import org.infinity.core.train.model.po.TripStationPO;
+import org.infinity.core.trip.model.po.TripStationPO;
 
 import java.util.List;
 

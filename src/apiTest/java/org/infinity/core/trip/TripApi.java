@@ -4,12 +4,12 @@ import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.model.page.PageResponse;
-import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.train.model.dto.command.EnterTripStationsCommand;
-import org.infinity.core.train.model.dto.query.TripPageQuery;
-import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.train.model.dto.response.EnterTripStationsResponse;
-import org.infinity.core.train.model.dto.response.TripResponse;
+import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.trip.model.dto.command.EnterTripStationsCommand;
+import org.infinity.core.trip.model.dto.query.TripPageQuery;
+import org.infinity.core.trip.model.dto.response.EnterTripBatchResponse;
+import org.infinity.core.trip.model.dto.response.EnterTripStationsResponse;
+import org.infinity.core.trip.model.dto.response.TripResponse;
 
 /**
  * @author Ricky

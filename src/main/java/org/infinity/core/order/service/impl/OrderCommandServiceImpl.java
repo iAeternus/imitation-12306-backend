@@ -3,7 +3,6 @@ package org.infinity.core.order.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.order.infrastructure.factory.OrderFactory;
 import org.infinity.core.order.infrastructure.handler.pricecalculate.PriceCalculateHandler;
 import org.infinity.core.order.infrastructure.handler.pricecalculate.PriceContext;
@@ -17,6 +16,12 @@ import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.train.infrastructure.repository.*;
 import org.infinity.core.train.model.CarriageLevelEnum;
 import org.infinity.core.train.model.po.*;
+import org.infinity.core.trip.infrastructure.repository.TripRepository;
+import org.infinity.core.trip.infrastructure.repository.TripSeatRepository;
+import org.infinity.core.trip.infrastructure.repository.TripStationRepository;
+import org.infinity.core.trip.model.po.TripPO;
+import org.infinity.core.trip.model.po.TripSeatPO;
+import org.infinity.core.trip.model.po.TripStationPO;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.model.po.UserPO;
 import org.springframework.stereotype.Service;
@@ -38,6 +43,7 @@ import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
 import static org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateHandler.SeatAllocateStrategyEnum.LINEAR;
+import static org.infinity.core.trip.model.po.TripStationPO.findTripStationIndex;
 
 /**
  * @author Ricky
@@ -106,16 +112,6 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         return CreateOrderResponse.builder()
                 .orderId(order.getId())
                 .build();
-    }
-
-    /**
-     * 寻找站点索引，索引从0开始
-     */
-    private int findTripStationIndex(List<TripStationPO> tripStations, String tripStationId) {
-        return IntStream.range(0, tripStations.size())
-                .filter(i -> ValidationUtils.equals(tripStations.get(i).getId(), tripStationId))
-                .findFirst()
-                .orElseThrow(() -> new MyException(TRIP_STATION_NOT_FOUND, "Trip Station not found.", mapOf("sourceStationId", tripStationId)));
     }
 
     public List<TripSeatPO> filterTripSeatsByLevel(List<TripSeatPO> tripSeats, CarriageLevelEnum level) {

@@ -2,14 +2,14 @@ package org.infinity.core.trip;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.model.page.PageResponse;
-import org.infinity.core.train.model.dto.command.EnterTripBatchCommand;
-import org.infinity.core.train.model.dto.command.EnterTripStationsCommand;
-import org.infinity.core.train.model.dto.query.TripPageQuery;
-import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
-import org.infinity.core.train.model.dto.response.EnterTripStationsResponse;
-import org.infinity.core.train.model.dto.response.TripResponse;
-import org.infinity.core.train.model.po.TripPO;
-import org.infinity.core.train.model.po.TripStationPO;
+import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.trip.model.dto.command.EnterTripStationsCommand;
+import org.infinity.core.trip.model.dto.query.TripPageQuery;
+import org.infinity.core.trip.model.dto.response.EnterTripBatchResponse;
+import org.infinity.core.trip.model.dto.response.EnterTripStationsResponse;
+import org.infinity.core.trip.model.dto.response.TripResponse;
+import org.infinity.core.trip.model.po.TripPO;
+import org.infinity.core.trip.model.po.TripStationPO;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.junit.jupiter.api.Test;
 

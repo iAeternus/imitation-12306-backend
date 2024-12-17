@@ -44,6 +44,7 @@ public enum ErrorCodeEnum {
     STATION_NOT_FOUND(404),
     TRAIN_NOT_FOUND(404),
     TRIP_SEAT_NOT_FOUND(404),
+    CARRIAGE_NOT_FOUND(404),
 
     // 409
     NO_SUCH_SEAT(409),

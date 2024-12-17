@@ -2,7 +2,7 @@ package org.infinity.core.order.infrastructure.handler.seatallocate.impl;
 
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateStrategy;
-import org.infinity.core.train.model.po.TripSeatPO;
+import org.infinity.core.trip.model.po.TripSeatPO;
 
 import java.util.List;
 

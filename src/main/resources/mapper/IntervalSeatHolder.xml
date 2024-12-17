@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="org.infinity.core.train.infrastructure.mapper.TripSeatMapper">
+<mapper namespace="org.infinity.core.trip.infrastructure.mapper.TripSeatMapper">
 
     <insert id="insertBatch" parameterType="java.util.List">
         insert into i12306_ci_db.trip_seat (id, trip_id, seat_id, occupied_interval_flag, create_at, update_at) values

@@ -6,7 +6,6 @@ import org.infinity.core.train.model.dto.command.EnterCarriageCommand;
 import org.infinity.core.train.model.dto.command.EnterTrainBatchCommand;
 import org.infinity.core.train.model.dto.response.EnterCarriageResponse;
 import org.infinity.core.train.model.dto.response.EnterTrainBatchResponse;
-import org.infinity.core.train.model.dto.response.EnterTripBatchResponse;
 
 /**
  * @author Ricky

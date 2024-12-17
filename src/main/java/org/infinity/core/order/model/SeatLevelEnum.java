@@ -11,6 +11,7 @@ import lombok.Getter;
  * @desc 座位等级
  */
 @Getter
+@Deprecated
 public enum SeatLevelEnum {
 
     BUSINESS_CLASS((short) 0),

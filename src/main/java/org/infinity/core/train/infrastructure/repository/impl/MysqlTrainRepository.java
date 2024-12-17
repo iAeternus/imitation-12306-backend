@@ -33,7 +33,7 @@ public class MysqlTrainRepository extends ServiceImpl<TrainMapper, TrainPO> impl
 
     /**
      * 这个同理
-     * org.infinity.core.train.infrastructure.repository.impl.MysqlTripRepository
+     * org.infinity.core.trip.infrastructure.repository.impl.MysqlTripRepository
      */
     @Override
     public boolean allIdsExist(List<String> trainIds) {

@@ -2,8 +2,7 @@ package org.infinity.core.order.infrastructure.handler.seatallocate;
 
 import lombok.Getter;
 import org.infinity.core.order.infrastructure.handler.seatallocate.impl.LinearSeatAllocateStrategy;
-import org.infinity.core.train.model.po.SeatPO;
-import org.infinity.core.train.model.po.TripSeatPO;
+import org.infinity.core.trip.model.po.TripSeatPO;
 
 import java.util.List;
 
