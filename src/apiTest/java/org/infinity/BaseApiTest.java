@@ -17,6 +17,7 @@ import org.infinity.core.common.exception.ErrorCodeEnum;
 import org.infinity.core.common.exception.MyError;
 import org.infinity.core.common.exception.QErrorResponse;
 import org.infinity.core.common.utils.MyObjectMapper;
+import org.infinity.core.cs.infrastructure.repository.CSRepository;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.train.infrastructure.repository.CarriageRepository;
@@ -65,9 +66,6 @@ public class BaseApiTest {
     @Autowired
     protected SetupApi setupApi;
 
-    // @Autowired
-    // protected DomainEventDao domainEventDao;
-
     @Autowired
     protected JwtService jwtService;
 
@@ -100,6 +98,9 @@ public class BaseApiTest {
 
     @Autowired
     protected TripSeatRepository tripSeatRepository;
+
+    @Autowired
+    protected CSRepository csRepository;
 
     // TODO add repository here...
 

@@ -3,6 +3,9 @@ package org.infinity.core.order.infrastructure.repository.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.validation.metadata.ValidateUnwrappedValue;
 import lombok.RequiredArgsConstructor;
+import org.infinity.core.common.constants.I12306Constants;
+import org.infinity.core.common.exception.ErrorCodeEnum;
+import org.infinity.core.common.exception.MyException;
 import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.order.infrastructure.mapper.OrderMapper;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
@@ -11,6 +14,9 @@ import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.springframework.stereotype.Repository;
 
+import static org.infinity.core.common.exception.ErrorCodeEnum.ORDER_NOT_FOUND;
+import static org.infinity.core.common.utils.MapUtils.mapOf;
+import static org.infinity.core.common.utils.ValidationUtils.isNull;
 import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 
 /**
@@ -30,7 +36,11 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
     public OrderPO cachedById(String orderId) {
         requireNonBlank(orderId, "Order ID must not be blank");
 
-        return orderCachedRepository.cachedById(orderId);
+        OrderPO order = orderCachedRepository.cachedById(orderId);
+        if(isNull(order)) {
+            throw new MyException(ORDER_NOT_FOUND, "Order not found.", mapOf("orderId", orderId));
+        }
+        return order;
     }
 
     @Override

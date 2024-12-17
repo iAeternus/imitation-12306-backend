@@ -1,5 +1,8 @@
 package org.infinity.core.cs.service;
 
+import org.infinity.core.cs.model.dto.command.EnterCSBatchCommand;
+import org.infinity.core.cs.model.dto.response.EnterCSBatchResponse;
+
 /**
  * @author Ricky
  * @version 1.0
@@ -8,4 +11,5 @@ package org.infinity.core.cs.service;
  * @desc
  */
 public interface CSCommandService {
+    EnterCSBatchResponse enterCSBatch(EnterCSBatchCommand command);
 }

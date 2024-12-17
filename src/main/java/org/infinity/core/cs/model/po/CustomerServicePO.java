@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
+import org.infinity.core.common.validation.collection.NoNullElement;
 
 import java.time.LocalDateTime;
 
@@ -19,8 +21,8 @@ import static org.infinity.core.common.constants.I12306Constants.CUSTOMER_SERVIC
  * @desc 在线客服
  */
 @Data
-@Builder
 @TableName("cs")
+@NoArgsConstructor
 public class CustomerServicePO {
 
     /**
@@ -47,6 +49,13 @@ public class CustomerServicePO {
     private LocalDateTime createAt;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateAt;
+
+    public CustomerServicePO(String stationId, String phoneNumber, String serverTime) {
+        this.id = newCustomerServiceId();
+        this.stationId = stationId;
+        this.phoneNumber = phoneNumber;
+        this.serverTime = serverTime;
+    }
 
     public static String newCustomerServiceId() {
         return CUSTOMER_SERVICE_ID_PREFIX + SnowflakeIdGenerator.newSnowflakeId();

@@ -2,6 +2,8 @@ package org.infinity.core.user.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.infinity.core.common.exception.ErrorCodeEnum;
+import org.infinity.core.common.exception.MyException;
 import org.infinity.core.user.infrastructure.mapper.UserMapper;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.user.infrastructure.repository.cache.MysqlUserCachedRepository;
@@ -9,8 +11,9 @@ import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.po.UserPO;
 import org.springframework.stereotype.Repository;
 
-import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
-import static org.infinity.core.common.utils.ValidationUtils.requireNonNull;
+import static org.infinity.core.common.exception.ErrorCodeEnum.USER_NOT_FOUND;
+import static org.infinity.core.common.utils.MapUtils.mapOf;
+import static org.infinity.core.common.utils.ValidationUtils.*;
 
 /**
  * @author Ricky
@@ -29,7 +32,11 @@ public class MysqlUserRepository extends ServiceImpl<UserMapper, UserPO> impleme
     public UserPO cachedById(String userId) {
         requireNonBlank(userId, "User ID must not be blank.");
 
-        return userCachedRepository.cachedById(userId);
+        UserPO user = userCachedRepository.cachedById(userId);
+        if(isNull(user)) {
+            throw new MyException(USER_NOT_FOUND, "User not found.", mapOf("userId", userId));
+        }
+        return user;
     }
 
     @Override

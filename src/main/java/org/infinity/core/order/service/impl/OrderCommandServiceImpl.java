@@ -122,7 +122,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
                 .build();
     }
 
-    public List<TripSeatPO> filterTripSeatsByLevel(List<TripSeatPO> tripSeats, CarriageLevelEnum level) {
+    private List<TripSeatPO> filterTripSeatsByLevel(List<TripSeatPO> tripSeats, CarriageLevelEnum level) {
         Set<String> seatIds = tripSeats.stream()
                 .map(TripSeatPO::getSeatId)
                 .collect(toImmutableSet());

@@ -15,7 +15,7 @@ import java.util.Map;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
-import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
+import static org.infinity.core.common.exception.ErrorCodeEnum.*;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.*;
 
@@ -65,6 +65,10 @@ public class MysqlSeatRepository extends ServiceImpl<SeatMapper, SeatPO> impleme
     public SeatPO cachedById(String id) {
         requireNonBlank(id, "Seat ID must not be blank");
 
-        return seatCachedRepository.cachedById(id);
+        SeatPO seat = seatCachedRepository.cachedById(id);
+        if(isNull(seat)) {
+            throw new MyException(SEAT_NOT_FOUND, "Seat not found.", mapOf("seatId", id));
+        }
+        return seat;
     }
 }

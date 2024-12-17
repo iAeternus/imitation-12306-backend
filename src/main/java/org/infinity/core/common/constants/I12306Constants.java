@@ -31,6 +31,7 @@ public interface I12306Constants {
     String SEAT_CACHE = "SEAT";
     String CARRIAGE_CACHE = "CARRIAGE";
     String ORDER_DETAIL_CACHE = "ORDER_DETAIL";
+    String CS_CACHE = "CS";
 
     String AUTHORIZATION = "Authorization";
     String BEARER = "Bearer ";
