@@ -169,4 +169,16 @@ public class UserControllerApiTest extends BaseApiTest {
         assertEquals(newMobile, user.getMobile());
     }
 
+    @Test
+    public void should_fetch_my_role() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        // When
+        FetchNyRoleResponse response = UserApi.fetchNyRole(operator.getToken(), operator.getUserId());
+
+        // Then
+        assertEquals((short) 2, response.getRole());
+    }
+
 }

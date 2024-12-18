@@ -116,4 +116,18 @@ public class UserApi {
                 .as(ChangeMobileResponse.class);
     }
 
+    public static Response fetchNyRoleRaw(String jwt, String userId) {
+        return BaseApiTest.given(jwt)
+                .when()
+                .get(URL_ROOT + "/me/role/{userId}", userId);
+    }
+
+    public static FetchNyRoleResponse fetchNyRole(String jwt, String userId) {
+        return fetchNyRoleRaw(jwt, userId)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(FetchNyRoleResponse.class);
+    }
+
 }

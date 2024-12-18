@@ -1,5 +1,6 @@
 package org.infinity.core.user.service;
 
+import org.infinity.core.user.model.dto.response.FetchNyRoleResponse;
 import org.infinity.core.user.model.dto.response.UserProfileResponse;
 
 /**
@@ -11,4 +12,6 @@ import org.infinity.core.user.model.dto.response.UserProfileResponse;
  */
 public interface UserQueryService {
     UserProfileResponse fetchMyProfile(String userId);
+
+    FetchNyRoleResponse fetchNyRole(String userId);
 }

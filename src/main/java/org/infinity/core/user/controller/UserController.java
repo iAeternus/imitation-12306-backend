@@ -75,4 +75,10 @@ public class UserController {
         return userQueryService.fetchMyProfile(userId);
     }
 
+    @GetMapping("/me/role/{userId}")
+    @Operation(summary = "查询用户身份")
+    public FetchNyRoleResponse fetchNyRole(@PathVariable("userId") @UserId String userId) {
+        return userQueryService.fetchNyRole(userId);
+    }
+
 }

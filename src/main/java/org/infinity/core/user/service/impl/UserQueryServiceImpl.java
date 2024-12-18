@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
+import org.infinity.core.user.model.dto.response.FetchNyRoleResponse;
 import org.infinity.core.user.model.dto.response.UserProfileResponse;
 import org.infinity.core.user.model.po.UserPO;
 import org.infinity.core.user.service.UserQueryService;
@@ -46,5 +47,17 @@ public class UserQueryServiceImpl implements UserQueryService {
                 .role(user.getRole())
                 .status(user.getStatus())
                 .build();
+    }
+
+    @Override
+    public FetchNyRoleResponse fetchNyRole(String userId) {
+        rateLimiter.applyFor("User:fetchNyRole", DEFAULT_QUERY_TPS);
+
+        UserPO user = userRepository.cachedById(userId);
+        if (isNull(user)) {
+            throw new MyException(USER_NOT_FOUND, "User not found.", "userId", userId);
+        }
+
+        return FetchNyRoleResponse.builder().role(user.getRole().getKey()).build();
     }
 }
