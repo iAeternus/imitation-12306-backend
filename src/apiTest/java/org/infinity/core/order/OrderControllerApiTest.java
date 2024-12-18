@@ -128,7 +128,7 @@ public class OrderControllerApiTest extends BaseApiTest {
 
         // Then
         assertNotNull(response);
-        assertEquals(tripStations.size(), response.getStations().size());
+        assertEquals(tripStations.size(), response.getOrderDetail().getStations().size());
     }
 
     @Test

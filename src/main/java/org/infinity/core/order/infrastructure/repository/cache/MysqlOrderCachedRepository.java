@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.infinity.core.order.infrastructure.mapper.OrderMapper;
-import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
+import org.infinity.core.order.model.dto.OrderDetail;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.train.infrastructure.repository.SeatRepository;
@@ -61,7 +61,7 @@ public class MysqlOrderCachedRepository extends ServiceImpl<OrderMapper, OrderPO
     }
 
     @Cacheable(value = ORDER_DETAIL_CACHE, key = "#orderId")
-    public SearchOrderDetailResponse searchOrderDetail(String orderId) {
+    public OrderDetail searchOrderDetail(String orderId) {
         OrderPO order = cachedById(orderId);
         UserPO user = userRepository.cachedById(order.getUserId());
         SeatPO seat = seatRepository.cachedById(order.getSeatId());
@@ -76,7 +76,7 @@ public class MysqlOrderCachedRepository extends ServiceImpl<OrderMapper, OrderPO
                 .collect(toImmutableList());
         Map<String, String> stationId2StationName = stationRepository.listStationIdAndStationName(filteredTripStationIds);
 
-        return SearchOrderDetailResponse.builder()
+        return OrderDetail.builder()
                 .realName(user.getRealName())
                 .tripId(order.getTripId())
                 .seatCode(seat.getSeatCode())

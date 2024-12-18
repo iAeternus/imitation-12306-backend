@@ -1,6 +1,7 @@
 package org.infinity.core.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.infinity.core.order.model.dto.response.SearchMineOrdersResponse;
 import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 
@@ -15,4 +16,5 @@ public interface OrderQueryService extends IService<OrderPO> {
 
     SearchOrderDetailResponse searchOrderDetail(String orderId);
 
+    SearchMineOrdersResponse searchMineOrders(String userId);
 }

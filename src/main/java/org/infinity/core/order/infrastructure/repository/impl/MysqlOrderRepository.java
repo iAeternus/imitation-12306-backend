@@ -11,9 +11,12 @@ import org.infinity.core.order.infrastructure.mapper.OrderMapper;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
 import org.infinity.core.order.infrastructure.repository.cache.MysqlOrderCachedRepository;
 import org.infinity.core.order.model.OrderStatusEnum;
+import org.infinity.core.order.model.dto.OrderDetail;
 import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.ORDER_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
@@ -44,7 +47,7 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
     }
 
     @Override
-    public SearchOrderDetailResponse searchOrderDetail(String orderId) {
+    public OrderDetail searchOrderDetail(String orderId) {
         requireNonBlank(orderId, "Order ID must not be blank");
 
         return orderCachedRepository.searchOrderDetail(orderId);
@@ -57,5 +60,17 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
 
         lambdaUpdate().eq(OrderPO::getId, orderId).set(OrderPO::getStatus, newStatus).update();
         orderCachedRepository.evictOrderCache(orderId);
+        orderCachedRepository.evictOrderDetailCache(orderId);
+    }
+
+    @Override
+    public List<OrderPO> listByUserId(String userId) {
+        requireNonBlank(userId, "User ID must not be blank");
+
+        List<OrderPO> orders = lambdaQuery().eq(OrderPO::getUserId, userId).list();
+        if(isEmpty(orders)) {
+            throw new MyException(ORDER_NOT_FOUND, "You have no order yet.", mapOf("userId", userId));
+        }
+        return orders;
     }
 }

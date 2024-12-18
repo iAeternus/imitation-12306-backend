@@ -5,13 +5,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.validation.id.order.OrderId;
+import org.infinity.core.common.validation.id.user.UserId;
 import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.command.OutboundCommand;
-import org.infinity.core.order.model.dto.response.CheckInResponse;
-import org.infinity.core.order.model.dto.response.CreateOrderResponse;
-import org.infinity.core.order.model.dto.response.OutboundResponse;
-import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
+import org.infinity.core.order.model.dto.response.*;
 import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.order.service.OrderQueryService;
 import org.springframework.validation.annotation.Validated;
@@ -56,6 +54,12 @@ public class OrderController {
     @Operation(summary = "查询订单明细")
     public SearchOrderDetailResponse searchOrderDetail(@PathVariable("orderId") @OrderId String orderId) {
         return orderQueryService.searchOrderDetail(orderId);
+    }
+
+    @GetMapping("/mine/{userId}")
+    @Operation(summary = "查询用户的历史订单")
+    public SearchMineOrdersResponse searchMineOrders(@PathVariable("userId") @UserId String userId) {
+        return orderQueryService.searchMineOrders(userId);
     }
 
 }
