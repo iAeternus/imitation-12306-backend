@@ -2,14 +2,13 @@ package org.infinity.core.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.validation.id.user.UserId;
 import org.infinity.core.user.model.dto.command.*;
-import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
-import org.infinity.core.user.model.dto.response.JwtTokenResponse;
-import org.infinity.core.user.model.dto.response.UserProfileResponse;
-import org.infinity.core.user.model.dto.response.UserRegisterResponse;
+import org.infinity.core.user.model.dto.response.*;
 import org.infinity.core.user.service.UserCommandService;
 import org.infinity.core.user.service.UserQueryService;
 import org.springframework.http.HttpStatus;
@@ -44,6 +43,12 @@ public class UserController {
     @Operation(summary = "用户登录")
     public JwtTokenResponse login(@RequestBody @Valid UserLoginCommand command) {
         return userCommandService.login(command);
+    }
+
+    @DeleteMapping("/logout")
+    @Operation(summary = "退出登陆")
+    public LogoutResponse logout(@RequestBody @Valid LogoutCommand command) {
+        return userCommandService.logout(command);
     }
 
     @PutMapping("/stu")

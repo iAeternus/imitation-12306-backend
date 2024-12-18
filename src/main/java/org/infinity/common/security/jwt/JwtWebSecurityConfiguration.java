@@ -18,7 +18,8 @@ import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.POST;
 
 /**
  * @author Ricky
@@ -45,10 +46,10 @@ public class JwtWebSecurityConfiguration {
     public SecurityFilterChain jwtFilterChain(HttpSecurity http) throws Exception {
         ProviderManager authenticationManager = new ProviderManager(this.jwtAuthenticationProvider);
         http.authorizeHttpRequests(registry -> registry
+                        .requestMatchers(POST, "/users/registration").permitAll()
+                        .requestMatchers(POST, "/users/login").permitAll()
                         .requestMatchers(DELETE, "/users/logout").permitAll()
                         .requestMatchers(POST, "/aliyun/oss-token-requisitions").permitAll()
-                        .requestMatchers(GET, "/qrs/submission-qrs/*").permitAll()
-                        .requestMatchers(GET, "/presentations/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager)
                 .exceptionHandling()
@@ -82,9 +83,7 @@ public class JwtWebSecurityConfiguration {
                 .requestMatchers("/about", "/favicon.ico", "/error", "/MP_verify_qXC2acLZ7a7qm3Xp.txt",
                         "/local-manual-test/orders/**",
                         "/local-manual-test/receive-webhook",
-                        "/api-testing/webhook", "/api-testing/orders/**")
-                .requestMatchers(POST, "/users/login")
-                .requestMatchers(POST, "/users/registration");
+                        "/api-testing/webhook", "/api-testing/orders/**");
     }
 
 }

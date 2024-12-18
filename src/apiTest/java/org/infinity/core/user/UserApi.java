@@ -3,10 +3,7 @@ package org.infinity.core.user;
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
 import org.infinity.core.user.model.dto.command.*;
-import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
-import org.infinity.core.user.model.dto.response.JwtTokenResponse;
-import org.infinity.core.user.model.dto.response.UserProfileResponse;
-import org.infinity.core.user.model.dto.response.UserRegisterResponse;
+import org.infinity.core.user.model.dto.response.*;
 
 /**
  * @author Ricky
@@ -47,6 +44,21 @@ public class UserApi {
                 .statusCode(200)
                 .extract()
                 .as(JwtTokenResponse.class);
+    }
+
+    public static Response logoutRaw(LogoutCommand command) {
+        return BaseApiTest.given()
+                .body(command)
+                .when()
+                .delete(URL_ROOT + "/logout");
+    }
+
+    public static LogoutResponse logout(LogoutCommand command) {
+        return logoutRaw(command)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(LogoutResponse.class);
     }
 
     public static Response fetchMyProfileRaw(String jwt, String userId) {

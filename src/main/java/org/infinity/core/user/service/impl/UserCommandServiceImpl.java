@@ -1,6 +1,9 @@
 package org.infinity.core.user.service.impl;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.infinity.common.password.MyPasswordEncoder;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.common.security.jwt.JwtService;
@@ -12,6 +15,7 @@ import org.infinity.core.user.model.StatusEnum;
 import org.infinity.core.user.model.dto.command.*;
 import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
+import org.infinity.core.user.model.dto.response.LogoutResponse;
 import org.infinity.core.user.model.dto.response.UserRegisterResponse;
 import org.infinity.core.user.model.po.UserPO;
 import org.infinity.core.user.service.UserCommandService;
@@ -32,6 +36,7 @@ import static org.infinity.core.user.model.RoleEnum.STUDENT;
  * @className UserCommandServiceImpl
  * @desc
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserCommandServiceImpl implements UserCommandService {
@@ -81,6 +86,14 @@ public class UserCommandServiceImpl implements UserCommandService {
                 .userId(user.getId())
                 .token(token)
                 .build();
+    }
+
+    @Override
+    public LogoutResponse logout(LogoutCommand command) {
+        rateLimiter.applyFor("User:logout", DEFAULT_COMMAND_TPS);
+
+        log.info("User[{}] Logout success.", command.getUserId());
+        return LogoutResponse.builder().isSuccess(true).build();
     }
 
     @Override

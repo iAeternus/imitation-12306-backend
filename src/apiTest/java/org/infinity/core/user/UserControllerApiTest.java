@@ -2,10 +2,7 @@ package org.infinity.core.user;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.user.model.dto.command.*;
-import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
-import org.infinity.core.user.model.dto.response.JwtTokenResponse;
-import org.infinity.core.user.model.dto.response.UserProfileResponse;
-import org.infinity.core.user.model.dto.response.UserRegisterResponse;
+import org.infinity.core.user.model.dto.response.*;
 import org.infinity.core.user.model.po.UserPO;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +10,7 @@ import static org.infinity.core.common.exception.ErrorCodeEnum.AUTHENTICATION_FA
 import static org.infinity.core.common.exception.ErrorCodeEnum.MOBILE_DUPLICATED;
 import static org.infinity.core.user.model.RoleEnum.STUDENT;
 import static org.infinity.utils.RandomTestFixture.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Ricky
@@ -94,6 +90,22 @@ public class UserControllerApiTest extends BaseApiTest {
 
         // When & Then
         assertError(() -> UserApi.loginRaw(command), AUTHENTICATION_FAILED);
+    }
+
+    @Test
+    public void should_logout() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+
+        LogoutCommand command = LogoutCommand.builder()
+                .userId(operator.getUserId())
+                .build();
+
+        // When
+        LogoutResponse response = UserApi.logout(command);
+
+        // Then
+        assertTrue(response.getIsSuccess());
     }
 
     @Test
