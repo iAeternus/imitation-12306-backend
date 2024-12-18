@@ -1,4 +1,4 @@
-package org.infinity.core.common.model.segmenttree;
+package org.infinity.core.common.domain.segmenttree;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

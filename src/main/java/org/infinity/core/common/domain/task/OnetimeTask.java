@@ -1,4 +1,4 @@
-package org.infinity.core.common.model.task;
+package org.infinity.core.common.domain.task;
 
 /**
  * @author Ricky

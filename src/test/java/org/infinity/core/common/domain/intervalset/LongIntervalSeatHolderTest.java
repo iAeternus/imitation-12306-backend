@@ -1,4 +1,4 @@
-package org.infinity.core.common.model.intervalset;
+package org.infinity.core.common.domain.intervalset;
 
 import org.infinity.core.common.exception.MyException;
 import org.junit.jupiter.api.Test;

@@ -4,8 +4,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.infinity.core.common.model.marker.Command;
-import org.infinity.core.common.model.marker.Query;
+import org.infinity.core.common.domain.marker.Command;
+import org.infinity.core.common.domain.marker.Query;
 import org.springframework.stereotype.Component;
 
 /**

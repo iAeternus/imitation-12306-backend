@@ -1,4 +1,4 @@
-package org.infinity.core.common.model.segmenttree;
+package org.infinity.core.common.domain.segmenttree;
 
 import org.infinity.core.common.exception.MyException;
 import org.junit.jupiter.api.Test;

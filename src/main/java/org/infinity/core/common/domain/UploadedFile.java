@@ -1,10 +1,10 @@
-package org.infinity.core.common.model;
+package org.infinity.core.common.domain;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.infinity.core.common.model.marker.Identified;
+import org.infinity.core.common.domain.marker.Identified;
 import org.infinity.core.common.validation.id.shortuuid.ShortUUID;
 
 import static org.infinity.core.common.constants.I12306Constants.MAX_URL_LENGTH;

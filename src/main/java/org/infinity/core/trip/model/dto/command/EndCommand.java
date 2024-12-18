@@ -1,12 +1,11 @@
 package org.infinity.core.trip.model.dto.command;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.infinity.core.common.model.marker.Command;
+import org.infinity.core.common.domain.marker.Command;
 import org.infinity.core.common.validation.id.trip.TripId;
 
 /**

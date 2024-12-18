@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.infinity.core.common.model.marker.Query;
+import org.infinity.core.common.domain.marker.Query;
 import org.infinity.core.common.validation.id.trip.TripId;
 import org.infinity.core.common.validation.id.tripstation.TripStationId;
 

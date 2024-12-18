@@ -1,7 +1,7 @@
-package org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.impl;
+package org.infinity.core.common.domain.pricecalculate.promotion.impl;
 
-import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.PromotionContext;
-import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.PromotionStrategy;
+import org.infinity.core.common.domain.pricecalculate.promotion.PromotionContext;
+import org.infinity.core.common.domain.pricecalculate.promotion.PromotionStrategy;
 import org.infinity.core.user.model.RoleEnum;
 
 import java.math.BigDecimal;

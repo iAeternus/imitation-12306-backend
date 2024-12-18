@@ -1,9 +1,9 @@
-package org.infinity.core.order.infrastructure.handler.pricecalculate;
+package org.infinity.core.common.domain.pricecalculate;
 
-import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.PromotionContext;
-import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.PromotionStrategy;
-import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.impl.NoPromotionStrategy;
-import org.infinity.core.order.infrastructure.handler.pricecalculate.promotion.impl.StudentPromotionStrategy;
+import org.infinity.core.common.domain.pricecalculate.promotion.PromotionContext;
+import org.infinity.core.common.domain.pricecalculate.promotion.PromotionStrategy;
+import org.infinity.core.common.domain.pricecalculate.promotion.impl.NoPromotionStrategy;
+import org.infinity.core.common.domain.pricecalculate.promotion.impl.StudentPromotionStrategy;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -56,7 +56,8 @@ public class PriceCalculateHandler {
      * @return 原始价格
      */
     private BigDecimal calculateBasicPrice(PriceContext context) {
-        return BigDecimal.valueOf(context.getTripStations().size() * 29L);
+        BigDecimal basePrice = BigDecimal.valueOf((context.getTripStations().size() - 1) * 29L);
+        return basePrice.multiply(context.getLevel().getRate());
     }
 
 }

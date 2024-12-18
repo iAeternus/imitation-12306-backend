@@ -1,7 +1,8 @@
 package org.infinity.core.trip;
 
 import org.infinity.BaseApiTest;
-import org.infinity.core.common.model.page.PageResponse;
+import org.infinity.core.common.domain.page.PageResponse;
+import org.infinity.core.common.utils.MyBatisPlusUtils;
 import org.infinity.core.trip.model.dto.command.*;
 import org.infinity.core.trip.model.dto.query.TripPageQuery;
 import org.infinity.core.trip.model.dto.response.*;
@@ -246,6 +247,19 @@ public class TripControllerApiTest extends BaseApiTest {
 
         // Given
         assertEquals(tripId, tripResponse.getTripId());
+    }
+
+    @Test
+    public void should_search_prices() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        TripPO trip = randQueryOne(tripRepository);
+
+        // When
+        SearchPriceResponse response = TripApi.searchPrices(operator.getToken(), trip.getId());
+
+        // Then
+        assertEquals(2, response.getPrices().size());
     }
 
     private EnterTripBatchCommand.TripInfo rTripInfo(String trainId, String originStationId, String terminalStationId) {

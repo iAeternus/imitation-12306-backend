@@ -4,8 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.infinity.core.common.model.marker.Response;
-import org.infinity.core.order.model.dto.OrderDetail;
+import org.infinity.core.common.domain.marker.Response;
 
 import java.util.List;
 

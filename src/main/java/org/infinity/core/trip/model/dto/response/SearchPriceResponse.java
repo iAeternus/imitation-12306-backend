@@ -1,4 +1,4 @@
-package org.infinity.core.order.model.dto.response;
+package org.infinity.core.trip.model.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -7,19 +7,22 @@ import lombok.Builder;
 import lombok.Value;
 import org.infinity.core.common.domain.marker.Response;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 /**
  * @author Ricky
  * @version 1.0
- * @date 2024/12/17
- * @className CheckInResponse
+ * @date 2024/12/18
+ * @className SearchPriceResponse
  * @desc
  */
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CheckInResponse implements Response {
+public class SearchPriceResponse implements Response {
 
-    @Schema(name = "是否成功，这里为了简化统一返回true")
-    Boolean isSuccess;
+    @Schema(name = "价格，键-车厢等级 值-价格")
+    Map<Short, BigDecimal> prices;
 
 }

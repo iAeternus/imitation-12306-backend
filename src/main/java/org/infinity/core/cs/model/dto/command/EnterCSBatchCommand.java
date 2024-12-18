@@ -8,7 +8,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.infinity.core.common.model.marker.Command;
+import org.infinity.core.common.domain.marker.Command;
 import org.infinity.core.common.validation.collection.NoNullElement;
 import org.infinity.core.common.validation.id.station.StationId;
 import org.infinity.core.common.validation.mobile.Mobile;

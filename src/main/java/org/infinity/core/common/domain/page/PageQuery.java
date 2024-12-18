@@ -1,4 +1,4 @@
-package org.infinity.core.common.model.page;
+package org.infinity.core.common.domain.page;
 
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.infinity.core.common.model.marker.Query;
+import org.infinity.core.common.domain.marker.Query;
 
 /**
  * @author Ricky

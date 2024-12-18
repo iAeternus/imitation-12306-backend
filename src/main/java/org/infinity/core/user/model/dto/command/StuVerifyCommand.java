@@ -8,7 +8,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.infinity.core.common.model.marker.Command;
+import org.infinity.core.common.domain.marker.Command;
 import org.infinity.core.common.validation.id.user.UserId;
 
 /**

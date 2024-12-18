@@ -3,7 +3,7 @@ package org.infinity.core.trip;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
-import org.infinity.core.common.model.page.PageResponse;
+import org.infinity.core.common.domain.page.PageResponse;
 import org.infinity.core.trip.model.dto.command.*;
 import org.infinity.core.trip.model.dto.query.TripPageQuery;
 import org.infinity.core.trip.model.dto.response.*;
@@ -129,6 +129,20 @@ public class TripApi {
                 .statusCode(200)
                 .extract()
                 .as(TripResponse.class);
+    }
+
+    public static Response searchPricesRaw(String jwt, String tripId) {
+        return BaseApiTest.given(jwt)
+                .when()
+                .get(ROOT_URL + "/prices/{tripId}", tripId);
+    }
+
+    public static SearchPriceResponse searchPrices(String jwt, String tripId) {
+        return searchPricesRaw(jwt, tripId)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(SearchPriceResponse.class);
     }
 
 }

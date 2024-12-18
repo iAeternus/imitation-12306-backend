@@ -1,17 +1,11 @@
 package org.infinity.core.order.model.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.infinity.core.common.model.marker.Response;
+import org.infinity.core.common.domain.marker.Response;
 import org.infinity.core.order.model.dto.OrderDetail;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author Ricky

@@ -1,7 +1,7 @@
 package org.infinity.utils;
 
 
-import org.infinity.core.common.model.marker.Response;
+import org.infinity.core.common.domain.marker.Response;
 
 /**
  * @author Ricky

@@ -1,8 +1,8 @@
-package org.infinity.core.common.model.page;
+package org.infinity.core.common.domain.page;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.infinity.core.common.model.marker.Response;
+import org.infinity.core.common.domain.marker.Response;
 
 import java.util.List;
 import java.util.function.Function;

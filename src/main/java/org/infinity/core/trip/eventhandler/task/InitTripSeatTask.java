@@ -1,7 +1,7 @@
 package org.infinity.core.trip.eventhandler.task;
 
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.model.task.OnetimeTask;
+import org.infinity.core.common.domain.task.OnetimeTask;
 import org.infinity.core.train.infrastructure.repository.CarriageRepository;
 import org.infinity.core.train.infrastructure.repository.SeatRepository;
 import org.infinity.core.train.model.po.CarriagePO;

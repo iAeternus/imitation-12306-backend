@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.infinity.core.common.model.marker.Response;
+import org.infinity.core.common.domain.marker.Response;
 import org.infinity.core.user.model.IdTypeEnum;
 import org.infinity.core.user.model.RoleEnum;
 import org.infinity.core.user.model.StatusEnum;

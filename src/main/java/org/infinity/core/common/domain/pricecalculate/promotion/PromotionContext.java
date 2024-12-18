@@ -1,4 +1,4 @@
-package org.infinity.core.order.infrastructure.handler.pricecalculate.promotion;
+package org.infinity.core.common.domain.pricecalculate.promotion;
 
 import lombok.Builder;
 import lombok.Data;

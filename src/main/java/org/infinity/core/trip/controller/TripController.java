@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.model.page.PageResponse;
+import org.infinity.core.common.domain.page.PageResponse;
 import org.infinity.core.common.validation.id.trip.TripId;
 import org.infinity.core.trip.model.dto.command.*;
 import org.infinity.core.trip.model.dto.query.TripPageQuery;
@@ -80,6 +80,12 @@ public class TripController {
     @Operation(summary = "根据ID查询车次信息")
     public TripResponse byId(@PathVariable @TripId String tripId) {
         return tripQueryService.byId(tripId);
+    }
+
+    @GetMapping("/prices/{tripId}")
+    @Operation(summary = "查询所有座位类型的票价，默认成人票价")
+    public SearchPriceResponse searchPrices(@PathVariable("tripId") @TripId String tripId) {
+        return tripQueryService.searchPrices(tripId);
     }
 
 }

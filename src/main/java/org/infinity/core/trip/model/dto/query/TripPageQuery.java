@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.infinity.core.common.model.page.PageQuery;
+import org.infinity.core.common.domain.page.PageQuery;
 import org.infinity.core.common.validation.id.station.StationId;
 import org.infinity.core.common.validation.id.train.TrainId;
 import org.infinity.core.trip.model.TripStatusEnum;

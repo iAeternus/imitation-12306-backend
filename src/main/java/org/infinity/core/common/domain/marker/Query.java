@@ -1,4 +1,4 @@
-package org.infinity.core.common.model.marker;
+package org.infinity.core.common.domain.marker;
 
 /**
  * @author Ricky
