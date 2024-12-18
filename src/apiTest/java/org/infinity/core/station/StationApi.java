@@ -2,7 +2,7 @@ package org.infinity.core.station;
 
 import io.restassured.response.Response;
 import org.infinity.BaseApiTest;
-import org.infinity.core.station.model.dto.response.ListAllResponse;
+import org.infinity.core.station.model.dto.response.ListAllStationsResponse;
 
 /**
  * @author Ricky
@@ -21,12 +21,12 @@ public class StationApi {
                 .get(ROOT_URL);
     }
 
-    public static ListAllResponse listAll(String jwt) {
+    public static ListAllStationsResponse listAll(String jwt) {
         return listAllRaw(jwt)
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(ListAllResponse.class);
+                .as(ListAllStationsResponse.class);
     }
 
 }

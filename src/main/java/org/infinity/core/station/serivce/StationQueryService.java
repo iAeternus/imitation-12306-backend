@@ -1,6 +1,6 @@
 package org.infinity.core.station.serivce;
 
-import org.infinity.core.station.model.dto.response.ListAllResponse;
+import org.infinity.core.station.model.dto.response.ListAllStationsResponse;
 
 /**
  * @author Ricky
@@ -10,6 +10,6 @@ import org.infinity.core.station.model.dto.response.ListAllResponse;
  * @desc
  */
 public interface StationQueryService {
-    ListAllResponse listAll();
+    ListAllStationsResponse listAll();
 
 }

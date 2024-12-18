@@ -1,6 +1,7 @@
 package org.infinity.core.cs.service;
 
 import org.infinity.core.cs.model.dto.response.ByIdResponse;
+import org.infinity.core.cs.model.dto.response.ListAllCSsResponse;
 
 /**
  * @author Ricky
@@ -11,4 +12,6 @@ import org.infinity.core.cs.model.dto.response.ByIdResponse;
  */
 public interface CSQueryService {
     ByIdResponse byId(String csId);
+
+    ListAllCSsResponse listAll();
 }

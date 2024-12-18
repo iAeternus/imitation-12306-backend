@@ -3,7 +3,7 @@ package org.infinity.core.station.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.station.model.dto.response.ListAllResponse;
+import org.infinity.core.station.model.dto.response.ListAllStationsResponse;
 import org.infinity.core.station.serivce.StationQueryService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ public class StationController {
 
     @GetMapping
     @Operation(summary = "获取所有站点")
-    public ListAllResponse listAll() {
+    public ListAllStationsResponse listAll() {
         return stationQueryService.listAll();
     }
 

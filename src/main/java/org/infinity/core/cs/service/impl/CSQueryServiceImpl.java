@@ -1,16 +1,21 @@
 package org.infinity.core.cs.service.impl;
 
+import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.common.constants.I12306Constants;
 import org.infinity.core.cs.infrastructure.repository.CSRepository;
 import org.infinity.core.cs.model.dto.response.ByIdResponse;
+import org.infinity.core.cs.model.dto.response.ListAllCSsResponse;
 import org.infinity.core.cs.model.po.CustomerServicePO;
 import org.infinity.core.cs.service.CSQueryService;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.station.model.po.StationPO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static com.google.common.collect.ImmutableList.toImmutableList;
 import static org.infinity.core.common.constants.I12306Constants.DEFAULT_QUERY_TPS;
 
 /**
@@ -39,6 +44,25 @@ public class CSQueryServiceImpl implements CSQueryService {
                 .phoneNumber(cs.getPhoneNumber())
                 .serverTime(cs.getServerTime())
                 .updateAt(cs.getUpdateAt())
+                .build();
+    }
+
+    @Override
+    public ListAllCSsResponse listAll() {
+        rateLimiter.applyFor("CS:listAll", DEFAULT_QUERY_TPS);
+
+        List<CustomerServicePO> customerServices = csRepository.listAll();
+        List<ListAllCSsResponse.CSInfo> csInfos = customerServices.stream()
+                .map(customerService -> ListAllCSsResponse.CSInfo.builder()
+                        .id(customerService.getId())
+                        .stationId(customerService.getStationId())
+                        .phoneNumber(customerService.getPhoneNumber())
+                        .serverTime(customerService.getServerTime())
+                        .updateAt(customerService.getUpdateAt())
+                        .build())
+                .collect(toImmutableList());
+        return ListAllCSsResponse.builder()
+                .csInfos(csInfos)
                 .build();
     }
 }

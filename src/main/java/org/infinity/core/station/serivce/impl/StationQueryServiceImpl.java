@@ -1,9 +1,8 @@
 package org.infinity.core.station.serivce.impl;
 
-import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
-import org.infinity.core.station.model.dto.response.ListAllResponse;
+import org.infinity.core.station.model.dto.response.ListAllStationsResponse;
 import org.infinity.core.station.model.po.StationPO;
 import org.infinity.core.station.serivce.StationQueryService;
 import org.springframework.stereotype.Service;
@@ -26,10 +25,10 @@ public class StationQueryServiceImpl implements StationQueryService {
     private final StationRepository stationRepository;
 
     @Override
-    public ListAllResponse listAll() {
+    public ListAllStationsResponse listAll() {
         List<StationPO> stations = stationRepository.list();
-        List<ListAllResponse.StationInfo> stationInfo = stations.stream()
-                .map(station -> ListAllResponse.StationInfo.builder()
+        List<ListAllStationsResponse.StationInfo> stationInfo = stations.stream()
+                .map(station -> ListAllStationsResponse.StationInfo.builder()
                         .id(station.getId())
                         .bureauCode(station.getBureauCode())
                         .stationName(station.getStationName())
@@ -40,7 +39,7 @@ public class StationQueryServiceImpl implements StationQueryService {
                         .operateTime(station.getOperateTime())
                         .build())
                 .collect(toImmutableList());
-        return ListAllResponse.builder()
+        return ListAllStationsResponse.builder()
                 .stationInfos(stationInfo)
                 .build();
     }

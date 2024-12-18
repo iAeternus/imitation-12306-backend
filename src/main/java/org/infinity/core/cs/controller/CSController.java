@@ -8,8 +8,10 @@ import org.infinity.core.common.validation.id.cs.CSId;
 import org.infinity.core.cs.model.dto.command.EnterCSBatchCommand;
 import org.infinity.core.cs.model.dto.response.ByIdResponse;
 import org.infinity.core.cs.model.dto.response.EnterCSBatchResponse;
+import org.infinity.core.cs.model.dto.response.ListAllCSsResponse;
 import org.infinity.core.cs.service.CSCommandService;
 import org.infinity.core.cs.service.CSQueryService;
+import org.infinity.core.station.model.dto.response.ListAllStationsResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +42,12 @@ public class CSController {
     @Operation(summary = "根据ID查询在线客服信息")
     public ByIdResponse byId(@PathVariable("csId") @CSId String csId) {
         return csQueryService.byId(csId);
+    }
+
+    @GetMapping("/list-all")
+    @Operation(summary = "查询所有的在线客服信息")
+    public ListAllCSsResponse listAll() {
+        return csQueryService.listAll();
     }
 
 }

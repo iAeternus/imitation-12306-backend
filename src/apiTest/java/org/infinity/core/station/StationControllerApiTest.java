@@ -1,7 +1,7 @@
 package org.infinity.core.station;
 
 import org.infinity.BaseApiTest;
-import org.infinity.core.station.model.dto.response.ListAllResponse;
+import org.infinity.core.station.model.dto.response.ListAllStationsResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ public class StationControllerApiTest extends BaseApiTest {
         JwtTokenResponse operator = setupApi.registerWithLogin();
 
         // When
-        ListAllResponse response = StationApi.listAll(operator.getToken());
+        ListAllStationsResponse response = StationApi.listAll(operator.getToken());
 
         // Then
         assertNotNull(response);
