@@ -5,10 +5,8 @@ import org.infinity.BaseApiTest;
 import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.command.OutboundCommand;
-import org.infinity.core.order.model.dto.response.CheckInResponse;
-import org.infinity.core.order.model.dto.response.CreateOrderResponse;
-import org.infinity.core.order.model.dto.response.OutboundResponse;
-import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
+import org.infinity.core.order.model.dto.command.RefundCommand;
+import org.infinity.core.order.model.dto.response.*;
 
 /**
  * @author Ricky
@@ -64,6 +62,21 @@ public class OrderApi {
                 .statusCode(200)
                 .extract()
                 .as(OutboundResponse.class);
+    }
+
+    public static Response refundRaw(String jwt, RefundCommand command) {
+        return BaseApiTest.given(jwt)
+                .body(command)
+                .when()
+                .post(ROOT_URL + "/refund");
+    }
+
+    public static RefundResponse refund(String jwt, RefundCommand command) {
+        return refundRaw(jwt, command)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(RefundResponse.class);
     }
 
     public static Response searchOrderDetailRaw(String jwt, String orderId) {

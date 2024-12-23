@@ -5,10 +5,8 @@ import org.infinity.core.common.utils.MyBatisPlusUtils;
 import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.command.OutboundCommand;
-import org.infinity.core.order.model.dto.response.CheckInResponse;
-import org.infinity.core.order.model.dto.response.CreateOrderResponse;
-import org.infinity.core.order.model.dto.response.OutboundResponse;
-import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
+import org.infinity.core.order.model.dto.command.RefundCommand;
+import org.infinity.core.order.model.dto.response.*;
 import org.infinity.core.order.model.po.OrderPO;
 import org.infinity.core.train.model.CarriageLevelEnum;
 import org.infinity.core.trip.model.po.TripPO;
@@ -26,8 +24,7 @@ import java.util.List;
 import static java.math.RoundingMode.HALF_UP;
 import static org.infinity.core.common.exception.ErrorCodeEnum.NOT_REAL_NAME_VERIFY_YET;
 import static org.infinity.core.common.utils.MyBatisPlusUtils.randQueryOne;
-import static org.infinity.core.order.model.OrderStatusEnum.ON_BOARD;
-import static org.infinity.core.order.model.OrderStatusEnum.OUT_OF_STATION;
+import static org.infinity.core.order.model.OrderStatusEnum.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -171,6 +168,27 @@ public class OrderControllerApiTest extends BaseApiTest {
         OrderPO newOrder = orderRepository.cachedById(command.getOrderId());
         assertNotEquals(order.getStatus(), newOrder.getStatus());
         assertEquals(OUT_OF_STATION, newOrder.getStatus());
+    }
+
+    @Test
+    public void should_refund() {
+        // Given
+        JwtTokenResponse operator = setupApi.registerWithLogin();
+        OrderPO order = randQueryOne(orderRepository);
+
+        RefundCommand command = RefundCommand.builder()
+                .orderId(order.getId())
+                .build();
+
+        // When
+        RefundResponse response = OrderApi.refund(operator.getToken(), command);
+
+        // Then
+        assertTrue(response.getIsSuccess());
+
+        OrderPO newOrder = orderRepository.cachedById(command.getOrderId());
+        assertNotEquals(order.getStatus(), newOrder.getStatus());
+        assertEquals(REFUNDED, newOrder.getStatus());
     }
 
 }

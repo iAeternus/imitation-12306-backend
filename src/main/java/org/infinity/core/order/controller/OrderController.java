@@ -9,6 +9,7 @@ import org.infinity.core.common.validation.id.user.UserId;
 import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.command.OutboundCommand;
+import org.infinity.core.order.model.dto.command.RefundCommand;
 import org.infinity.core.order.model.dto.response.*;
 import org.infinity.core.order.service.OrderCommandService;
 import org.infinity.core.order.service.OrderQueryService;
@@ -48,6 +49,12 @@ public class OrderController {
     @Operation(summary = "出站")
     public OutboundResponse outbound(@RequestBody @Valid OutboundCommand command) {
         return orderCommandService.outbound(command);
+    }
+
+    @PostMapping("/refund")
+    @Operation(summary = "退票")
+    public RefundResponse refund(@RequestBody @Valid RefundCommand command) {
+        return orderCommandService.refund(command);
     }
 
     @GetMapping("/{orderId}")

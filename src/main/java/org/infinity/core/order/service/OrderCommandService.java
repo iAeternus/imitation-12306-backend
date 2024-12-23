@@ -3,9 +3,11 @@ package org.infinity.core.order.service;
 import org.infinity.core.order.model.dto.command.CheckInCommand;
 import org.infinity.core.order.model.dto.command.CreateOrderCommand;
 import org.infinity.core.order.model.dto.command.OutboundCommand;
+import org.infinity.core.order.model.dto.command.RefundCommand;
 import org.infinity.core.order.model.dto.response.CheckInResponse;
 import org.infinity.core.order.model.dto.response.CreateOrderResponse;
 import org.infinity.core.order.model.dto.response.OutboundResponse;
+import org.infinity.core.order.model.dto.response.RefundResponse;
 
 /**
  * @author Ricky
@@ -21,4 +23,6 @@ public interface OrderCommandService {
     CheckInResponse checkin(CheckInCommand command);
 
     OutboundResponse outbound(OutboundCommand command);
+
+    RefundResponse refund(RefundCommand command);
 }
