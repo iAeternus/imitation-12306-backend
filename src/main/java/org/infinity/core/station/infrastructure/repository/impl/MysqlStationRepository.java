@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toMap;
 import static org.infinity.core.common.exception.ErrorCodeEnum.STATION_NOT_FOUND;
 import static org.infinity.core.common.utils.ListUtils.listToString;
 import static org.infinity.core.common.utils.ValidationUtils.*;
@@ -59,6 +60,6 @@ public class MysqlStationRepository extends ServiceImpl<StationMapper, StationPO
             throw new MyException(STATION_NOT_FOUND, "Station not found.", "stationIds", msg);
         }
         return stations.stream()
-                .collect(Collectors.toMap(StationPO::getId, StationPO::getStationName));
+                .collect(toMap(StationPO::getId, StationPO::getStationName));
     }
 }

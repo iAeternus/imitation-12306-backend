@@ -32,6 +32,7 @@ public interface I12306Constants {
     String CARRIAGE_CACHE = "CARRIAGE";
     String ORDER_DETAIL_CACHE = "ORDER_DETAIL";
     String CS_CACHE = "CS";
+    String TRIP_STATION_CACHE = "TRIP_STATION";
 
     String AUTHORIZATION = "Authorization";
     String BEARER = "Bearer ";

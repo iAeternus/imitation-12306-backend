@@ -43,4 +43,9 @@ public class MysqlTripStationRepository extends ServiceImpl<TripStationMapper, T
         }
         return tripStations;
     }
+
+    @Override
+    public TripStationPO cachedById(String tripStationId) {
+        return tripStationCachedRepository.cachedById(tripStationId);
+    }
 }

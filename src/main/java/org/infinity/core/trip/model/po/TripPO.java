@@ -57,7 +57,7 @@ public class TripPO {
     private LocalDateTime endAt;
 
     /**
-     * 状态（正点、晚点、取消）
+     * 状态（0-正点、1-晚点、2-取消、3-结束）
      */
     private TripStatusEnum status;
 

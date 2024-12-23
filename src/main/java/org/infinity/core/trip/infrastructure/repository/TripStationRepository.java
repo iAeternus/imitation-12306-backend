@@ -13,5 +13,9 @@ import java.util.List;
  * @desc
  */
 public interface TripStationRepository extends IService<TripStationPO> {
+
     List<TripStationPO> listByTripId(String tripId);
+
+    TripStationPO cachedById(String tripStationId);
+
 }
