@@ -14,5 +14,6 @@ public interface I12306RegexConstants {
     String PASSWORD_PATTERN = "^[A-Za-z\\d!@#$%^&*()_+]{8,20}$";
     String ID_CARD_REGEX = "^(?:\\d{6})(?:18|19|20)\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\d|3[01])(?:\\d{3})[\\dXx]$";
     String TIME_REGEX = "^(2[0-3]|[01]?[0-9]):([0-5][0-9])-(2[0-3]|[01]?[0-9]):([0-5][0-9])$";
+    String VERIFICATION_CODE_PATTERN = "^[0-9]{6}$";
 
 }

@@ -165,3 +165,19 @@ CREATE TABLE `user`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci COMMENT ='用户表';
 
+DROP TABLE IF EXISTS `verification_code`;
+CREATE TABLE `verification_code`
+(
+    `id`              varchar(24) NOT NULL,
+    `user_id`         varchar(24) NOT NULL COMMENT '用户ID',
+    `mobile_or_email` varchar(24) NOT NULL COMMENT '邮箱或手机号',
+    `code`            varchar(6)  NOT NULL COMMENT '6位数验证码',
+    `type`            tinyint     NOT NULL COMMENT '验证码用于的类型',
+    `used_count`      int         NOT NULL COMMENT '使用次数，不能超过3次',
+    `create_at`       datetime    NOT NULL,
+    `update_at`       datetime    NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci COMMENT ='验证码表';
+

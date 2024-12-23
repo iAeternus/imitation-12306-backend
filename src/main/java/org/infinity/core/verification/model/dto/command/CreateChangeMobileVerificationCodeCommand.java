@@ -1,4 +1,4 @@
-package org.infinity.core.user.model.dto.command;
+package org.infinity.core.verification.model.dto.command;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
@@ -8,19 +8,18 @@ import lombok.Value;
 import org.infinity.core.common.domain.marker.Command;
 import org.infinity.core.common.validation.id.user.UserId;
 import org.infinity.core.common.validation.mobile.Mobile;
-import org.infinity.core.common.validation.verficationcode.VerificationCode;
 
 /**
  * @author Ricky
  * @version 1.0
- * @date 2024/12/16
- * @className ChangeMobileCommand
+ * @date 2024/12/23
+ * @className CreateChangeMobileVerificationCodeCommand
  * @desc
  */
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ChangeMobileCommand implements Command {
+public class CreateChangeMobileVerificationCodeCommand implements Command {
 
     @UserId
     @NotBlank
@@ -28,10 +27,6 @@ public class ChangeMobileCommand implements Command {
 
     @Mobile
     @NotBlank
-    String newMobile;
-
-    @NotBlank
-    @VerificationCode
-    String verificationCode;
+    String mobile;
 
 }

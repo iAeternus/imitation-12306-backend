@@ -19,6 +19,8 @@ import org.infinity.core.user.model.dto.response.LogoutResponse;
 import org.infinity.core.user.model.dto.response.UserRegisterResponse;
 import org.infinity.core.user.model.po.UserPO;
 import org.infinity.core.user.service.UserCommandService;
+import org.infinity.core.verification.infrastructure.checker.VerificationCodeChecker;
+import org.infinity.core.verification.model.VerificationCodeTypeEnum;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,7 @@ import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isNull;
 import static org.infinity.core.user.model.IdTypeEnum.HONG_KONG_AND_MACAO_PASS;
 import static org.infinity.core.user.model.RoleEnum.STUDENT;
+import static org.infinity.core.verification.model.VerificationCodeTypeEnum.CHANGE_MOBILE;
 
 /**
  * @author Ricky
@@ -45,6 +48,7 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final RateLimiter rateLimiter;
     private final MyPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final VerificationCodeChecker verificationCodeChecker;
 
     @Override
     @Transactional
@@ -126,6 +130,8 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Override
     public ChangeMobileResponse changeMobile(ChangeMobileCommand command) {
         rateLimiter.applyFor("User:changeMobile", DEFAULT_COMMAND_TPS);
+
+        verificationCodeChecker.check(command.getNewMobile(), command.getVerificationCode(), CHANGE_MOBILE);
 
         UserPO user = userRepository.cachedById(command.getUserId());
         if (user.getMobile().equals(command.getNewMobile())) {
