@@ -48,6 +48,7 @@ public enum ErrorCodeEnum {
     CS_NOT_FOUND(404),
     ORDER_NOT_FOUND(404),
     SEAT_NOT_FOUND(404),
+    VERIFICATION_CODE_NOT_FOUND(404),
 
     // 409
     NO_SUCH_SEAT(409),

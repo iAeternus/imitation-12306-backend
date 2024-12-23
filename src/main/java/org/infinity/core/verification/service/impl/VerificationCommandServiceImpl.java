@@ -10,7 +10,7 @@ import org.infinity.core.verification.infrastructure.sender.VerificationCodeSend
 import org.infinity.core.verification.model.VerificationCodeTypeEnum;
 import org.infinity.core.verification.model.dto.command.CreateChangeMobileVerificationCodeCommand;
 import org.infinity.core.verification.model.po.VerificationCodePO;
-import org.infinity.core.verification.service.VerificationService;
+import org.infinity.core.verification.service.VerificationCommandService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,13 +21,13 @@ import static org.infinity.core.common.utils.CommonUtils.maskMobileOrEmail;
  * @author Ricky
  * @version 1.0
  * @date 2024/12/23
- * @className VerificationServiceImpl
+ * @className VerificationCommandServiceImpl
  * @desc
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class VerificationServiceImpl implements VerificationService {
+public class VerificationCommandServiceImpl implements VerificationCommandService {
 
     private final VerificationCodeRepository verificationCodeRepository;
     private final UserRepository userRepository;

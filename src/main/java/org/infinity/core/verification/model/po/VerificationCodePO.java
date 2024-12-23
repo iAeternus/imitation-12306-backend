@@ -11,6 +11,7 @@ import org.infinity.core.verification.model.VerificationCodeTypeEnum;
 import java.time.LocalDateTime;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
+import static org.infinity.core.common.constants.I12306Constants.VERIFICATION_CODE_ID_PREFIX;
 import static org.infinity.core.common.exception.ErrorCodeEnum.VERIFICATION_CODE_COUNT_OVERFLOW;
 import static org.infinity.core.common.utils.SnowflakeIdGenerator.newSnowflakeId;
 
@@ -71,7 +72,7 @@ public class VerificationCodePO {
     }
 
     public static String newVerificationCodeId() {
-        return "VRC" + newSnowflakeId();
+        return VERIFICATION_CODE_ID_PREFIX + newSnowflakeId();
     }
 
     /**

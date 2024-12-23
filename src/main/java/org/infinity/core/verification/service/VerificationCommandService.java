@@ -6,9 +6,9 @@ import org.infinity.core.verification.model.dto.command.CreateChangeMobileVerifi
  * @author Ricky
  * @version 1.0
  * @date 2024/12/23
- * @className VerificationService
+ * @className VerificationCommandService
  * @desc
  */
-public interface VerificationService {
+public interface VerificationCommandService {
     String createVerificationCodeForChangeMobile(CreateChangeMobileVerificationCodeCommand command);
 }

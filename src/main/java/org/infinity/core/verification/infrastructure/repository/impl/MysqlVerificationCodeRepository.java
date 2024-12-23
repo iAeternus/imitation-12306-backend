@@ -3,9 +3,12 @@ package org.infinity.core.verification.infrastructure.repository.impl;
 import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.infinity.core.common.exception.ErrorCodeEnum;
+import org.infinity.core.common.exception.MyException;
 import org.infinity.core.verification.infrastructure.mapper.VerificationCodeMapper;
 import org.infinity.core.verification.infrastructure.repository.VerificationCodeRepository;
 import org.infinity.core.verification.model.VerificationCodeTypeEnum;
+import org.infinity.core.verification.model.dto.command.response.FetchVerificationCodeResponse;
 import org.infinity.core.verification.model.po.VerificationCodePO;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -18,6 +21,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
+import static com.baomidou.mybatisplus.core.toolkit.ObjectUtils.isNull;
+import static org.infinity.core.common.exception.ErrorCodeEnum.VERIFICATION_CODE_NOT_FOUND;
+import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
 import static org.infinity.core.common.utils.ValidationUtils.requireNonNull;
 
@@ -68,5 +74,17 @@ public class MysqlVerificationCodeRepository extends ServiceImpl<VerificationCod
                 .ge(VerificationCodePO::getCreateAt, beginOfToday)
                 .count();
         return Math.toIntExact(count);
+    }
+
+    @Override
+    public VerificationCodePO fetchById(String verificationCodeId) {
+        requireNonBlank(verificationCodeId, "Verification Code ID must not be blank.");
+
+        VerificationCodePO verificationCode = getById(verificationCodeId);
+        if(isNull(verificationCode)) {
+            throw new MyException(VERIFICATION_CODE_NOT_FOUND, "Verification Code not found.",
+                    mapOf("verificationCodeId", verificationCodeId));
+        }
+        return verificationCode;
     }
 }
