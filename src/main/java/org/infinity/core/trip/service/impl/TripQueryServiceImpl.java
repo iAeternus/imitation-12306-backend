@@ -7,7 +7,6 @@ import org.infinity.core.common.domain.page.PageResponse;
 import org.infinity.core.common.domain.pricecalculate.PriceCalculateHandler;
 import org.infinity.core.common.domain.pricecalculate.PriceContext;
 import org.infinity.core.common.domain.pricecalculate.promotion.PromotionContext;
-import org.infinity.core.train.model.CarriageLevelEnum;
 import org.infinity.core.trip.infrastructure.factory.TripFactory;
 import org.infinity.core.trip.infrastructure.repository.TripRepository;
 import org.infinity.core.trip.infrastructure.repository.TripStationRepository;
@@ -18,7 +17,6 @@ import org.infinity.core.trip.model.dto.response.TripResponse;
 import org.infinity.core.trip.model.po.TripPO;
 import org.infinity.core.trip.model.po.TripStationPO;
 import org.infinity.core.trip.service.TripQueryService;
-import org.infinity.core.user.model.RoleEnum;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

@@ -5,7 +5,6 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.regex.Pattern;
 
-import static org.infinity.core.common.constants.I12306Constants.USER_ID_PREFIX;
 import static org.infinity.core.common.constants.I12306Constants.VERIFICATION_CODE_ID_PREFIX;
 import static org.infinity.core.common.utils.ValidationUtils.isBlank;
 
@@ -22,7 +21,7 @@ public class VerificationCodeValidator implements ConstraintValidator<Verificati
 
     @Override
     public boolean isValid(String verificationCodeId, ConstraintValidatorContext constraintValidatorContext) {
-        if(isBlank(verificationCodeId)) {
+        if (isBlank(verificationCodeId)) {
             return true;
         }
         return isVerificationCodeId(verificationCodeId);

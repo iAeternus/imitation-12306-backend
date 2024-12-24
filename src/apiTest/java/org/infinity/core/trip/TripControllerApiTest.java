@@ -144,7 +144,7 @@ public class TripControllerApiTest extends BaseApiTest {
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
-        if(response.getSuccess()) {
+        if (response.getSuccess()) {
             assertNotEquals(trip.getStatus(), newTrip.getStatus());
         }
         assertEquals(BE_LATE, newTrip.getStatus());
@@ -165,7 +165,7 @@ public class TripControllerApiTest extends BaseApiTest {
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
-        if(response.getSuccess()) {
+        if (response.getSuccess()) {
             assertNotEquals(trip.getStatus(), newTrip.getStatus());
         }
         assertEquals(ON_SCHEDULE, newTrip.getStatus());
@@ -186,7 +186,7 @@ public class TripControllerApiTest extends BaseApiTest {
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
-        if(response.getSuccess()) {
+        if (response.getSuccess()) {
             assertNotEquals(trip.getStatus(), newTrip.getStatus());
         }
         assertEquals(CANCEL, newTrip.getStatus());
@@ -207,7 +207,7 @@ public class TripControllerApiTest extends BaseApiTest {
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
-        if(response.getSuccess()) {
+        if (response.getSuccess()) {
             assertNotEquals(trip.getStatus(), newTrip.getStatus());
         }
         assertEquals(END, newTrip.getStatus());

@@ -2,9 +2,7 @@ package org.infinity.core.station.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.exception.ErrorCodeEnum;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.station.infrastructure.mapper.StationMapper;
 import org.infinity.core.station.infrastructure.repository.StationRepository;
 import org.infinity.core.station.infrastructure.repository.cache.MysqlStationCachedRepository;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
 import static org.infinity.core.common.exception.ErrorCodeEnum.STATION_NOT_FOUND;
@@ -55,7 +51,7 @@ public class MysqlStationRepository extends ServiceImpl<StationMapper, StationPO
     @Override
     public Map<String, String> listStationIdAndStationName(List<String> stationIds) {
         List<StationPO> stations = listByIds(stationIds);
-        if(isEmpty(stations)) {
+        if (isEmpty(stations)) {
             String msg = listToString(stationIds);
             throw new MyException(STATION_NOT_FOUND, "Station not found.", "stationIds", msg);
         }

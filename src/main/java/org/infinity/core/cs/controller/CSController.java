@@ -11,7 +11,6 @@ import org.infinity.core.cs.model.dto.response.EnterCSBatchResponse;
 import org.infinity.core.cs.model.dto.response.ListAllCSsResponse;
 import org.infinity.core.cs.service.CSCommandService;
 import org.infinity.core.cs.service.CSQueryService;
-import org.infinity.core.station.model.dto.response.ListAllStationsResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

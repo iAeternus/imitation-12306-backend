@@ -2,9 +2,7 @@ package org.infinity.core.train.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.exception.ErrorCodeEnum;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.train.infrastructure.mapper.TrainMapper;
 import org.infinity.core.train.infrastructure.repository.TrainRepository;
 import org.infinity.core.train.infrastructure.repository.cache.MysqlTrainCachedRepository;
@@ -36,7 +34,7 @@ public class MysqlTrainRepository extends ServiceImpl<TrainMapper, TrainPO> impl
         requireNonBlank(trainId, "Train ID must not be blank.");
 
         TrainPO train = trainCachedRepository.cachedById(trainId);
-        if(isNull(train)) {
+        if (isNull(train)) {
             throw new MyException(TRAIN_NOT_FOUND, "Train not found.", mapOf("trainId", trainId));
         }
         return train;

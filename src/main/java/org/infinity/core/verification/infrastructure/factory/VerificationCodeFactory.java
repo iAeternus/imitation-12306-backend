@@ -3,7 +3,6 @@ package org.infinity.core.verification.infrastructure.factory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.user.infrastructure.repository.UserRepository;
 import org.infinity.core.verification.infrastructure.repository.VerificationCodeRepository;
 import org.infinity.core.verification.model.VerificationCodeTypeEnum;
 import org.infinity.core.verification.model.po.VerificationCodePO;

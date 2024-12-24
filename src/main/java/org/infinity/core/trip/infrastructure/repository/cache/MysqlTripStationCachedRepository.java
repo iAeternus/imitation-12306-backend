@@ -3,7 +3,6 @@ package org.infinity.core.trip.infrastructure.repository.cache;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.infinity.core.trip.infrastructure.mapper.TripStationMapper;
-import org.infinity.core.trip.model.po.TripPO;
 import org.infinity.core.trip.model.po.TripStationPO;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

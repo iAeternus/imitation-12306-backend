@@ -21,7 +21,7 @@ public class CSIdValidator implements ConstraintValidator<CSId, String> {
 
     @Override
     public boolean isValid(String csId, ConstraintValidatorContext constraintValidatorContext) {
-        if(isBlank(csId)) {
+        if (isBlank(csId)) {
             return true;
         }
 

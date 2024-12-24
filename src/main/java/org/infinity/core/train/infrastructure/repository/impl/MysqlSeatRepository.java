@@ -9,12 +9,16 @@ import org.infinity.core.train.infrastructure.repository.cache.MysqlSeatCachedRe
 import org.infinity.core.train.model.po.SeatPO;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
-import static org.infinity.core.common.exception.ErrorCodeEnum.*;
+import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
+import static org.infinity.core.common.exception.ErrorCodeEnum.SEAT_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.*;
 
@@ -65,7 +69,7 @@ public class MysqlSeatRepository extends ServiceImpl<SeatMapper, SeatPO> impleme
         requireNonBlank(id, "Seat ID must not be blank");
 
         SeatPO seat = seatCachedRepository.cachedById(id);
-        if(isNull(seat)) {
+        if (isNull(seat)) {
             throw new MyException(SEAT_NOT_FOUND, "Seat not found.", mapOf("seatId", id));
         }
         return seat;
@@ -73,7 +77,7 @@ public class MysqlSeatRepository extends ServiceImpl<SeatMapper, SeatPO> impleme
 
     @Override
     public List<SeatPO> fetchByIds(Collection<String> seatIds) {
-        if(isEmpty(seatIds)) {
+        if (isEmpty(seatIds)) {
             return Collections.emptyList();
         }
         return listByIds(seatIds);

@@ -2,7 +2,6 @@ package org.infinity.core.common.validation.servertime;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.infinity.core.common.constants.I12306RegexConstants;
 
 import java.util.regex.Pattern;
 
@@ -22,7 +21,7 @@ public class ServerTimeValidator implements ConstraintValidator<ServerTime, Stri
 
     @Override
     public boolean isValid(String serverTime, ConstraintValidatorContext constraintValidatorContext) {
-        if(isBlank(serverTime)) {
+        if (isBlank(serverTime)) {
             return true;
         }
 

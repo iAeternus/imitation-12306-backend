@@ -1,6 +1,5 @@
 package org.infinity.core.user.service;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.infinity.core.user.model.dto.command.*;
 import org.infinity.core.user.model.dto.response.ChangeMobileResponse;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;

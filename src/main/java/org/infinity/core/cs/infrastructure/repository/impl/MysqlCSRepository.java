@@ -3,7 +3,6 @@ package org.infinity.core.cs.infrastructure.repository.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.cs.infrastructure.mapper.CSMapper;
 import org.infinity.core.cs.infrastructure.repository.CSRepository;
 import org.infinity.core.cs.infrastructure.repository.cache.MysqlCSCachedRepository;
@@ -14,8 +13,7 @@ import java.util.List;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.CS_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
-import static org.infinity.core.common.utils.ValidationUtils.isNull;
-import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
+import static org.infinity.core.common.utils.ValidationUtils.*;
 
 /**
  * @author Ricky
@@ -44,7 +42,7 @@ public class MysqlCSRepository extends ServiceImpl<CSMapper, CustomerServicePO> 
     @Override
     public List<CustomerServicePO> listAll() {
         List<CustomerServicePO> all = lambdaQuery().list();
-        if (ValidationUtils.isEmpty(all)) {
+        if (isEmpty(all)) {
             throw new MyException(CS_NOT_FOUND, "Customer Service not found.");
         }
         return all;

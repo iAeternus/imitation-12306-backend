@@ -1,24 +1,17 @@
 package org.infinity.core.verification.infrastructure.repository.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.exception.ErrorCodeEnum;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.verification.infrastructure.mapper.VerificationCodeMapper;
 import org.infinity.core.verification.infrastructure.repository.VerificationCodeRepository;
 import org.infinity.core.verification.model.VerificationCodeTypeEnum;
-import org.infinity.core.verification.model.dto.command.response.FetchVerificationCodeResponse;
 import org.infinity.core.verification.model.po.VerificationCodePO;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.Optional;
 
 import static com.baomidou.mybatisplus.core.toolkit.ObjectUtils.isNull;
@@ -81,7 +74,7 @@ public class MysqlVerificationCodeRepository extends ServiceImpl<VerificationCod
         requireNonBlank(verificationCodeId, "Verification Code ID must not be blank.");
 
         VerificationCodePO verificationCode = getById(verificationCodeId);
-        if(isNull(verificationCode)) {
+        if (isNull(verificationCode)) {
             throw new MyException(VERIFICATION_CODE_NOT_FOUND, "Verification Code not found.",
                     mapOf("verificationCodeId", verificationCodeId));
         }

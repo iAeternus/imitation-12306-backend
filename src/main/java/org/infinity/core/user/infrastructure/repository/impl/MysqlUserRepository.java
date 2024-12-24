@@ -2,7 +2,6 @@ package org.infinity.core.user.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.exception.ErrorCodeEnum;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.user.infrastructure.mapper.UserMapper;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
@@ -33,7 +32,7 @@ public class MysqlUserRepository extends ServiceImpl<UserMapper, UserPO> impleme
         requireNonBlank(userId, "User ID must not be blank.");
 
         UserPO user = userCachedRepository.cachedById(userId);
-        if(isNull(user)) {
+        if (isNull(user)) {
             throw new MyException(USER_NOT_FOUND, "User not found.", mapOf("userId", userId));
         }
         return user;

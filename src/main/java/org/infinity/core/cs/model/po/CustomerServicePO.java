@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.infinity.core.common.utils.SnowflakeIdGenerator;
-import org.infinity.core.common.validation.collection.NoNullElement;
 
 import java.time.LocalDateTime;
 

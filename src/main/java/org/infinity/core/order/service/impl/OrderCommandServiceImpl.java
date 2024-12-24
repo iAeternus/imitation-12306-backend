@@ -2,11 +2,11 @@ package org.infinity.core.order.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
-import org.infinity.core.common.exception.MyException;
-import org.infinity.core.order.infrastructure.factory.OrderFactory;
 import org.infinity.core.common.domain.pricecalculate.PriceCalculateHandler;
 import org.infinity.core.common.domain.pricecalculate.PriceContext;
 import org.infinity.core.common.domain.pricecalculate.promotion.PromotionContext;
+import org.infinity.core.common.exception.MyException;
+import org.infinity.core.order.infrastructure.factory.OrderFactory;
 import org.infinity.core.order.infrastructure.handler.seatallocate.SeatAllocateHandler;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
 import org.infinity.core.order.model.dto.command.CheckInCommand;
@@ -85,7 +85,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
         // 校验实名认证
         UserPO user = userRepository.cachedById(command.getUserId());
-        if(!user.isRealNameVerify()) {
+        if (!user.isRealNameVerify()) {
             throw new MyException(NOT_REAL_NAME_VERIFY_YET, "You have no real name authentication.",
                     mapOf("userId", command.getUserId()));
         }
@@ -135,9 +135,8 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     public CheckInResponse checkin(CheckInCommand command) {
         rateLimiter.applyFor("Order:checkin", DEFAULT_COMMAND_TPS);
 
-        orderRepository.updateStatus(command.getOrderId(), ON_BOARD);
         return CheckInResponse.builder()
-                .isSuccess(true)
+                .success(orderRepository.updateStatus(command.getOrderId(), ON_BOARD))
                 .build();
     }
 
@@ -145,9 +144,8 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     public OutboundResponse outbound(OutboundCommand command) {
         rateLimiter.applyFor("Order:outbound", DEFAULT_COMMAND_TPS);
 
-        orderRepository.updateStatus(command.getOrderId(), OUT_OF_STATION);
         return OutboundResponse.builder()
-                .isSuccess(true)
+                .success(orderRepository.updateStatus(command.getOrderId(), OUT_OF_STATION))
                 .build();
     }
 
@@ -155,9 +153,8 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     public RefundResponse refund(RefundCommand command) {
         rateLimiter.applyFor("Order:refund", DEFAULT_COMMAND_TPS);
 
-        orderRepository.updateStatus(command.getOrderId(), REFUNDED);
         return RefundResponse.builder()
-                .isSuccess(true)
+                .success(orderRepository.updateStatus(command.getOrderId(), REFUNDED))
                 .build();
     }
 

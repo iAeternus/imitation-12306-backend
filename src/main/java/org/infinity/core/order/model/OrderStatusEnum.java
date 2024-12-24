@@ -17,8 +17,7 @@ public enum OrderStatusEnum {
     ALREADY_PAID((short) 1, "已支付"),
     ON_BOARD((short) 2, "已上车"),
     OUT_OF_STATION((short) 3, "已出站"),
-    REFUNDED((short) 4, "已退票")
-    ;
+    REFUNDED((short) 4, "已退票");
 
     @EnumValue
     final Short key;

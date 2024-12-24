@@ -1,18 +1,13 @@
 package org.infinity.core.order.infrastructure.repository.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import jakarta.validation.metadata.ValidateUnwrappedValue;
 import lombok.RequiredArgsConstructor;
-import org.infinity.core.common.constants.I12306Constants;
-import org.infinity.core.common.exception.ErrorCodeEnum;
 import org.infinity.core.common.exception.MyException;
-import org.infinity.core.common.utils.ValidationUtils;
 import org.infinity.core.order.infrastructure.mapper.OrderMapper;
 import org.infinity.core.order.infrastructure.repository.OrderRepository;
 import org.infinity.core.order.infrastructure.repository.cache.MysqlOrderCachedRepository;
 import org.infinity.core.order.model.OrderStatusEnum;
 import org.infinity.core.order.model.dto.OrderDetail;
-import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +35,7 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
         requireNonBlank(orderId, "Order ID must not be blank");
 
         OrderPO order = orderCachedRepository.cachedById(orderId);
-        if(isNull(order)) {
+        if (isNull(order)) {
             throw new MyException(ORDER_NOT_FOUND, "Order not found.", mapOf("orderId", orderId));
         }
         return order;
@@ -54,13 +49,21 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
     }
 
     @Override
-    public void updateStatus(String orderId, OrderStatusEnum newStatus) {
+    public boolean updateStatus(String orderId, OrderStatusEnum newStatus) {
         requireNonBlank(orderId, "Order ID must not be blank");
         requireNonNull(newStatus, "Order status must not be null.");
 
-        lambdaUpdate().eq(OrderPO::getId, orderId).set(OrderPO::getStatus, newStatus).update();
+        OrderPO order = getById(orderId);
+        if (isNull(order)) {
+            throw new MyException(ORDER_NOT_FOUND, "Order not found.", mapOf("orderId", orderId));
+        }
+        if (order.getStatus() == newStatus) {
+            return false;
+        }
+        order.setStatus(newStatus);
         orderCachedRepository.evictOrderCache(orderId);
         orderCachedRepository.evictOrderDetailCache(orderId);
+        return updateById(order);
     }
 
     @Override
@@ -68,7 +71,7 @@ public class MysqlOrderRepository extends ServiceImpl<OrderMapper, OrderPO> impl
         requireNonBlank(userId, "User ID must not be blank");
 
         List<OrderPO> orders = lambdaQuery().eq(OrderPO::getUserId, userId).list();
-        if(isEmpty(orders)) {
+        if (isEmpty(orders)) {
             throw new MyException(ORDER_NOT_FOUND, "You have no order yet.", mapOf("userId", userId));
         }
         return orders;

@@ -76,7 +76,7 @@ public class MysqlCarriageRepository extends ServiceImpl<CarriageMapper, Carriag
 
     @Override
     public List<CarriagePO> fetchByIds(Collection<String> carriageIds) {
-        if(isEmpty(carriageIds)) {
+        if (isEmpty(carriageIds)) {
             return Collections.emptyList();
         }
         return listByIds(carriageIds);

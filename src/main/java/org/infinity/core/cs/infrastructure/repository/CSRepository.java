@@ -1,7 +1,6 @@
 package org.infinity.core.cs.infrastructure.repository;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.infinity.core.cs.model.dto.response.ByIdResponse;
 import org.infinity.core.cs.model.po.CustomerServicePO;
 
 import java.util.List;

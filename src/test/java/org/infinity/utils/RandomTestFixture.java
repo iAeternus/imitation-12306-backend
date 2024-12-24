@@ -4,7 +4,6 @@ import com.apifan.common.random.source.PersonInfoSource;
 import lombok.Data;
 import org.infinity.core.common.exception.MyException;
 import org.infinity.core.train.model.po.TrainPO;
-import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;

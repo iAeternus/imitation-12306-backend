@@ -3,7 +3,6 @@ package org.infinity.core.order.infrastructure.repository;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.order.model.OrderStatusEnum;
 import org.infinity.core.order.model.dto.OrderDetail;
-import org.infinity.core.order.model.dto.response.SearchOrderDetailResponse;
 import org.infinity.core.order.model.po.OrderPO;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public interface OrderRepository extends IService<OrderPO> {
 
     OrderDetail searchOrderDetail(String orderId);
 
-    void updateStatus(String orderId, OrderStatusEnum newStatus);
+    boolean updateStatus(String orderId, OrderStatusEnum newStatus);
 
     List<OrderPO> listByUserId(String userId);
 }

@@ -20,6 +20,7 @@ import static org.infinity.core.common.utils.ValidationUtils.requireNonNull;
  * @className SegmentTree
  * @desc 线段树
  */
+@Deprecated
 public class SegmentTree {
 
     /**

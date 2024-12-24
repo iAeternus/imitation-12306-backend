@@ -21,7 +21,7 @@ public class OrderIdValidator implements ConstraintValidator<OrderId, String> {
 
     @Override
     public boolean isValid(String orderId, ConstraintValidatorContext constraintValidatorContext) {
-        if(isBlank(orderId)) {
+        if (isBlank(orderId)) {
             return true;
         }
 

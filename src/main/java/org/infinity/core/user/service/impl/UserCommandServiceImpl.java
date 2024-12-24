@@ -1,7 +1,5 @@
 package org.infinity.core.user.service.impl;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.infinity.common.password.MyPasswordEncoder;
@@ -20,7 +18,6 @@ import org.infinity.core.user.model.dto.response.UserRegisterResponse;
 import org.infinity.core.user.model.po.UserPO;
 import org.infinity.core.user.service.UserCommandService;
 import org.infinity.core.verification.infrastructure.checker.VerificationCodeChecker;
-import org.infinity.core.verification.model.VerificationCodeTypeEnum;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

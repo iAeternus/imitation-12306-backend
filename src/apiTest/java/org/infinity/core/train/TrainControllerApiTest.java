@@ -2,7 +2,6 @@ package org.infinity.core.train;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.train.model.dto.command.EnterCarriageCommand;
-import org.infinity.core.train.model.dto.command.EnterTrainBatchCommand;
 import org.infinity.core.train.model.dto.response.EnterCarriageResponse;
 import org.infinity.core.train.model.dto.response.EnterTrainBatchResponse;
 import org.infinity.core.train.model.po.CarriagePO;
@@ -10,7 +9,6 @@ import org.infinity.core.train.model.po.SeatPO;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -62,7 +60,6 @@ public class TrainControllerApiTest extends BaseApiTest {
         List<SeatPO> seats = seatRepository.listByCarriageIds(response.getCarriageIds());
         assertEquals(610, seats.size());
     }
-
 
 
 }

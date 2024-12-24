@@ -46,10 +46,10 @@ public class MysqlTripRepository extends ServiceImpl<TripMapper, TripPO> impleme
         requireNonNull(newStatus, "Order status must not be null.");
 
         TripPO trip = getById(tripId);
-        if(isNull(trip)) {
+        if (isNull(trip)) {
             throw new MyException(TRIP_NOT_FOUND, "Trip not found.", mapOf("tripId", tripId));
         }
-        if(trip.getStatus() == newStatus) {
+        if (trip.getStatus() == newStatus) {
             return false;
         }
 
