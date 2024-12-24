@@ -8,16 +8,26 @@ import org.infinity.core.order.model.dto.command.OutboundCommand;
 import org.infinity.core.order.model.dto.command.RefundCommand;
 import org.infinity.core.order.model.dto.response.*;
 import org.infinity.core.order.model.po.OrderPO;
+import org.infinity.core.train.TrainApi;
 import org.infinity.core.train.model.CarriageLevelEnum;
+import org.infinity.core.train.model.dto.command.EnterCarriageCommand;
+import org.infinity.core.train.model.dto.response.EnterCarriageResponse;
+import org.infinity.core.train.model.dto.response.EnterTrainBatchResponse;
+import org.infinity.core.trip.TripApi;
+import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
+import org.infinity.core.trip.model.dto.command.EnterTripStationsCommand;
 import org.infinity.core.trip.model.po.TripPO;
 import org.infinity.core.trip.model.po.TripStationPO;
 import org.infinity.core.user.UserApi;
 import org.infinity.core.user.model.dto.command.StuVerifyCommand;
 import org.infinity.core.user.model.dto.response.JwtTokenResponse;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 

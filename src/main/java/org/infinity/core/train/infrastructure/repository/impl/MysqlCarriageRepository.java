@@ -10,9 +10,7 @@ import org.infinity.core.train.model.po.CarriagePO;
 import org.infinity.core.trip.model.po.TripSeatPO;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.function.UnaryOperator.identity;
@@ -74,6 +72,14 @@ public class MysqlCarriageRepository extends ServiceImpl<CarriageMapper, Carriag
                 .collect(Collectors.toMap(CarriagePO::getId, identity()));
         return carriageIdSeats.entrySet().stream()
                 .collect(Collectors.toMap(entry -> carriagesMap.get(entry.getKey()), Map.Entry::getValue));
+    }
+
+    @Override
+    public List<CarriagePO> fetchByIds(Collection<String> carriageIds) {
+        if(isEmpty(carriageIds)) {
+            return Collections.emptyList();
+        }
+        return listByIds(carriageIds);
     }
 
 }

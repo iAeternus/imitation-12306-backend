@@ -48,26 +48,26 @@ public class TripController {
 
     @PostMapping("/late")
     @Operation(summary = "晚点")
-    public void late(@RequestBody @Valid LateCommand command) {
-        tripCommandService.late(command);
+    public LateResponse late(@RequestBody @Valid LateCommand command) {
+        return tripCommandService.late(command);
     }
 
     @PostMapping("/on-schedule")
     @Operation(summary = "恢复正点")
-    public void onSchedule(@RequestBody @Valid OnScheduleCommand command) {
-        tripCommandService.onSchedule(command);
+    public OnScheduleResponse onSchedule(@RequestBody @Valid OnScheduleCommand command) {
+        return tripCommandService.onSchedule(command);
     }
 
     @PostMapping("/cancel")
     @Operation(summary = "取消车次")
-    public void cancel(@RequestBody @Valid CancelCommand command) {
-        tripCommandService.cancel(command);
+    public CancelResponse cancel(@RequestBody @Valid CancelCommand command) {
+        return tripCommandService.cancel(command);
     }
 
     @PostMapping("/end")
     @Operation(summary = "车次结束")
-    public void end(@RequestBody @Valid EndCommand command) {
-        tripCommandService.end(command);
+    public EndResponse end(@RequestBody @Valid EndCommand command) {
+        return tripCommandService.end(command);
     }
 
     @PostMapping("/pages")

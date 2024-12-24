@@ -56,10 +56,12 @@ public class TripApi {
                 .post(ROOT_URL + "/late");
     }
 
-    public static void late(String jwt, LateCommand command) {
-        lateRaw(jwt, command)
+    public static LateResponse late(String jwt, LateCommand command) {
+        return lateRaw(jwt, command)
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .extract()
+                .as(LateResponse.class);
     }
 
     public static Response onScheduleRaw(String jwt, OnScheduleCommand command) {
@@ -69,10 +71,12 @@ public class TripApi {
                 .post(ROOT_URL + "/on-schedule");
     }
 
-    public static void onSchedule(String jwt, OnScheduleCommand command) {
-        onScheduleRaw(jwt, command)
+    public static OnScheduleResponse onSchedule(String jwt, OnScheduleCommand command) {
+        return onScheduleRaw(jwt, command)
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .extract()
+                .as(OnScheduleResponse.class);
     }
 
     public static Response cancelRaw(String jwt, CancelCommand command) {
@@ -82,10 +86,12 @@ public class TripApi {
                 .post(ROOT_URL + "/cancel");
     }
 
-    public static void cancel(String jwt, CancelCommand command) {
-        cancelRaw(jwt, command)
+    public static CancelResponse cancel(String jwt, CancelCommand command) {
+        return cancelRaw(jwt, command)
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .extract()
+                .as(CancelResponse.class);
     }
 
     public static Response endRaw(String jwt, EndCommand command) {
@@ -95,10 +101,12 @@ public class TripApi {
                 .post(ROOT_URL + "/end");
     }
 
-    public static void end(String jwt, EndCommand command) {
-        endRaw(jwt, command)
+    public static EndResponse end(String jwt, EndCommand command) {
+        return endRaw(jwt, command)
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .extract()
+                .as(EndResponse.class);
     }
 
     public static Response pagesRaw(String jwt, TripPageQuery pageQuery) {

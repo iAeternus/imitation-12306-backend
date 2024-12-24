@@ -3,6 +3,8 @@ package org.infinity.utils;
 import com.apifan.common.random.source.PersonInfoSource;
 import lombok.Data;
 import org.infinity.core.common.exception.MyException;
+import org.infinity.core.train.model.po.TrainPO;
+import org.infinity.core.trip.model.dto.command.EnterTripBatchCommand;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,6 +83,10 @@ public class RandomTestFixture {
 
     public static String defaultId(String prefix) {
         return prefix + "000000000000000001";
+    }
+
+    public static TrainPO rTrain() {
+        return new TrainPO("和谐号", "CRH2A", 8, 201, 610, 250);
     }
 
     /**

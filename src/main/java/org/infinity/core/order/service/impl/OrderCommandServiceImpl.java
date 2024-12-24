@@ -100,7 +100,8 @@ public class OrderCommandServiceImpl implements OrderCommandService {
                     mapOf("sourceStationId", sourceStationIndex, "distStationId", dstStationIndex));
         }
         List<TripSeatPO> tripSeats = tripSeatRepository.listByTripId(trip.getId());
-        List<TripSeatPO> filteredTripSeats = filterTripSeatsByLevel(tripSeats, CarriageLevelEnum.of(command.getSeatLevel()));
+        CarriageLevelEnum level = CarriageLevelEnum.of(command.getSeatLevel());
+        List<TripSeatPO> filteredTripSeats = filterTripSeatsByLevel(tripSeats, level);
         if (isEmpty(filteredTripSeats)) {
             throw new MyException(NO_SUCH_SEAT, "There is no seat that satisfies the condition.",
                     mapOf("sourceStationId", sourceStationIndex, "distStationId", dstStationIndex, "seatLevel", command.getSeatLevel()));
@@ -115,6 +116,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         BigDecimal price = priceCalculateHandler.calculatePrice(
                 PriceContext.builder()
                         .tripStations(stationsBeRidden)
+                        .level(level)
                         .build(),
                 PromotionContext.builder()
                         .role(user.getRole())
@@ -163,13 +165,13 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         Set<String> seatIds = tripSeats.stream()
                 .map(TripSeatPO::getSeatId)
                 .collect(toImmutableSet());
-        Map<String, SeatPO> seatMap = seatRepository.listByIds(seatIds).stream()
+        Map<String, SeatPO> seatMap = seatRepository.fetchByIds(seatIds).stream()
                 .collect(toMap(SeatPO::getId, Function.identity()));
 
         Set<String> carriageIds = seatMap.values().stream()
                 .map(SeatPO::getCarriageId)
                 .collect(toImmutableSet());
-        Map<String, CarriagePO> carriageMap = carriageRepository.listByIds(carriageIds)
+        Map<String, CarriagePO> carriageMap = carriageRepository.fetchByIds(carriageIds)
                 .stream()
                 .collect(toMap(CarriagePO::getId, Function.identity()));
 

@@ -3,8 +3,11 @@ package org.infinity.core.train.infrastructure.repository;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.train.model.po.SeatPO;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.zip.ZipFile;
 
 /**
  * @author Ricky
@@ -20,4 +23,6 @@ public interface SeatRepository extends IService<SeatPO> {
     Map<String, List<SeatPO>> listByTrainIds(Map<String, List<String>> trainCarriageIds);
 
     SeatPO cachedById(String id);
+
+    List<SeatPO> fetchByIds(Collection<String> seatIds);
 }

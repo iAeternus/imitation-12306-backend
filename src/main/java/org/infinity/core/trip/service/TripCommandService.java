@@ -15,11 +15,11 @@ public interface TripCommandService {
 
     EnterTripStationsResponse enterTripStations(EnterTripStationsCommand command);
 
-    void late(LateCommand command);
+    LateResponse late(LateCommand command);
 
-    void onSchedule(OnScheduleCommand command);
+    OnScheduleResponse onSchedule(OnScheduleCommand command);
 
-    void cancel(CancelCommand command);
+    CancelResponse cancel(CancelCommand command);
 
-    void end(EndCommand command);
+    EndResponse end(EndCommand command);
 }

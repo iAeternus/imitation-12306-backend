@@ -4,6 +4,9 @@ import org.infinity.BaseApiTest;
 import org.infinity.core.user.model.dto.command.*;
 import org.infinity.core.user.model.dto.response.*;
 import org.infinity.core.user.model.po.UserPO;
+import org.infinity.core.verification.VerificationCodeApi;
+import org.infinity.core.verification.model.dto.command.CreateChangeMobileVerificationCodeCommand;
+import org.infinity.core.verification.model.po.VerificationCodePO;
 import org.junit.jupiter.api.Test;
 
 import static org.infinity.core.common.exception.ErrorCodeEnum.AUTHENTICATION_FAILED;
@@ -156,9 +159,17 @@ public class UserControllerApiTest extends BaseApiTest {
         JwtTokenResponse operator = setupApi.registerWithLogin();
 
         String newMobile = rMobile();
+        CreateChangeMobileVerificationCodeCommand verificationCodeCommand = CreateChangeMobileVerificationCodeCommand.builder()
+                .userId(operator.getUserId())
+                .mobile(newMobile)
+                .build();
+        String verificationCodeId = VerificationCodeApi.createVerificationCodeForChangeMobile(verificationCodeCommand);
+        VerificationCodePO verificationCode = verificationCodeRepository.fetchById(verificationCodeId);
+
         ChangeMobileCommand command = ChangeMobileCommand.builder()
                 .userId(operator.getUserId())
                 .newMobile(newMobile)
+                .verificationCode(verificationCode.getCode())
                 .build();
 
         // When

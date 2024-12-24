@@ -14,5 +14,5 @@ import org.infinity.core.trip.model.po.TripPO;
 public interface TripRepository extends IService<TripPO> {
     TripPO cachedById(String tripId);
 
-    void updateStatus(String tripId, TripStatusEnum newStatus);
+    boolean updateStatus(String tripId, TripStatusEnum newStatus);
 }

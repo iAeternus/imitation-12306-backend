@@ -2,7 +2,6 @@ package org.infinity.core.trip;
 
 import org.infinity.BaseApiTest;
 import org.infinity.core.common.domain.page.PageResponse;
-import org.infinity.core.common.utils.MyBatisPlusUtils;
 import org.infinity.core.trip.model.dto.command.*;
 import org.infinity.core.trip.model.dto.query.TripPageQuery;
 import org.infinity.core.trip.model.dto.response.*;
@@ -58,7 +57,7 @@ public class TripControllerApiTest extends BaseApiTest {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
         EnterTripBatchCommand command = EnterTripBatchCommand.builder()
-                .tripInfos(List.of(rTripInfo(newTrainId()))) // not exists
+                .tripInfos(List.of(setupApi.rTripInfo(newTrainId()))) // not exists
                 .build();
 
         // When & Then
@@ -70,7 +69,7 @@ public class TripControllerApiTest extends BaseApiTest {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
         EnterTripBatchCommand command = EnterTripBatchCommand.builder()
-                .tripInfos(List.of(rTripInfo(newStationId(), randQueryOne(stationRepository).getId())))
+                .tripInfos(List.of(setupApi.rTripInfo(newStationId(), randQueryOne(stationRepository).getId())))
                 .build();
 
         // When & Then
@@ -78,7 +77,7 @@ public class TripControllerApiTest extends BaseApiTest {
 
         // Given
         EnterTripBatchCommand command2 = EnterTripBatchCommand.builder()
-                .tripInfos(List.of(rTripInfo(randQueryOne(stationRepository).getId(), newStationId())))
+                .tripInfos(List.of(setupApi.rTripInfo(randQueryOne(stationRepository).getId(), newStationId())))
                 .build();
 
         // When & Then
@@ -109,14 +108,14 @@ public class TripControllerApiTest extends BaseApiTest {
         JwtTokenResponse operator = setupApi.registerWithLogin();
 
         String tripId = TripApi.enterTripBatch(operator.getToken(), EnterTripBatchCommand.builder()
-                .tripInfos(List.of(rTripInfo()))
+                .tripInfos(List.of(setupApi.rTripInfo()))
                 .build()).getTripIds().get(0);
 
         LocalDateTime now = LocalDateTime.now();
 
         EnterTripStationsCommand command = EnterTripStationsCommand.builder()
                 .tripId(tripId)
-                .tripStationInfos(List.of(rTripStationInfo(now, 1), rTripStationInfo(now.plusHours(5), 2)))
+                .tripStationInfos(List.of(setupApi.rTripStationInfo(now, 1), setupApi.rTripStationInfo(now.plusHours(5), 2)))
                 .build();
 
         // When
@@ -141,11 +140,13 @@ public class TripControllerApiTest extends BaseApiTest {
                 .build();
 
         // When
-        TripApi.late(operator.getToken(), command);
+        LateResponse response = TripApi.late(operator.getToken(), command);
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
-        assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        if(response.getSuccess()) {
+            assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        }
         assertEquals(BE_LATE, newTrip.getStatus());
     }
 
@@ -160,10 +161,13 @@ public class TripControllerApiTest extends BaseApiTest {
                 .build();
 
         // When
-        TripApi.onSchedule(operator.getToken(), command);
+        OnScheduleResponse response = TripApi.onSchedule(operator.getToken(), command);
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
+        if(response.getSuccess()) {
+            assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        }
         assertEquals(ON_SCHEDULE, newTrip.getStatus());
     }
 
@@ -178,11 +182,13 @@ public class TripControllerApiTest extends BaseApiTest {
                 .build();
 
         // When
-        TripApi.cancel(operator.getToken(), command);
+        CancelResponse response = TripApi.cancel(operator.getToken(), command);
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
-        assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        if(response.getSuccess()) {
+            assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        }
         assertEquals(CANCEL, newTrip.getStatus());
     }
 
@@ -197,11 +203,13 @@ public class TripControllerApiTest extends BaseApiTest {
                 .build();
 
         // When
-        TripApi.end(operator.getToken(), command);
+        EndResponse response = TripApi.end(operator.getToken(), command);
 
         // Then
         TripPO newTrip = tripRepository.cachedById(command.getTripId());
-        assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        if(response.getSuccess()) {
+            assertNotEquals(trip.getStatus(), newTrip.getStatus());
+        }
         assertEquals(END, newTrip.getStatus());
     }
 
@@ -210,12 +218,7 @@ public class TripControllerApiTest extends BaseApiTest {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
 
-        EnterTripBatchCommand command = EnterTripBatchCommand.builder()
-                .tripInfos(List.of(rTripInfo()))
-                .build();
-        EnterTripBatchResponse response = TripApi.enterTripBatch(operator.getToken(), command);
-        TripPO trip = tripRepository.cachedById(response.getTripIds().get(0));
-
+        TripPO trip = randQueryOne(tripRepository);
         TripPageQuery pageQuery = TripPageQuery.builder()
                 .trainId(trip.getTrainId())
                 .pageNo(1)
@@ -236,17 +239,13 @@ public class TripControllerApiTest extends BaseApiTest {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
 
-        EnterTripBatchCommand command = EnterTripBatchCommand.builder()
-                .tripInfos(List.of(rTripInfo()))
-                .build();
-        EnterTripBatchResponse response = TripApi.enterTripBatch(operator.getToken(), command);
-        String tripId = response.getTripIds().get(0);
+        TripPO trip = randQueryOne(tripRepository);
 
         // When
-        TripResponse tripResponse = TripApi.byId(operator.getToken(), tripId);
+        TripResponse tripResponse = TripApi.byId(operator.getToken(), trip.getId());
 
         // Given
-        assertEquals(tripId, tripResponse.getTripId());
+        assertEquals(trip.getId(), tripResponse.getTripId());
     }
 
     @Test
@@ -260,38 +259,6 @@ public class TripControllerApiTest extends BaseApiTest {
 
         // Then
         assertEquals(2, response.getPrices().size());
-    }
-
-    private EnterTripBatchCommand.TripInfo rTripInfo(String trainId, String originStationId, String terminalStationId) {
-        LocalDateTime now = LocalDateTime.now();
-        return EnterTripBatchCommand.TripInfo.builder()
-                .trainId(trainId)
-                .originStationId(originStationId)
-                .startAt(now)
-                .terminalStationId(terminalStationId)
-                .endAt(now.plusHours(5))
-                .build();
-    }
-
-    private EnterTripBatchCommand.TripInfo rTripInfo() {
-        return rTripInfo(randQueryOne(trainRepository).getId(), randQueryOne(stationRepository).getId(), randQueryOne(stationRepository).getId());
-    }
-
-    private EnterTripBatchCommand.TripInfo rTripInfo(String trainId) {
-        return rTripInfo(trainId, randQueryOne(stationRepository).getId(), randQueryOne(stationRepository).getId());
-    }
-
-    private EnterTripBatchCommand.TripInfo rTripInfo(String originStationId, String terminalStationId) {
-        return rTripInfo(randQueryOne(trainRepository).getId(), originStationId, terminalStationId);
-    }
-
-    private EnterTripStationsCommand.TripStationInfo rTripStationInfo(LocalDateTime now, int order) {
-        return EnterTripStationsCommand.TripStationInfo.builder()
-                .stationId(randQueryOne(stationRepository).getId())
-                .arrivalAt(now)
-                .retentionTime(10)
-                .order(order)
-                .build();
     }
 
 }

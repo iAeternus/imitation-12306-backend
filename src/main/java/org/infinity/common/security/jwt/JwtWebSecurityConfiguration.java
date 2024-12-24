@@ -83,7 +83,9 @@ public class JwtWebSecurityConfiguration {
                 .requestMatchers("/about", "/favicon.ico", "/error", "/MP_verify_qXC2acLZ7a7qm3Xp.txt",
                         "/local-manual-test/orders/**",
                         "/local-manual-test/receive-webhook",
-                        "/api-testing/webhook", "/api-testing/orders/**");
+                        "/api-testing/webhook", "/api-testing/orders/**")
+                .requestMatchers(POST, "/verifications/for-change-mobile")
+                .requestMatchers(POST, "/verifications/fetch/");
     }
 
 }

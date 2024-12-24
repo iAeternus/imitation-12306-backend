@@ -27,9 +27,9 @@ import org.infinity.core.trip.infrastructure.repository.TripRepository;
 import org.infinity.core.trip.infrastructure.repository.TripSeatRepository;
 import org.infinity.core.trip.infrastructure.repository.TripStationRepository;
 import org.infinity.core.user.infrastructure.repository.UserRepository;
+import org.infinity.core.verification.infrastructure.repository.VerificationCodeRepository;
 import org.infinity.utils.SetupApi;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -55,6 +55,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ActiveProfiles("ci")
 @Execution(CONCURRENT)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class BaseApiTest {
 
     @Autowired
@@ -101,6 +102,9 @@ public class BaseApiTest {
 
     @Autowired
     protected CSRepository csRepository;
+
+    @Autowired
+    protected VerificationCodeRepository verificationCodeRepository;
 
     // TODO add repository here...
 

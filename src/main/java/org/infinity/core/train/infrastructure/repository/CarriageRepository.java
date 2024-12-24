@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.infinity.core.train.model.po.CarriagePO;
 import org.infinity.core.trip.model.po.TripSeatPO;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.zip.ZipFile;
 
 /**
  * @author Ricky
@@ -22,4 +25,6 @@ public interface CarriageRepository extends IService<CarriagePO> {
     CarriagePO cachedById(String id);
 
     Map<CarriagePO, List<TripSeatPO>> getLevelByCarriageSeats(Map<String, List<TripSeatPO>> carriageIdSeats);
+
+    List<CarriagePO> fetchByIds(Collection<String> carriageIds);
 }

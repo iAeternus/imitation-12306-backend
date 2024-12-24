@@ -104,31 +104,39 @@ public class TripCommandServiceImpl implements TripCommandService {
     }
 
     @Override
-    public void late(LateCommand command) {
+    public LateResponse late(LateCommand command) {
         rateLimiter.applyFor("Trip:late", DEFAULT_COMMAND_TPS);
 
-        tripRepository.updateStatus(command.getTripId(), BE_LATE);
+        return LateResponse.builder()
+                .success(tripRepository.updateStatus(command.getTripId(), BE_LATE))
+                .build();
     }
 
     @Override
-    public void onSchedule(OnScheduleCommand command) {
+    public OnScheduleResponse onSchedule(OnScheduleCommand command) {
         rateLimiter.applyFor("Trip:onSchedule", DEFAULT_COMMAND_TPS);
 
-        tripRepository.updateStatus(command.getTripId(), ON_SCHEDULE);
+        return OnScheduleResponse.builder()
+                .success(tripRepository.updateStatus(command.getTripId(), ON_SCHEDULE))
+                .build();
     }
 
     @Override
-    public void cancel(CancelCommand command) {
+    public CancelResponse cancel(CancelCommand command) {
         rateLimiter.applyFor("Trip:cancel", DEFAULT_COMMAND_TPS);
 
-        tripRepository.updateStatus(command.getTripId(), CANCEL);
+        return CancelResponse.builder()
+                .success(tripRepository.updateStatus(command.getTripId(), CANCEL))
+                .build();
     }
 
     @Override
-    public void end(EndCommand command) {
+    public EndResponse end(EndCommand command) {
         rateLimiter.applyFor("Trip:cancel", DEFAULT_COMMAND_TPS);
 
-        tripRepository.updateStatus(command.getTripId(), END);
+        return EndResponse.builder()
+                .success(tripRepository.updateStatus(command.getTripId(), END))
+                .build();
     }
 
 }

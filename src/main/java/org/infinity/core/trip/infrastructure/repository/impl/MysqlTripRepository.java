@@ -41,11 +41,20 @@ public class MysqlTripRepository extends ServiceImpl<TripMapper, TripPO> impleme
     }
 
     @Override
-    public void updateStatus(String tripId, TripStatusEnum newStatus) {
+    public boolean updateStatus(String tripId, TripStatusEnum newStatus) {
         requireNonBlank(tripId, "Trip ID must not be blank.");
         requireNonNull(newStatus, "Order status must not be null.");
 
-        lambdaUpdate().eq(TripPO::getId, tripId).set(TripPO::getStatus, newStatus).update();
+        TripPO trip = getById(tripId);
+        if(isNull(trip)) {
+            throw new MyException(TRIP_NOT_FOUND, "Trip not found.", mapOf("tripId", tripId));
+        }
+        if(trip.getStatus() == newStatus) {
+            return false;
+        }
+
+        trip.setStatus(newStatus);
         tripCachedRepository.evictTripCache(tripId);
+        return updateById(trip);
     }
 }

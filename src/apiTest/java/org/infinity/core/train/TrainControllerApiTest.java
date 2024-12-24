@@ -42,7 +42,7 @@ public class TrainControllerApiTest extends BaseApiTest {
     public void should_enter_carriages() {
         // Given
         JwtTokenResponse operator = setupApi.registerWithLogin();
-        EnterTrainBatchResponse r = TrainApi.enterTrainBatch(operator.getToken(), createEnterTrainBatchCommand(1));
+        EnterTrainBatchResponse r = TrainApi.enterTrainBatch(operator.getToken(), setupApi.createEnterTrainBatchCommand(1));
         String trainId = r.getTrainIds().get(0);
 
         EnterCarriageCommand command = EnterCarriageCommand.builder()
@@ -63,22 +63,6 @@ public class TrainControllerApiTest extends BaseApiTest {
         assertEquals(610, seats.size());
     }
 
-    private static EnterTrainBatchCommand createEnterTrainBatchCommand(int count) {
-        List<EnterTrainBatchCommand.TrainInfo> trainInfos = new ArrayList<>();
-        for (int i = 0; i < count; ++i) {
-            trainInfos.add(EnterTrainBatchCommand.TrainInfo.builder()
-                    .name("和谐号")
-                    .model("CRH2A")
-                    .formation(8)
-                    .length(201)
-                    .capacity(610)
-                    .topSpeed(250)
-                    .build());
-        }
 
-        return EnterTrainBatchCommand.builder()
-                .trainInfos(trainInfos)
-                .build();
-    }
 
 }

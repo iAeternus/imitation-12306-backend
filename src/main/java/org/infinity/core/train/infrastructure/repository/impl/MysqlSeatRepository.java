@@ -9,8 +9,7 @@ import org.infinity.core.train.infrastructure.repository.cache.MysqlSeatCachedRe
 import org.infinity.core.train.model.po.SeatPO;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static java.util.stream.Collectors.groupingBy;
@@ -70,5 +69,13 @@ public class MysqlSeatRepository extends ServiceImpl<SeatMapper, SeatPO> impleme
             throw new MyException(SEAT_NOT_FOUND, "Seat not found.", mapOf("seatId", id));
         }
         return seat;
+    }
+
+    @Override
+    public List<SeatPO> fetchByIds(Collection<String> seatIds) {
+        if(isEmpty(seatIds)) {
+            return Collections.emptyList();
+        }
+        return listByIds(seatIds);
     }
 }
