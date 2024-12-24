@@ -2,6 +2,7 @@ package org.infinity.common.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author Ricky
@@ -11,11 +12,12 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
  * @desc
  */
 @Configuration
-public class CROSConfiguration {
+public class CROSConfiguration implements WebMvcConfigurer {
 
     public static final String HOST = "localhost";
     public static final String PORT = "5173";
 
+    @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://" + HOST + ":" + PORT)
