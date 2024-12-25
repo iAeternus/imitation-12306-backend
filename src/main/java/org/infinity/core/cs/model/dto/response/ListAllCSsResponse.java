@@ -1,6 +1,7 @@
 package org.infinity.core.cs.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +30,7 @@ public class ListAllCSsResponse implements Response {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class CSInfo {
         String id;
-        String stationId;
+        String stationName;
         String phoneNumber;
         String serverTime;
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

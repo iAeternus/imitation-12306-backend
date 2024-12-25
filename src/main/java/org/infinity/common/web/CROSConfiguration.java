@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CROSConfiguration implements WebMvcConfigurer {
 
     public static final String HOST = "localhost";
-    public static final String PORT = "5173";
+    public static final String PORT = "8081";
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

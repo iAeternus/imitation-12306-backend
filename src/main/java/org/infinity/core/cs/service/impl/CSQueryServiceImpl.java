@@ -1,5 +1,6 @@
 package org.infinity.core.cs.service.impl;
 
+import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.infinity.common.ratelimit.RateLimiter;
 import org.infinity.core.cs.infrastructure.repository.CSRepository;
@@ -12,6 +13,7 @@ import org.infinity.core.station.model.po.StationPO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static org.infinity.core.common.constants.I12306Constants.DEFAULT_QUERY_TPS;
@@ -50,10 +52,14 @@ public class CSQueryServiceImpl implements CSQueryService {
         rateLimiter.applyFor("CS:listAll", DEFAULT_QUERY_TPS);
 
         List<CustomerServicePO> customerServices = csRepository.listAll();
+        List<String> stationIds = customerServices.stream()
+                .map(CustomerServicePO::getStationId)
+                .collect(toImmutableList());
+        Map<String, String> stations = stationRepository.listStationIdAndStationName(stationIds);
         List<ListAllCSsResponse.CSInfo> csInfos = customerServices.stream()
                 .map(customerService -> ListAllCSsResponse.CSInfo.builder()
                         .id(customerService.getId())
-                        .stationId(customerService.getStationId())
+                        .stationName(stations.get(customerService.getStationId()))
                         .phoneNumber(customerService.getPhoneNumber())
                         .serverTime(customerService.getServerTime())
                         .updateAt(customerService.getUpdateAt())
