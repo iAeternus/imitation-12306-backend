@@ -1,4 +1,4 @@
-package org.infinity.common.web;
+package org.infinity.common.mvc;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -54,7 +54,6 @@ public class AutoRefreshJwtFilter extends OncePerRequestFilter {
             if (timeLeft > 0 && timeLeft < aheadAutoRefreshMilli) {
                 Cookie cookie = jwtCookieFactory.newJwtCookie(jwtService.generateJwt(user.getId()));
                 response.addCookie(ipJwtCookieUpdater.updateCookie(cookie, request));
-
             }
             // }
         }

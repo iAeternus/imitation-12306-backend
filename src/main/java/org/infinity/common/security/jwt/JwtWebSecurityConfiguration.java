@@ -65,7 +65,7 @@ public class JwtWebSecurityConfiguration {
                 .addFilterBefore(new MdcFilter(), ExceptionTranslationFilter.class)
                 .httpBasic().disable()
                 .headers().and()
-                .cors().disable()
+                .cors().and() // 启用跨域
                 .anonymous().authenticationFilter(new JwtAnonymousAuthenticationFilter()).and()
                 .csrf().disable()
                 .servletApi().disable()
