@@ -18,4 +18,5 @@ public interface TripStationRepository extends IService<TripStationPO> {
 
     TripStationPO cachedById(String tripStationId);
 
+    String byTripIdAndStationId(String tripId, String stationId);
 }

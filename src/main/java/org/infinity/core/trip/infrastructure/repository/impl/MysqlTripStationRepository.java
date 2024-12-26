@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.baomidou.mybatisplus.core.toolkit.ObjectUtils.isNull;
 import static org.infinity.core.common.exception.ErrorCodeEnum.EMPTY_COLLECTION;
+import static org.infinity.core.common.exception.ErrorCodeEnum.TRIP_STATION_NOT_FOUND;
 import static org.infinity.core.common.utils.MapUtils.mapOf;
 import static org.infinity.core.common.utils.ValidationUtils.isEmpty;
 import static org.infinity.core.common.utils.ValidationUtils.requireNonBlank;
@@ -47,5 +49,20 @@ public class MysqlTripStationRepository extends ServiceImpl<TripStationMapper, T
     @Override
     public TripStationPO cachedById(String tripStationId) {
         return tripStationCachedRepository.cachedById(tripStationId);
+    }
+
+    @Override
+    public String byTripIdAndStationId(String tripId, String stationId) {
+        requireNonBlank(tripId, "Trip ID must not be blank.");
+        requireNonBlank(stationId, "Station must not be blank.");
+
+        TripStationPO tripStation = lambdaQuery().eq(TripStationPO::getTripId, tripId)
+                .eq(TripStationPO::getStationId, stationId)
+                .one();
+        if(isNull(tripStation)) {
+            throw new MyException(TRIP_STATION_NOT_FOUND, "Trip station not found.",
+                    mapOf("tripId", tripId, "stationId", stationId));
+        }
+        return tripStation.getId();
     }
 }

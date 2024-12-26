@@ -1,5 +1,7 @@
 package org.infinity.core.trip.service;
 
+import org.infinity.core.trip.model.dto.command.FetchTripStationIdCommand;
+import org.infinity.core.trip.model.dto.response.FetchTripStationIdResponse;
 import org.infinity.core.trip.model.dto.response.ListTripStationsResponse;
 
 /**
@@ -11,4 +13,6 @@ import org.infinity.core.trip.model.dto.response.ListTripStationsResponse;
  */
 public interface TripStationQueryService {
     ListTripStationsResponse listTripStations(String tripId);
+
+    FetchTripStationIdResponse fetchTripStationId(FetchTripStationIdCommand command);
 }
