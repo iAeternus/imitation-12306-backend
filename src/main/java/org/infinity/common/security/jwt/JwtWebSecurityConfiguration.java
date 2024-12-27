@@ -18,8 +18,7 @@ import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 /**
  * @author Ricky
@@ -84,8 +83,7 @@ public class JwtWebSecurityConfiguration {
                         "/local-manual-test/orders/**",
                         "/local-manual-test/receive-webhook",
                         "/api-testing/webhook", "/api-testing/orders/**")
-                .requestMatchers(POST, "/verifications/for-change-mobile")
-                .requestMatchers(POST, "/verifications/fetch/");
+                .requestMatchers(POST, "/verifications/for-change-mobile");
     }
 
 }
