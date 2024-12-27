@@ -59,7 +59,7 @@ public class MysqlTripStationRepository extends ServiceImpl<TripStationMapper, T
         TripStationPO tripStation = lambdaQuery().eq(TripStationPO::getTripId, tripId)
                 .eq(TripStationPO::getStationId, stationId)
                 .one();
-        if(isNull(tripStation)) {
+        if (isNull(tripStation)) {
             throw new MyException(TRIP_STATION_NOT_FOUND, "Trip station not found.",
                     mapOf("tripId", tripId, "stationId", stationId));
         }
